@@ -2316,7 +2316,22 @@ var i;
 \begin_layout Standard
 
 \series bold
+Note: 
+\series default
+Closures are created when the outer function exits
+\series bold
+, 
+\series default
+that's why all handlers in first example returns nodes.length.
+ 
+\series bold
 Avoid creating function in the loop.
+ Closure might use a lot of memory (
+\series default
+each time outer function is called , new closure is created and the execution
+ context of the current function call is saved with a reference to all the
+ variables in the function’s scope, if outer function holds a lot of heavy
+ state it might have performance impact)
 \end_layout
 
 \end_deeper
