@@ -1,0 +1,5606 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+JavaScript
+\end_layout
+
+\begin_layout Abstract
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+Basics and tricky things about JavaScript
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Based on
+\emph on
+:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+JavaScript
+\emph default
+ 
+\emph on
+The Good Parts 
+\emph default
+book by Douglas Crockford 
+\end_layout
+
+\begin_layout Itemize
+video presentation 
+\emph on
+Rediscovering JavaScript
+\emph default
+ by Venkat Subramaniam (http://vimeo.com/43612882)
+\end_layout
+
+\begin_layout Itemize
+http://jstherightway.org/
+\end_layout
+
+\begin_layout Enumerate
+Do not forget about semiciolon and right line braking or you end up with
+\series bold
+ undefined.
+\end_layout
+
+\begin_layout Enumerate
+Use
+\begin_inset Quotes erd
+\end_inset
+
+var
+\begin_inset Quotes erd
+\end_inset
+
+ when declaring function or you end up with global variable.
+\end_layout
+
+\begin_layout Enumerate
+There is no block scope and block scope variables
+\end_layout
+
+\begin_layout Enumerate
+Preferred way of funciton defintion
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var foo = function(param){
+\end_layout
+
+\begin_layout Plain Layout
+
+   return 1;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Parameter list is defined at function invocation time 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+If you pass too many parameters - list is reduced to required count.
+\end_layout
+
+\begin_layout Enumerate
+If you pass not enough parameters -> 
+\series bold
+undefined
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+You can refer to arguments by param name or use arguments instead:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var foo = function(){
+\end_layout
+
+\begin_layout Plain Layout
+
+   console.log(arguments) 
+\end_layout
+
+\begin_layout Plain Layout
+
+  // foo(1) -> {'0':'1'}
+\end_layout
+
+\begin_layout Plain Layout
+
+  // foo (2,3) -> {'0':'1', '1':'2'}
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+You can throw anything as an exception
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+throw "bad!"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Implicit object this
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var greet = function(name){
+\end_layout
+
+\begin_layout Plain Layout
+
+   console.log(this.toUpperCase() + " " + name);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+str = 'hello';
+\end_layout
+
+\begin_layout Plain Layout
+
+greet.call(str, 'John');
+\end_layout
+
+\begin_layout Plain Layout
+
+// call first argumet = this 
+\end_layout
+
+\begin_layout Plain Layout
+
+// (object method should be called on= delegate/context object)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Passing a collection of parameters
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var greet = function(name1, name2){
+\end_layout
+
+\begin_layout Plain Layout
+
+   console.log(this.toUpperCase() + " " + name1 + " " + name2);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+greet.apply(str,['Jack','Jill'])
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Higher order functions (event handlers)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var foo = function(n,callback) {
+\end_layout
+
+\begin_layout Plain Layout
+
+ console.log("foo...");
+\end_layout
+
+\begin_layout Plain Layout
+
+ callback(n);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+var logIt = function(5, function (p) {
+\end_layout
+
+\begin_layout Plain Layout
+
+ console.log("You called with " + p);
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+foo (5, function (p) {
+\end_layout
+
+\begin_layout Plain Layout
+
+ console.log("You called with " + p);
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+foo(5,logIt);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Correct way to compare (exact) -
+\series bold
+ === 
+\series default
+and 
+\series bold
+!== 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+2 === "2.0" //false
+\end_layout
+
+\begin_layout Plain Layout
+
+2 !== "2.0" //true
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+2 == "2.0" //true
+\end_layout
+
+\begin_layout Plain Layout
+
+2 != "2.0" //false
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+No classes, only objects.
+ JS is NOT class-based language, it's prototyp-ebased language (JS is a
+ 
+\emph on
+prototypal
+\emph default
+ inheritance language: object can inherit properties directly from other
+ objects)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//JSON object
+\end_layout
+
+\begin_layout Plain Layout
+
+var person = {
+\end_layout
+
+\begin_layout Plain Layout
+
+ first: 'Venkat',
+\end_layout
+
+\begin_layout Plain Layout
+
+ last: 'Subramaniam'
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(person.first);
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log)person.last);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var person2 = {
+\end_layout
+
+\begin_layout Plain Layout
+
+ first: 'Venkat',
+\end_layout
+
+\begin_layout Plain Layout
+
+ last: 'Subramaniam'
+\end_layout
+
+\begin_layout Plain Layout
+
+ hike: function(n) {
+\end_layout
+
+\begin_layout Plain Layout
+
+  console.log("hiking..." + m);
+\end_layout
+
+\begin_layout Plain Layout
+
+ }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Convention - function variable starts with lower case; 
+\begin_inset Quotes eld
+\end_inset
+
+class (i.e.
+ function that returns object)
+\begin_inset Quotes erd
+\end_inset
+
+ variable starts with upper case 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var Car = function(){
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+var car1= new Car(); // instanciates prototype and create object
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(typeof(Car)); //function
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(typeof(car1)); //object
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Object has prototype, that prototype might have another prototype and so
+ on.
+ If you ask object for sth (attribute, function) it checks on self and if
+ not found examines prototypes chain.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var Car = function(year){
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.year=year;
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+var car1= new Car(2013); 
+\end_layout
+
+\begin_layout Plain Layout
+
+//instance was created and pointe by car1
+\end_layout
+
+\begin_layout Plain Layout
+
+//then call Car.call(car1);
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(car1.years);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Adding behavior on demand
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var Car = function(year){
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.year=year; 
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.miles = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+//NOTE PROTOTYPE!! 
+\end_layout
+
+\begin_layout Plain Layout
+
+Car.prototype.drive = function (dist){
+\end_layout
+
+\begin_layout Plain Layout
+
+  this.miles += dist;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var car1= new Car(2013); 
+\end_layout
+
+\begin_layout Plain Layout
+
+car1.drive(10)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//OR adding to the object only
+\end_layout
+
+\begin_layout Plain Layout
+
+var car2= new Car(2013); 
+\end_layout
+
+\begin_layout Plain Layout
+
+car2.drive = function (dist){
+\end_layout
+
+\begin_layout Plain Layout
+
+  this.miles += dist;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+car2.drive(10)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+You can swith prototype of object
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Gets
+\series default
+ are deeper, 
+\series bold
+Sets
+\series default
+ are shallow (analogy: Joe wants to borrow many from Jane (object) , Jane
+ has no money but her father (Prototype) has.
+ Money are 
+\series bold
+get
+\series default
+ from father.
+ Joe gives back money.
+ Money are taken (
+\series bold
+set
+\series default
+) by Jane (object NOT a prototype)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var Vehicle = function(){
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.miles = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Vehicle.prototype.drive = function (dist){
+\end_layout
+
+\begin_layout Plain Layout
+
+  this.miles += dist;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var Car = function(year){
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.year=year; 
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.miles = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Car.prototype = new Vehicle();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var car1= new Car(2013); 
+\end_layout
+
+\begin_layout Plain Layout
+
+car1.drive(10); //works
+\end_layout
+
+\begin_layout Plain Layout
+
+var car2 = new Car(2014);
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(car2.miles) // ZERO not a 10
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Examine properties and hasOwnProperty()
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var car1 = new Car(2013);
+\end_layout
+
+\begin_layout Plain Layout
+
+for (prop in car1) {
+\end_layout
+
+\begin_layout Plain Layout
+
+ console.log(prop + ":" + car1.hasOwnProperty(prop); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Replacing prototype vs extending prototype:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Car.prototype.miles={miles:0};
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Car.prototype.miles= 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Methods overriding
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var Vehicle = function(){
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.miles = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.drive = function (dist){
+\end_layout
+
+\begin_layout Plain Layout
+
+       console.log("Vehicle driving...");
+\end_layout
+
+\begin_layout Plain Layout
+
+      this.miles += dist;
+\end_layout
+
+\begin_layout Plain Layout
+
+   }
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var Car = function(year){
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.year=year; 
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.miles = 0;
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.drive = function (dist){
+\end_layout
+
+\begin_layout Plain Layout
+
+       console.log("Car driving...");
+\end_layout
+
+\begin_layout Plain Layout
+
+       this.__proto__.drive.call(this,arguments); //call base method 
+\end_layout
+
+\begin_layout Plain Layout
+
+	   Vehicle.drive.call(this,arguments) //check
+\end_layout
+
+\begin_layout Plain Layout
+
+   }
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Car.prototype = new Vehicle();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+car1.drive(10);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+jslint Douglas Crockford library to check java script, jshint 
+\end_layout
+
+\begin_layout Enumerate
+Invocation patterns
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+method invocataion pattern
+\series default
+ (any function defined as a part of object, 
+\emph on
+this
+\emph default
+ is bound to 
+\emph on
+object.method()
+\emph default
+ )
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+function invocation pattern
+\series default
+ ( this for inner function is bound to 
+\emph on
+global object, 
+\emph default
+it does not share this of outter function; you need a workaround):
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// Augment myObject with a double method.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+myObject.double = function () 
+\end_layout
+
+\begin_layout Plain Layout
+
+{   
+\end_layout
+
+\begin_layout Plain Layout
+
+  var that = this;    
+\end_layout
+
+\begin_layout Plain Layout
+
+  // Workaround.
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+  var helper = function () {    
+\end_layout
+
+\begin_layout Plain Layout
+
+     that.value = add(that.value, that.value);    
+\end_layout
+
+\begin_layout Plain Layout
+
+  };    
+\end_layout
+
+\begin_layout Plain Layout
+
+  helper();    // Invoke helper as a function.
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Invoke double as a method.
+\end_layout
+
+\begin_layout Plain Layout
+
+myObject.double(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+document.writeln(myObject.value);   
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+constructor invocation pattern
+\series default
+ (if a function is invoked with 
+\emph on
+new
+\emph default
+ prefix, then a new object will be created with a hidden link to the value
+ of the function's 
+\emph on
+prototype
+\emph default
+ member, and 
+\emph on
+this 
+\emph default
+will be bound to that new object)
+\emph on
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// Create a constructor function called Quo.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+// It makes an object with a status property.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+var Quo = function (string) {   
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.status = string; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Give all instances of Quo a public method
+\end_layout
+
+\begin_layout Plain Layout
+
+// called get_status.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Quo.prototype.get_status = function () { 
+\end_layout
+
+\begin_layout Plain Layout
+
+   return this.status; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Make an instance of Quo.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+var myQuo = new Quo("confused"); 
+\end_layout
+
+\begin_layout Plain Layout
+
+document.writeln(myQuo.get_status());  // confused
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Functions that are intended to be used with the new prefix are called constructo
+rs.
+ By convention, they are kept in variables with a capitalized name.
+ If a constructor is called without the 
+\emph on
+new
+\emph default
+ prefix,very bad things (this is bound to global object) can happen without
+ a compile-time or runtime warning, so the capitalization convention is
+ really important.
+ Use of this style of constructor functions is not recommended.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+apply invocation pattern
+\series default
+ ( 
+\emph on
+apply 
+\emph default
+method let us construct an array of arguments to use to invoke a function,
+ it also lets us choose the value of 
+\emph on
+this;
+\emph default
+ two parameters are passed (value for 
+\emph on
+this 
+\emph default
+and array of parameters)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// Make an array of 2 numbers and add them.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+var array = [3, 4];
+\end_layout
+
+\begin_layout Plain Layout
+
+var sum = add.apply(null, array); // sum is 7 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Make an object with a status member.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+var statusObject = { status: 'A-OK' }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// statusObject does not inherit from Quo.prototype, 
+\end_layout
+
+\begin_layout Plain Layout
+
+// but we can invoke the get_status method on 
+\end_layout
+
+\begin_layout Plain Layout
+
+// statusObject even though statusObject does not have 
+\end_layout
+
+\begin_layout Plain Layout
+
+// a get_status method.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var status = Quo.prototype.get_status.apply(statusObject); 
+\end_layout
+
+\begin_layout Plain Layout
+
+// status is 'A-OK'
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Function can take an unspecified number of parameters (too many arguments
+ : excess arguments ignored; too less arguments: missing arguments bound
+ to
+\emph on
+ undefined
+\emph default
+).
+ Because of a design error 
+\emph on
+arguments 
+\emph default
+is an array-like object, it has a 
+\emph on
+length
+\emph default
+ property and lacks all of the array methods!
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// Make a function that adds a lot of stuff.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Note that defining the variable sum inside of 
+\end_layout
+
+\begin_layout Plain Layout
+
+// the function does not interfere with the sum 
+\end_layout
+
+\begin_layout Plain Layout
+
+// defined outside of the function.
+ The function 
+\end_layout
+
+\begin_layout Plain Layout
+
+// only sees the inner one.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var sum = function () {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ var i, sum = 0;    
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ for (i = 0; i < arguments.length; i += 1){ 
+\end_layout
+
+\begin_layout Plain Layout
+
+       sum += arguments[i];     
+\end_layout
+
+\begin_layout Plain Layout
+
+ }    
+\end_layout
+
+\begin_layout Plain Layout
+
+ return sum; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+document.writeln(sum(4, 8, 15, 16, 23, 42)); // 108
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+return
+\emph default
+ - if 
+\emph on
+return is 
+\emph default
+missing
+\emph on
+ 
+\emph default
+in function body , 
+\emph on
+undefined 
+\emph default
+is returned; if function is invoked with 
+\emph on
+new 
+\emph default
+and a return value is not an object, then 
+\emph on
+this 
+\emph default
+(the new object) is returned instead 
+\end_layout
+
+\begin_layout Enumerate
+Exceptions.
+ 
+\emph on
+throw
+\emph default
+ statement interrupts execution of function.
+ It should be given an exception object containing 
+\emph on
+name (
+\emph default
+that identifies the type of the exception) and descriptive 
+\emph on
+message
+\emph default
+ property.
+ A 
+\emph on
+try 
+\emph default
+statement has a single 
+\emph on
+catch
+\emph default
+ block that will catch all exceptons.
+ If your handling depends on the type of the exception , then the exception
+ handler will have to inspect the 
+\emph on
+name 
+\emph default
+to determine the type of the exception.
+ 
+\end_layout
+
+\begin_layout Enumerate
+
+\emph on
+Augmenting Types - 
+\emph default
+you can add attributes and function to all objects and basic types (arrays,
+ Object, Function etc).
+ Even values that vere created before the methods were created might take
+ benefit from that method!
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Function.prototype.method = function (name, func) {    
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.prototype[name] = func;     
+\end_layout
+
+\begin_layout Plain Layout
+
+   return this; 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Number.method('integer', function () {  
+\end_layout
+
+\begin_layout Plain Layout
+
+  return Math[this < 0 ? 'ceil' : 'floor'](this); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}); 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+document.writeln((-10 / 3).integer());  // -3
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Add a method conditionally.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Watch out changing without care basic types! 
+\end_layout
+
+\begin_layout Plain Layout
+
+Function.prototype.method = function (name, func) {
+\end_layout
+
+\begin_layout Plain Layout
+
+  if (!this.prototype[name]) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    this.prototype[name] = func;    
+\end_layout
+
+\begin_layout Plain Layout
+
+    return this;     
+\end_layout
+
+\begin_layout Plain Layout
+
+  } 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Recursion.
+ JS 
+\emph default
+does not provide
+\emph on
+ tail recursion optimization (
+\emph default
+if a function returns the result of invokinfg itself recursively, then the
+ invocation is replaced with a loop, which can significantly speed things
+ up) 
+\end_layout
+
+\begin_layout Enumerate
+
+\emph on
+Scope
+\emph default
+ controls the visibility and lifetimes of variables and parameteres (silver
+ bullet for naming collision and provides automatic memory management) .
+ JS has function scope: the parameters and variables defined in a function
+ are not visible outside the function, and variable defined anywhere in
+ a function is visible everwhere within the function) .
+ JS does NOT have block scope.
+ It is best to declar all of the variables used in a function at the top
+ of the funcion body (opposite to Java good practice in that matter).
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var foo = function () {     
+\end_layout
+
+\begin_layout Plain Layout
+
+ var a = 3, b = 5;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ var bar = function () { 
+\end_layout
+
+\begin_layout Plain Layout
+
+   var b = 7, c = 11; 
+\end_layout
+
+\begin_layout Plain Layout
+
+   // At this point, a is 3, b is 7, and c is 11       
+\end_layout
+
+\begin_layout Plain Layout
+
+   a += b + c; 
+\end_layout
+
+\begin_layout Plain Layout
+
+   // At this point, a is 21, b is 7, and c is 11    
+\end_layout
+
+\begin_layout Plain Layout
+
+ }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+ // At this point, a is 3, b is 5, and c is not defined  
+\end_layout
+
+\begin_layout Plain Layout
+
+ bar(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+ // At this point, a is 21, b is 5, c is undefined 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Closure.
+ 
+\emph default
+Inner function gets access to variables present in scope of outter function
+ with the exception of 
+\emph on
+this
+\emph default
+ and 
+\emph on
+arguments
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//Making value private to myObject
+\end_layout
+
+\begin_layout Plain Layout
+
+var myObject = (function () {    
+\end_layout
+
+\begin_layout Plain Layout
+
+ var value = 0;    
+\end_layout
+
+\begin_layout Plain Layout
+
+ return {        
+\end_layout
+
+\begin_layout Plain Layout
+
+   increment: function (inc) {   
+\end_layout
+
+\begin_layout Plain Layout
+
+         value += typeof inc === 'number' ? inc : 1;        
+\end_layout
+
+\begin_layout Plain Layout
+
+   },         
+\end_layout
+
+\begin_layout Plain Layout
+
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+   getValue: function () {         
+\end_layout
+
+\begin_layout Plain Layout
+
+     return value;        
+\end_layout
+
+\begin_layout Plain Layout
+
+   }     
+\end_layout
+
+\begin_layout Plain Layout
+
+ }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}());
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Thanks to functional scope 
+\emph on
+and 
+\emph default
+closure
+\emph on
+ value 
+\emph default
+is accessible only to increment and getValue methods.
+ Notice 
+\series bold
+() 
+\series default
+in the last line, we assign a result of function invocation not a function
+ itself.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var quo = function (status) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+  return {       
+\end_layout
+
+\begin_layout Plain Layout
+
+    get_status: function () {
+\end_layout
+
+\begin_layout Plain Layout
+
+      return status;       
+\end_layout
+
+\begin_layout Plain Layout
+
+    }  
+\end_layout
+
+\begin_layout Plain Layout
+
+   }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Make an instance of quo.
+\end_layout
+
+\begin_layout Plain Layout
+
+var myQuo = quo("amazed"); 
+\end_layout
+
+\begin_layout Plain Layout
+
+document.writeln(myQuo.get_status());
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+This 
+\emph on
+quo
+\emph default
+ function is designed to be used without the 
+\emph on
+new
+\emph default
+ prefix, so the name is not capitalized.
+ When wec all 
+\emph on
+quo
+\emph default
+, it returns a new object containing a 
+\emph on
+get_status
+\emph default
+ method.
+ A reference to that object is stored in 
+\emph on
+myQuo
+\emph default
+.
+ The 
+\emph on
+get_status
+\emph default
+ method still has privileged access to 
+\emph on
+quo’s
+\emph default
+ status property even though 
+\emph on
+quo
+\emph default
+ has already returned.
+ 
+\emph on
+get_status
+\emph default
+ does not have access to a copy of the parameter; 
+\series bold
+it has access to the parameter itself
+\series default
+ (i.e 
+\series bold
+current
+\series default
+ value of the parameter).This is possible because the function has access
+ to the context in which it was created.
+ This is called 
+\series bold
+\emph on
+closure
+\series default
+\emph default
+.
+ Example:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// BAD EXAMPLE 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Make a function that assigns event handler functionst o an array of nodes
+ the wrong way.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+// When you click on a node, an alert box is supposed to display the ordinal
+ of the node.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+// But it always displays the number of nodes instead.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var add_the_handlers = function (nodes) {    
+\end_layout
+
+\begin_layout Plain Layout
+
+ var i;     
+\end_layout
+
+\begin_layout Plain Layout
+
+ for (i = 0; i < nodes.length; i += 1) {  
+\end_layout
+
+\begin_layout Plain Layout
+
+      nodes[i].onclick = function (e) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+           alert(i);        
+\end_layout
+
+\begin_layout Plain Layout
+
+      };  
+\end_layout
+
+\begin_layout Plain Layout
+
+ } 
+\end_layout
+
+\begin_layout Plain Layout
+
+}; // END BAD EXAMPLE
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// BETTER EXAMPLE 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Make a function that assigns event handler 
+\end_layout
+
+\begin_layout Plain Layout
+
+// functions to an array of nodes.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+// When you click on a node, an alert box 
+\end_layout
+
+\begin_layout Plain Layout
+
+//will display the ordinal of the node.
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var add_the_handlers = function (nodes) {    
+\end_layout
+
+\begin_layout Plain Layout
+
+var helper = function (i) {        
+\end_layout
+
+\begin_layout Plain Layout
+
+     return function (e) {      
+\end_layout
+
+\begin_layout Plain Layout
+
+       alert(i);        
+\end_layout
+
+\begin_layout Plain Layout
+
+     };     
+\end_layout
+
+\begin_layout Plain Layout
+
+    };    
+\end_layout
+
+\begin_layout Plain Layout
+
+var i; 
+\end_layout
+
+\begin_layout Plain Layout
+
+ for (i = 0; i < nodes.length; i += 1) {      
+\end_layout
+
+\begin_layout Plain Layout
+
+   nodes[i].onclick = helper(i);   
+\end_layout
+
+\begin_layout Plain Layout
+
+ } 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Avoid creating function in the loop.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Module 
+\emph default
+is a function or object that presents an interface but that hides its state
+ and implementation.Use of module pattern can eliminate global variables
+ and let implement secure objects
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+String.method('deentityify', function () { // (1)
+\end_layout
+
+\begin_layout Plain Layout
+
+// The entity table.
+ It maps entity names to 
+\end_layout
+
+\begin_layout Plain Layout
+
+// characters.
+ var entity = { quot: '"', lt: '<', gt: '>' }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Return the deentityify method.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ return function () { 
+\end_layout
+
+\begin_layout Plain Layout
+
+  // This is the deentityify method.
+ It calls the string
+\end_layout
+
+\begin_layout Plain Layout
+
+  // replace method, looking for substrings that start
+\end_layout
+
+\begin_layout Plain Layout
+
+  // with '&' and end with ';'.
+ If the characters in 
+\end_layout
+
+\begin_layout Plain Layout
+
+  // between are in the entity table, then replace the
+\end_layout
+
+\begin_layout Plain Layout
+
+  // entity with the character from the table.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+   return this.replace(/&([^&;]+);/g, function (a, b) {
+\end_layout
+
+\begin_layout Plain Layout
+
+      var r = entity[b]; 
+\end_layout
+
+\begin_layout Plain Layout
+
+      return typeof r === 'string' ? r : a; 
+\end_layout
+
+\begin_layout Plain Layout
+
+    } 
+\end_layout
+
+\begin_layout Plain Layout
+
+   ); 
+\end_layout
+
+\begin_layout Plain Layout
+
+ }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}()); // ()->invocation of (1)
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+// displays <">
+\end_layout
+
+\begin_layout Plain Layout
+
+document.writeln('&lt;&quot;&gt;'.deentityify()); 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Secure object that does not expose its prefix and seq to the caller.
+ Method might be added or overriden but there is no way to get the hang
+ of prefix or seq
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var serial_maker = function () {
+\end_layout
+
+\begin_layout Plain Layout
+
+ var prefix = '';     
+\end_layout
+
+\begin_layout Plain Layout
+
+ var seq = 0;    
+\end_layout
+
+\begin_layout Plain Layout
+
+ return {         
+\end_layout
+
+\begin_layout Plain Layout
+
+    set_prefix: function (p) {         
+\end_layout
+
+\begin_layout Plain Layout
+
+      prefix = String(p);      
+\end_layout
+
+\begin_layout Plain Layout
+
+     },
+\end_layout
+
+\begin_layout Plain Layout
+
+   set_seq: function (s) { seq = s;},      
+\end_layout
+
+\begin_layout Plain Layout
+
+   gensym: function () {           
+\end_layout
+
+\begin_layout Plain Layout
+
+      var result = prefix + seq;  
+\end_layout
+
+\begin_layout Plain Layout
+
+      seq +=1;             
+\end_layout
+
+\begin_layout Plain Layout
+
+     return result;        
+\end_layout
+
+\begin_layout Plain Layout
+
+   }   
+\end_layout
+
+\begin_layout Plain Layout
+
+ }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+var seqer = serial_maker();
+\end_layout
+
+\begin_layout Plain Layout
+
+seqer.set_prefix('Q'); 
+\end_layout
+
+\begin_layout Plain Layout
+
+seqer.set_seq(1000);
+\end_layout
+
+\begin_layout Plain Layout
+
+var unique = seqer.gensym();    // unique is "Q1000"
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Curry.
+ 
+\emph default
+Currying allows us to produce a new function by combining a function and
+ a argument.
+ JavaScript does not have a method curry, but you can add it by yourself
+ thanks to 
+\emph on
+closures.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Function.method('curry', function () {
+\end_layout
+
+\begin_layout Plain Layout
+
+ var args = arguments, that = this;     
+\end_layout
+
+\begin_layout Plain Layout
+
+ return function () {         
+\end_layout
+
+\begin_layout Plain Layout
+
+   return that.apply(null, args.concat(arguments));   
+\end_layout
+
+\begin_layout Plain Layout
+
+ }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+});    
+\end_layout
+
+\begin_layout Plain Layout
+
+// Something isn't right...
+\end_layout
+
+\begin_layout Plain Layout
+
+//since arguments is not an array :/
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Function.method('curry', function () {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ var slice = Array.prototype.slice,  
+\end_layout
+
+\begin_layout Plain Layout
+
+     args = slice.apply(arguments),      
+\end_layout
+
+\begin_layout Plain Layout
+
+     that = this;     
+\end_layout
+
+\begin_layout Plain Layout
+
+ return function () {     
+\end_layout
+
+\begin_layout Plain Layout
+
+     return that.apply(null, args.concat(slice.apply(arguments)));     
+\end_layout
+
+\begin_layout Plain Layout
+
+ }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Memorizer.
+ 
+\emph default
+Optimization strategy to memorize already evaluated results of previous
+ computation.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var fibonacci = (function () {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ var memo = [0, 1];    
+\end_layout
+
+\begin_layout Plain Layout
+
+ var fib = function (n) {   
+\end_layout
+
+\begin_layout Plain Layout
+
+     var result = memo[n];  
+\end_layout
+
+\begin_layout Plain Layout
+
+     if (typeof result !== 'number') {
+\end_layout
+
+\begin_layout Plain Layout
+
+       result = fib(n - 1) + fib(n - 2);        
+\end_layout
+
+\begin_layout Plain Layout
+
+       memo[n] = result;         
+\end_layout
+
+\begin_layout Plain Layout
+
+     }         
+\end_layout
+
+\begin_layout Plain Layout
+
+     return result;     
+\end_layout
+
+\begin_layout Plain Layout
+
+ };     
+\end_layout
+
+\begin_layout Plain Layout
+
+return fib;
+\end_layout
+
+\begin_layout Plain Layout
+
+}());
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//MORE ABSTRACT
+\end_layout
+
+\begin_layout Plain Layout
+
+var memoizer = function (memo, formula) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+   var recur = function (n) {    
+\end_layout
+
+\begin_layout Plain Layout
+
+      var result = memo[n];      
+\end_layout
+
+\begin_layout Plain Layout
+
+      if (typeof result !== 'number') { 
+\end_layout
+
+\begin_layout Plain Layout
+
+            result = formula(recur, n);         
+\end_layout
+
+\begin_layout Plain Layout
+
+            memo[n] = result;        
+\end_layout
+
+\begin_layout Plain Layout
+
+      }         
+\end_layout
+
+\begin_layout Plain Layout
+
+    return result;   
+\end_layout
+
+\begin_layout Plain Layout
+
+   };  
+\end_layout
+
+\begin_layout Plain Layout
+
+ return recur; 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var fibonacci = memoizer([0, 1], function (recur, n) {
+\end_layout
+
+\begin_layout Plain Layout
+
+    return recur(n - 1) + recur(n - 2);
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Object creation
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+object literal
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var myMammal = { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	name : 'Herb the Mammal', 
+\end_layout
+
+\begin_layout Plain Layout
+
+	get_name : function () { return this.name; }, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	says : function () { return this.saying || ''; } 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+construction function with 
+\emph on
+new 
+\emph default
+(convention to start construction function name with capital letter) 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var Cat = function (name) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+	this.name = name;     
+\end_layout
+
+\begin_layout Plain Layout
+
+	this.saying = 'meow';    
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+var cat = new Cat("Gruber");
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+use 
+\emph on
+Object.create
+\emph default
+ to create object from existing object
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var cat = new Cat("Gruber"); 
+\end_layout
+
+\begin_layout Plain Layout
+
+var cat2 = Object.create(cat); 
+\end_layout
+
+\begin_layout Plain Layout
+
+var cat3 = Object.create(Cat.prototype);
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(cat2.name); // "Gruber" 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+cat3.name="Filemon"; 
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(cat3.name); // "Filemon"
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+call any function that returns 
+\emph on
+object
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Inheritance
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+pseudoclassical (lacks encapsulation, access to superior method, constructor
+ duplication, 
+\series bold
+hazard: 
+\series default
+omitting 
+\emph on
+new 
+\emph default
+when construction function is called lead to bounding 
+\emph on
+this 
+\emph default
+to global object!)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var Mammal = function (name) { this.name = name; }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+Mammal.prototype.get_name = function () { return this.name; };
+\end_layout
+
+\begin_layout Plain Layout
+
+Mammal.prototype.says = function () { return this.saying || ''; };
+\end_layout
+
+\begin_layout Plain Layout
+
+//instance
+\end_layout
+
+\begin_layout Plain Layout
+
+var myMammal = new Mammal('Herb the Mammal'); 
+\end_layout
+
+\begin_layout Plain Layout
+
+var name = myMammal.get_name(); // 'Herb the Mammal'
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var Cat = function (name) {    
+\end_layout
+
+\begin_layout Plain Layout
+
+ //constructor duplication
+\end_layout
+
+\begin_layout Plain Layout
+
+ this.name = name;     
+\end_layout
+
+\begin_layout Plain Layout
+
+ this.saying = 'meow'; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Replace Cat.prototype with a new instance of Mammal 
+\end_layout
+
+\begin_layout Plain Layout
+
+Cat.prototype = new Mammal(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Augment the new prototype with // purr and get_name methods.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Cat.prototype.purr = function (n) { return 'r-r-r-r-r'; }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+Cat.prototype.get_name = function () {
+\end_layout
+
+\begin_layout Plain Layout
+
+ return this.says() + ' ' + this.name + ' ' + this.says(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+var myCat = new Cat('Henrietta'); 
+\end_layout
+
+\begin_layout Plain Layout
+
+var says = myCat.says(); // 'meow' 
+\end_layout
+
+\begin_layout Plain Layout
+
+var purr = myCat.purr(5); // 'r-r-r-r-r' 
+\end_layout
+
+\begin_layout Plain Layout
+
+var name = myCat.get_name(); //'meow Henrietta meow'
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+protypal (
+\emph on
+differential
+\emph default
+ 
+\emph on
+inheritance 
+\emph default
+, lacks encapsulation, access to superior method)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var myMammal = { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	name : 'Herb the Mammal', 
+\end_layout
+
+\begin_layout Plain Layout
+
+	get_name : function () { return this.name; }, 
+\end_layout
+
+\begin_layout Plain Layout
+
+	says : function () { return this.saying || ''; } 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var myCat = Object.create(myMammal);
+\end_layout
+
+\begin_layout Plain Layout
+
+myCat.name = 'Henrietta'; 
+\end_layout
+
+\begin_layout Plain Layout
+
+myCat.saying = 'meow';
+\end_layout
+
+\begin_layout Plain Layout
+
+myCat.purr = function (n) { return 'r-r-r-r-r'; }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+myCat.get_name = function () {  
+\end_layout
+
+\begin_layout Plain Layout
+
+ return this.says() + ' ' + this.name + ' ' + this.says(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+functional
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+(1) it creates new object
+\end_layout
+
+\begin_layout Itemize
+(2) it optionally defines private methods or instance variables (these are
+ just ordinary 
+\emph on
+var
+\emph default
+s of the function)
+\end_layout
+
+\begin_layout Itemize
+(3) it augments 
+\emph on
+this
+\emph default
+ with methods and instance variables; methods have access to elements defined
+ in (2)
+\end_layout
+
+\begin_layout Itemize
+(4) returns new object
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+spec
+\emph default
+ - specification expressed via object literal containing all data required
+ for object construction
+\end_layout
+
+\begin_layout Itemize
+my - object containing secrets shared by constructors in the inheritance
+ chain ( if the my is undefined new object is created {})
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//template
+\end_layout
+
+\begin_layout Plain Layout
+
+var constructor = function (spec, my) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+ var that,...
+ //other private instance variables and methods;   
+\end_layout
+
+\begin_layout Plain Layout
+
+   my = my || {};     
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ //Add shared variables and functions to my  
+\end_layout
+
+\begin_layout Plain Layout
+
+ that =a new object;     
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ //Add privileged methods to that 
+\end_layout
+
+\begin_layout Plain Layout
+
+ that.publicMethod = function(){...};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+ return that;
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var mammal = function (spec) {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  var that = {};     
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  that.get_name = function () {       
+\end_layout
+
+\begin_layout Plain Layout
+
+   return spec.name;    
+\end_layout
+
+\begin_layout Plain Layout
+
+  };
+\end_layout
+
+\begin_layout Plain Layout
+
+  that.says = function () {        
+\end_layout
+
+\begin_layout Plain Layout
+
+    return spec.saying || '';   
+\end_layout
+
+\begin_layout Plain Layout
+
+  };     
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  return that;
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var cat = function (spec) {  
+\end_layout
+
+\begin_layout Plain Layout
+
+  spec.saying = spec.saying || 'meow';     
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  var that = mammal(spec);     
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  that.purr = function (n) { return 'r-r-r-r-r';};     
+\end_layout
+
+\begin_layout Plain Layout
+
+  that.get_name = function () {        
+\end_layout
+
+\begin_layout Plain Layout
+
+    return that.says() + ' ' + spec.name + ' ' + that.says(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+  };     
+\end_layout
+
+\begin_layout Plain Layout
+
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  return that; 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var myMammal = mammal({name:'SSSAK');
+\end_layout
+
+\begin_layout Plain Layout
+
+var myCat = cat({name:'Filemon');
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+superior method support:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+Function.prototype.method = function (name, func) {      
+\end_layout
+
+\begin_layout Plain Layout
+
+ this.prototype[name] = func;      
+\end_layout
+
+\begin_layout Plain Layout
+
+ return this;  
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Object.method('superior', function (name) {
+\end_layout
+
+\begin_layout Plain Layout
+
+ var that = this,        
+\end_layout
+
+\begin_layout Plain Layout
+
+ method = that[name];     
+\end_layout
+
+\begin_layout Plain Layout
+
+ return function () {      
+\end_layout
+
+\begin_layout Plain Layout
+
+   return method.apply(that, arguments);    
+\end_layout
+
+\begin_layout Plain Layout
+
+ }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var coolcat = function (spec) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ var that = cat(spec),     
+\end_layout
+
+\begin_layout Plain Layout
+
+  super_get_name = that.superior('get_name');    
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ that.get_name = function (n) {        
+\end_layout
+
+\begin_layout Plain Layout
+
+  return 'like ' + super_get_name() + ' baby';   
+\end_layout
+
+\begin_layout Plain Layout
+
+ };     
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+ return that;
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var myCoolcat = coolcat({name:'Mruczek'}); 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Arrays.
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Arrays in other languages are fast data stracture built from number of elements
+ of the same type.
+\end_layout
+
+\begin_layout Enumerate
+On contrary, JS arrays convert array subscript (array subscript is another
+ way to say an array index) into strings that are used to make properties.
+ It significantly slower than normal array but is's more convenient.
+ Retrieval and update of array properties work the same as with objects,
+ except that there is a special trick for index (arrays have their own literal
+ format - array literal is a pair of brackets surrending one or more values
+ separated by commass.
+\end_layout
+
+\begin_layout Enumerate
+Arrays element index starts from 
+\series bold
+0, The [] postfix subscrip to perator converts its expression to a string
+ using the expres-sion’s toString method if it has one.
+\end_layout
+
+\begin_layout Enumerate
+Construction:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//array literal inherits from Array.prototype
+\end_layout
+
+\begin_layout Plain Layout
+
+var array = ["one","two","three"];
+\end_layout
+
+\begin_layout Plain Layout
+
+//object literal inherits from Object.prototype
+\end_layout
+
+\begin_layout Plain Layout
+
+var array = { "0":"one","1": "two","2":"three"};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Arrays may have a mix of elements of various types
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//array literal inherits from Array.prototype
+\end_layout
+
+\begin_layout Plain Layout
+
+var array = ["one",1, cat({name:'Mruczek'})];
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Length - every array has
+\series bold
+ length
+\series default
+ property 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+length is not upper bound
+\series default
+ (you can add as many new elements as you want).
+\end_layout
+
+\begin_layout Enumerate
+setting length to biger value than number of current elements does not result
+ in memory allocation
+\end_layout
+
+\begin_layout Enumerate
+setting length to value less than number of current elements results in
+ memory eviction
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+a[100]=1; 
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(a.length); //101
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var a=[] 
+\end_layout
+
+\begin_layout Plain Layout
+
+a.length=100; 
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(a[100]); //undefined 
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(a.length); //100
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+a = [1,2,3];
+\end_layout
+
+\begin_layout Plain Layout
+
+a.length=1; 
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(a[2]); //undefined 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var numbers = [1,2]
+\end_layout
+
+\begin_layout Plain Layout
+
+numbers[numbers.length] = 3; // [1,2,3]
+\end_layout
+
+\begin_layout Plain Layout
+
+numbers.push(4) // [1,2,3,4]
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Delete - removing is tricky
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//object style leaves hole
+\end_layout
+
+\begin_layout Plain Layout
+
+delete numbers[2] // [1,2,undefined,3]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//proper way (renumbering takes time!)
+\end_layout
+
+\begin_layout Plain Layout
+
+var from = 2;
+\end_layout
+
+\begin_layout Plain Layout
+
+var count =1;
+\end_layout
+
+\begin_layout Plain Layout
+
+numbers.splice(from,count) //[1,2,3]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Enumeration - use for C-style not 
+\emph on
+for ..
+ in 
+\emph default
+(order not guaranteed and other properties listed as well)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+for (i=0;i<numbers.length;i++){
+\end_layout
+
+\begin_layout Plain Layout
+
+ console.log(numbers[i]);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Confusion - JS type of array is object ;-); workaround:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var is_array = function (value) {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ return Object.prototype.toString.apply(value) === '[object Array]'; 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+methods can be added to array without changing index
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var a = [1,2,3]
+\end_layout
+
+\begin_layout Plain Layout
+
+ a.printElements = function() { 
+\end_layout
+
+\begin_layout Plain Layout
+
+  var toString = "Array [";  
+\end_layout
+
+\begin_layout Plain Layout
+
+  for (i=0; i< this.length; i++) {  
+\end_layout
+
+\begin_layout Plain Layout
+
+    toString+= " " + this[i];
+\end_layout
+
+\begin_layout Plain Layout
+
+  }   
+\end_layout
+
+\begin_layout Plain Layout
+
+  toString+="]";   
+\end_layout
+
+\begin_layout Plain Layout
+
+  console.log(toString); 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+a.printElements();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+it's 
+\series bold
+not recommended 
+\series default
+to create array with Object.create since it creates 
+\series bold
+object 
+\series default
+not an array (although new object inherits values and methods it lacks 
+\series bold
+length
+\series default
+ property)
+\end_layout
+
+\begin_layout Enumerate
+multidimensional arrays, you can have array of arrays (bear in mind they
+ are not initialized by default)
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var matrix = [ 
+\end_layout
+
+\begin_layout Plain Layout
+
+   [0, 1, 2],
+\end_layout
+
+\begin_layout Plain Layout
+
+   [3, 4, 5],     
+\end_layout
+
+\begin_layout Plain Layout
+
+   [6, 7, 8] 
+\end_layout
+
+\begin_layout Plain Layout
+
+]; 
+\end_layout
+
+\begin_layout Plain Layout
+
+matrix[2][1]    // 7
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+Array.matrix = function (m, n, initial) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+ var a, i, j, mat = [];    
+\end_layout
+
+\begin_layout Plain Layout
+
+ for (i = 0; i < m; i += 1) {      
+\end_layout
+
+\begin_layout Plain Layout
+
+   a = [];         
+\end_layout
+
+\begin_layout Plain Layout
+
+   for (j = 0; j < n; j += 1) {  
+\end_layout
+
+\begin_layout Plain Layout
+
+    a[j] = initial;      
+\end_layout
+
+\begin_layout Plain Layout
+
+   }         
+\end_layout
+
+\begin_layout Plain Layout
+
+   mat[i] = a;
+\end_layout
+
+\begin_layout Plain Layout
+
+ }
+\end_layout
+
+\begin_layout Plain Layout
+
+ return mat;
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Regular expression.
+ 
+\emph default
+JS took regexp from Perl.
+ Regex usually have significant performence advantage over equivalent string
+ operations in JavaScript.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+regexp literal 
+\emph on
+: /regexp_choice/[g|i|m]
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+g Global (match multiple times; the precise meaning of this varies with
+ the method) 
+\end_layout
+
+\begin_layout Description
+i Insensitive (ignore character case) 
+\end_layout
+
+\begin_layout Description
+m Multiline (^ and $ can match line-ending characters)
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var url_regex = /^(?:([A-Za-z]+):)?(
+\backslash
+/{0,3})([0-9.
+\backslash
+-A-Za-z]+) 
+\end_layout
+
+\begin_layout Plain Layout
+
+(?::(
+\backslash
+d+))?(?:
+\backslash
+/([^?#]*))?(?:
+\backslash
+?([^#]*))?(?:#(.*))?$/;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var number_regex = /^-?
+\backslash
+d+(?:
+\backslash
+.
+\backslash
+d*)?(?:e[+
+\backslash
+-]?
+\backslash
+d+)?$/i;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+function make_a_matcher() { return /a/gi; } 
+\end_layout
+
+\begin_layout Plain Layout
+
+var x = make_a_matcher(), y = make_a_matcher(); 
+\end_layout
+
+\begin_layout Plain Layout
+
+// Beware: x and y are the same object!
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Regexp 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// 
+\backslash
+ must be escaped
+\end_layout
+
+\begin_layout Plain Layout
+
+var my_regexp = new RegExp("'(?:
+\backslash
+
+\backslash
+
+\backslash
+
+\backslash
+.|[^
+\backslash
+
+\backslash
+
+\backslash
+
+\backslash
+
+\backslash
+
+\backslash
+'])*'", 'g'));
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Methods:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+Array concat, join, pop (last element), push (last element), reverse, shift
+ (1st element), slice (does not modify target array; produces shallow copy
+ of array including elements with index in range [start,end)), splice (remove
+ elements from original array),sort, unshift 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var n = [1,2,3,4];
+\end_layout
+
+\begin_layout Plain Layout
+
+var s = n.slice(1,3); //s: 2,3 n: 1,2,3,4 
+\end_layout
+
+\begin_layout Plain Layout
+
+n.splice(1,2); // n:1,4
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var a = ['a', 'b', 'c']; 
+\end_layout
+
+\begin_layout Plain Layout
+
+var r = a.splice(1, 1, 'ache', 'bug'); 
+\end_layout
+
+\begin_layout Plain Layout
+
+// a is ['a', 'ache', 'bug', 'c'] 
+\end_layout
+
+\begin_layout Plain Layout
+
+// r is ['b']
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var a = ['a', 'b', 'c']; 
+\end_layout
+
+\begin_layout Plain Layout
+
+var r = a.unshift('?', '@');
+\end_layout
+
+\begin_layout Plain Layout
+
+// a is ['?', '@', 'a', 'b', 'c'] 
+\end_layout
+
+\begin_layout Plain Layout
+
+// r is 5, new length
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Function apply
+\end_layout
+
+\begin_layout Description
+Number toExponential (e.g 3.14 e+0), toFixed, toPrecision, toString
+\end_layout
+
+\begin_layout Description
+Object hasOwnProperty (checks if this has a property, prototype chain is
+ not examined)
+\end_layout
+
+\begin_layout Description
+RegExp exec (powerful,the slowest function; java: 
+\emph on
+matcher.find
+\emph default
+), test (java:
+\emph on
+ matcher.matches
+\emph default
+)
+\end_layout
+
+\begin_layout Description
+String charAt, charCodeAt, concat, indexOf, lastIndexOf, lastIndexOf, localeComp
+are, match (if there is no g flag in regexp then it is equal to 
+\emph on
+regexp.exec(string)
+\emph default
+ otherwise it returns array of matches), replace, search, slice (makes a
+ new string), split, substring, toLocaleLowerCase, toLocaleUpperCase, toLowerCas
+e, toUpperCase
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Awful parts
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+global_variables JS requires global variables since there is no linker and
+ all compilation units are loaded into a common global object.
+ Three ways to declare global variable
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//declare outside of any function
+\end_layout
+
+\begin_layout Plain Layout
+
+var foo = value;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//add property to global variable
+\end_layout
+
+\begin_layout Plain Layout
+
+window.foo = value;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// implied global (without 'var')
+\end_layout
+
+\begin_layout Plain Layout
+
+foo = value;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+scope JS has function scope does not have block scope
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var a = function() {    
+\end_layout
+
+\begin_layout Plain Layout
+
+ var a = 1;    
+\end_layout
+
+\begin_layout Plain Layout
+
+ {     
+\end_layout
+
+\begin_layout Plain Layout
+
+  var b = 2;   
+\end_layout
+
+\begin_layout Plain Layout
+
+  var f = function(){        
+\end_layout
+
+\begin_layout Plain Layout
+
+    var c = 3;    
+\end_layout
+
+\begin_layout Plain Layout
+
+  }   
+\end_layout
+
+\begin_layout Plain Layout
+
+  console.log(c); //undefined
+\end_layout
+
+\begin_layout Plain Layout
+
+ }    
+\end_layout
+
+\begin_layout Plain Layout
+
+ console.log(a+","+b); // 1 , 2
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+a();
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+semicolon_insertion
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+return 
+\end_layout
+
+\begin_layout Plain Layout
+
+{ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  status: true 
+\end_layout
+
+\begin_layout Plain Layout
+
+}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+//results in undefined
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+return {     
+\end_layout
+
+\begin_layout Plain Layout
+
+status: true
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+// correct
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+unicode JS character's are 16 bits; unicode character is represented by
+ a pair of characters (JS thinks the pair is two distinct characters)
+\end_layout
+
+\begin_layout Description
+typeof typeof null -> 'object' instead of 'null'
+\end_layout
+
+\begin_layout Description
+parseInt parseInt(
+\begin_inset Quotes eld
+\end_inset
+
+16
+\begin_inset Quotes erd
+\end_inset
+
+) == parseInt(
+\begin_inset Quotes eld
+\end_inset
+
+16 tons
+\begin_inset Quotes erd
+\end_inset
+
+); parseInt(
+\begin_inset Quotes eld
+\end_inset
+
+08
+\begin_inset Quotes erd
+\end_inset
+
+) == parseInt(
+\begin_inset Quotes eld
+\end_inset
+
+09
+\begin_inset Quotes erd
+\end_inset
+
+) (base 8) it's recommeded to provide always radix -> parseInt(
+\begin_inset Quotes eld
+\end_inset
+
+08
+\begin_inset Quotes erd
+\end_inset
+
+,10) (e.g.
+ parse date)
+\end_layout
+
+\begin_layout Description
++ both operands are numbers -> + results in arithmetic sum; otherwise it
+ converts operands to string and concatenate them
+\end_layout
+
+\begin_layout Description
+float 0.1+0.2 !=0.3 (use integers and denominator (e.g /100) instead
+\end_layout
+
+\begin_layout Description
+NaN 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+typeof NaN === 'number'    // true
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+NaN === NaN    // false 
+\end_layout
+
+\begin_layout Plain Layout
+
+NaN !== NaN    // true
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+isNaN(NaN)       // true
+\end_layout
+
+\begin_layout Plain Layout
+
+isNaN(0)         // false 
+\end_layout
+
+\begin_layout Plain Layout
+
+isNaN('oops')    // true 
+\end_layout
+
+\begin_layout Plain Layout
+
+isNaN('0')       // false
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var isNumber = function isNumber(value) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+return typeof value === 'number' && isFinite(value); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Arrays Performance of JS arrays are worse than in other languages but they
+ are convenient to use (flexibile length, not OutOfBoundException, mix of
+ values); 
+\series bold
+\emph on
+arguments 
+\series default
+\emph default
+available in every function is not an array but 
+\emph on
+object 
+\emph default
+with a length member.
+\end_layout
+
+\begin_layout Description
+Falsy_Values 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+0 Number 
+\end_layout
+
+\begin_layout Description
+NaN_(not_a_number) Number 
+\end_layout
+
+\begin_layout Description
+''_(empty_string) String 
+\end_layout
+
+\begin_layout Description
+false Boolean
+\end_layout
+
+\begin_layout Description
+null Object 
+\end_layout
+
+\begin_layout Description
+undefined Undefined
+\end_layout
+
+\begin_layout Standard
+Checking just
+\emph on
+ value == null
+\emph default
+ is incorrect.In first place == does type coercion (interpreter tries to
+ convert the values before comparing) (use === (equality; no type coercion)
+ ) ).
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+undefined
+\emph default
+ and
+\emph on
+ Nan
+\emph default
+ are not constants - they might be changed :D
+\end_layout
+
+\end_deeper
+\begin_layout Description
+hasOwnProperty is a method not an operator and it might be accidently changed/ov
+erwritten
+\end_layout
+
+\begin_layout Description
+Object JS objects are never truly empty because they can pick up members
+ from the prototype chain.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var i; var word; 
+\end_layout
+
+\begin_layout Plain Layout
+
+var text =        
+\end_layout
+
+\begin_layout Plain Layout
+
+"This oracle of comfort has so pleased me, " +   
+\end_layout
+
+\begin_layout Plain Layout
+
+"That when I am in heaven I shall desire " +         
+\end_layout
+
+\begin_layout Plain Layout
+
+"To see what this child does, " +        
+\end_layout
+
+\begin_layout Plain Layout
+
+"and praise my Constructor."; 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+var words = text.toLowerCase().split(/[
+\backslash
+s,.]+/);
+\end_layout
+
+\begin_layout Plain Layout
+
+var count = {}; 
+\end_layout
+
+\begin_layout Plain Layout
+
+for (i = 0; i < words.length; i += 1) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+ word = words[i];     
+\end_layout
+
+\begin_layout Plain Layout
+
+ if (count[word]) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+   count[word] += 1;  
+\end_layout
+
+\begin_layout Plain Layout
+
+ } else {
+\end_layout
+
+\begin_layout Plain Layout
+
+    count[word] = 1;  
+\end_layout
+
+\begin_layout Plain Layout
+
+  } 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+for (c in count){    
+\end_layout
+
+\begin_layout Plain Layout
+
+console.log(c + " " + count[c]); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+// prints:
+\end_layout
+
+\begin_layout Plain Layout
+
+// constructor function
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//solution add: typeof count[word] === 'number' 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Bad Parts
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+== use only === and !=== instead of ==/!= (first pair does not perform type
+ coercion)
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+if (foo) {} // instead of (foo != 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+if (!foo) {} // instead of (foo == 0)
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+with do not use
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+with (obj) {   a = b; } 
+\end_layout
+
+\begin_layout Plain Layout
+
+//does the same thing as: 
+\end_layout
+
+\begin_layout Plain Layout
+
+if (obj.a === undefined) {  
+\end_layout
+
+\begin_layout Plain Layout
+
+  a = obj.b === undefined ? b : obj.b; 
+\end_layout
+
+\begin_layout Plain Layout
+
+} else { 
+\end_layout
+
+\begin_layout Plain Layout
+
+   obj.a = obj.b === undefined ? b : obj.b;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+eval do not use (performance overhead (compiling arguments) and security
+ breach) : e.g.
+ eval("myValue = myObject." + myKey + ";"); instead of myValue=myObject[myKey];
+\end_layout
+
+\begin_layout Description
+bitwise_operators In Java, the bitwise operators work with integers.
+ JS doesn't have integers but double precision floating-point numbers.
+ So, the bitwise operators convert their number operands into integers,
+ do their business, and then convert them back.
+ JS bitiwise operators are slow.
+\end_layout
+
+\begin_layout Description
+function_statement 
+\emph on
+functions statement
+\emph default
+ are subject to 
+\emph on
+hoisting
+\emph default
+ - this means function is moved to the top of the scope in which it is defined
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//function statement
+\end_layout
+
+\begin_layout Plain Layout
+
+function foo() {}
+\end_layout
+
+\begin_layout Plain Layout
+
+//means abouth the same thing as
+\end_layout
+
+\begin_layout Plain Layout
+
+var foo = function foo() {};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+new JS 
+\emph on
+new 
+\emph default
+operator creates a new object that inherits from the operand's prototype
+ member, and then calls the operand, binding the new object to 
+\emph on
+this.
+\emph default
+THis give the operand (which had better be a 
+\emph on
+constructor function
+\emph default
+) a chance to customize the new object before it is returned to the requestor.
+ When construction function is called without 
+\emph on
+new 
+\emph default
+it leads to bounding 
+\emph on
+this 
+\emph default
+to global object and defining variables in global scope by construction
+ function.
+ Convention: 
+\emph on
+constructor function 
+\emph default
+starts with capital letter.
+ Even
+\emph on
+ 
+\emph default
+better to stay on safe side and use {} (
+\emph on
+object literal) 
+\emph default
+and [] instead
+\end_layout
+
+\begin_layout Description
+void JS void is NOT a type it is an 
+\emph on
+operator 
+\emph default
+that takes an operand and returns
+\emph on
+ undefined
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+JSON.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+six kinds of values: objects, arrays, strings, numbers, booleans(true/false),
+ and the special value
+\emph on
+ null
+\end_layout
+
+\begin_layout Itemize
+a JSON object is an unordered container of name/value pairs; value might
+ be any of six kinds of values (nesting objects)
+\end_layout
+
+\begin_layout Itemize
+a JSON array is an ordered sequence of values,
+\end_layout
+
+\begin_layout Itemize
+a JSON string is wrapped in double quotes
+\end_layout
+
+\begin_layout Itemize
+The 
+\emph on
+
+\backslash
+ 
+\emph default
+is used for escapment
+\end_layout
+
+\begin_layout Itemize
+Numbers are like JS numbers (a leading 0 is not allowed on integers)
+\end_layout
+
+\begin_layout Itemize
+Secure use of JSON in your webapp: get text from 
+\emph on
+XMLHttpRequest
+\emph default
+ object and parse using
+\emph on
+ JSON.parse (www.JSON.org/json2.js)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Security
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+If an evil script gets to run on your page, tt gets access to allof the
+ state and capabilities of the page.
+ I can interact with your server and your server will not be able to distinguish
+ the evil requests from the legitimate requests.
+ The evil script will have access to global variables, which gives it access
+ to all of the data except for variables hidden in clousure.
+ It has access to document object, which gives it access to everything what
+ user sees.
+ It also gives the evil script the ability to dialog with the user (all
+ dialogs and broswer's location bar still seem to be valid and trusted).
+ The document object also gives an evil script access to the network, allowing
+ it to load more evil scripts, or to probe for sites within your firewall,
+ or to send the secrets it has learned to any server in the world.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Function operator vs function declaration
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//function operator
+\end_layout
+
+\begin_layout Plain Layout
+
+var foo = new function(){...}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//function declaration
+\end_layout
+
+\begin_layout Plain Layout
+
+function bar(){...}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Enumerate
+Function declaration is a subject to 
+\series bold
+hoisitng, 
+\series default
+interpreter looks for any function declarations in the current scope and
+ moves them to the beginning of the code.
+ This is why you can call a function created by a function declaration before
+ it is declared in the code.
+\end_layout
+
+\begin_layout Enumerate
+The function declaration syntax automatically adds the new function object
+ to the current scope.
+ It creates a variable with the same name as the function which points to
+ the newly created function object.
+ Because of this, all functions created with the function declaration must
+ be given a name.
+ They can not be anonymous functions.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+bar();
+\end_layout
+
+\begin_layout Plain Layout
+
+function bar(){...}
+\end_layout
+
+\end_inset
+
+ is interpreted actually, as follows:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var bar = function bar(){...}
+\end_layout
+
+\begin_layout Plain Layout
+
+bar();
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+The biggest difference between a function operator and a function declaration
+ is when the function is created.
+ Function operators aren’t affected by hoisting so they are evaluated where
+ they occur in the source code as the code is run.
+ This is very useful because function creation can be affected by the surroundin
+g logic.
+ (use in 
+\series bold
+if else
+\series default
+; do NOT use function declaration in 
+\emph on
+if-elese
+\emph default
+)
+\end_layout
+
+\begin_layout Enumerate
+Function operator is an expression it might be used to declare a method,
+ an array element, other function parameter (usually functions created by
+ function operator are also anonymous (without name) ) .
+ If you need to create a function inside an if statement or a loop, always
+ use a function operator (no hoisting)
+\end_layout
+
+\begin_layout Enumerate
+Function name vs function variable
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var functionVariable = function functionName(){...};
+\end_layout
+
+\begin_layout Plain Layout
+
+var functionVariable = function /* no name/anonymous*/ () {...};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//recursion
+\end_layout
+
+\begin_layout Plain Layout
+
+var action = function work(){
+\end_layout
+
+\begin_layout Plain Layout
+
+ if (!done){ work()};
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_body
+\end_document
