@@ -3365,7 +3365,12 @@ var constructor = function (spec, my) {
 
 \begin_layout Plain Layout
 
-   my = my || {};     
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  my = my || {};     
 \end_layout
 
 \begin_layout Plain Layout
@@ -5597,6 +5602,480 @@ var action = function work(){
 \end_layout
 
 \end_deeper
+\end_deeper
+\begin_layout Enumerate
+Comparision of class-based (Java) and prototype-based (JavaScript) object
+ systems:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset Tabular
+<lyxtabular version="3" rows="7" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="7cm">
+<column alignment="center" valignment="top" width="7cm">
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Class-based (Java) 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Prototype-based (JavaScript)
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ Class and instance are distinct entities.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+All objects are instances.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Define a class with a class definition instantiate a class with constructor
+ methods.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Define and create a set of objects with constructor functions.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Create a single object with the new operator.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ Same.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Construct an object hierarchy by using class definitions to define subclasses
+ of existing classes.
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Construct an object hierarchy by assigning an object as the prototype associated
+ with a constructor function.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+ Inherit properties by following the class chain.
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Inherit properties by following the prototype chain.
+ 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Class definition specifies all properties of all instances of a class.Cannot
+ add properties dynamically at run time.
+ 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" topline="true" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
+Constructor function or prototype specifies an initial set of properties.
+ Can add or remove properties dynamically to individual objects or to the
+ entire set of objects.
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+__proto__ 
+\series default
+and instance relationships (* __proto__ is supported in Mozilla but not
+ in all browsers)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The special property 
+\series bold
+__proto__
+\series default
+ is set when an object is constructed; it is set to the value of the constructor
+'s prototype property.
+ So the expression 
+\series bold
+new Foo()
+\series default
+ creates an object with 
+\series bold
+__proto__ == Foo.
+\series default
+\emph on
+prototype
+\emph default
+.
+ Consequently, changes to the properties of Foo.prototype alters the property
+ lookup for all objects that were created by new Foo().
+\end_layout
+
+\begin_layout Standard
+Every object has a 
+\series bold
+__proto__ 
+\series default
+object property (except Object); every function has a 
+\emph on
+prototype
+\emph default
+ object property.
+ So objects can be related by 'prototype inheritance' to other objects.
+ You can test for inheritance by comparing an object's __proto__ to a function's
+ prototype object.
+ JavaScript provides a shortcut: the 
+\emph on
+instanceof 
+\emph default
+operator tests an object against a function and returns true if the object
+ inherits from the function prototype.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var chris = new Engineer();
+\end_layout
+
+\begin_layout Plain Layout
+
+chris.__proto__ == Engineer.prototype; 
+\end_layout
+
+\begin_layout Plain Layout
+
+chris.__proto__.__proto__ == WorkerBee.prototype; 
+\end_layout
+
+\begin_layout Plain Layout
+
+chris.__proto__.__proto__.__proto__ == Employee.prototype;
+\end_layout
+
+\begin_layout Plain Layout
+
+chris.__proto__.__proto__.__proto__.__proto__ == Object.prototype;
+\end_layout
+
+\begin_layout Plain Layout
+
+chris.__proto__.__proto__.__proto__.__proto__.__proto__ == null;
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+The 
+\series bold
+\emph on
+prototype
+\series default
+\emph default
+ property is basically a template for the objects created by the constructor.
+ It contains the things that should be the same among all objects created
+ by the constructor.The aim of the prototype is to share implementation between
+ similar objects, to make things more convenient for programmers.
+ It is not designed to be a type system.
+ Javascript objects are dynamic so they can be changed after they are created.
+ Knowing that an object was created by a particular constructor function
+ does not guarantee anything about the methods or properties that an object
+ will have.The 
+\series bold
+prototype
+\series default
+ property is just an object.
+ There’s nothing particularly special or magic about it.
+ Anything you can do to a normal object you can also do to a function’s
+ prototype property.When a new function is created the prototype property
+ is set to an empty object, exactly the same if we said 
+\emph on
+Pet.prototype = new Object()
+\emph default
+ when we created the function.
+\end_layout
+
+\begin_layout Enumerate
+Property inheritance
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+When you access an object property, JavaScript performs these steps:
+\end_layout
+
+\begin_layout Enumerate
+Check to see if the value exists locally.
+ If it does, return that value.
+ 
+\end_layout
+
+\begin_layout Enumerate
+If there is not a local value, check the prototype chain (using the 
+\series bold
+__proto__
+\series default
+ property; instance first then its prototype and again and again ).
+ 
+\end_layout
+
+\begin_layout Enumerate
+If an object in the prototype chain has a value for the specified property,
+ return that value
+\end_layout
+
+\begin_layout Enumerate
+If no such property is found, the object does not have the property.
+ 
+\end_layout
+
+\begin_layout Standard
+If you want to have default values for object properties and you want to
+ be able to change the default values at run time, you should set the properties
+ in the constructor's 
+\series bold
+\emph on
+prototype
+\series default
+\emph default
+, not in the constructor function itself.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+function Employee () {   this.dept = "general"; } //constructor function
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+Employee.prototype.name = "";
+\end_layout
+
+\begin_layout Plain Layout
+
+function WorkerBee () {   this.projects = []; }
+\end_layout
+
+\begin_layout Plain Layout
+
+WorkerBee.prototype = new Employee();
+\end_layout
+
+\begin_layout Plain Layout
+
+var amy = new WorkerBee();
+\end_layout
+
+\begin_layout Plain Layout
+
+Employee.prototype.name = "Unknown"; //constructor prototype
+\end_layout
+
+\begin_layout Plain Layout
+
+//this.name works only for instance created by constructor function
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+constructor 
+\series default
+property - each object has a property called constructor that holds a reference
+ to the constructor method that created it :
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+function Cat(name, hello, breed, whiskerLength)     {       
+\end_layout
+
+\begin_layout Plain Layout
+
+ Pet.call(this, name, "cat", hello);  
+\end_layout
+
+\begin_layout Plain Layout
+
+ this.breed = breed;         
+\end_layout
+
+\begin_layout Plain Layout
+
+ this.whiskerLength = whiskerLength;         
+\end_layout
+
+\begin_layout Plain Layout
+
+ // needed because otherwise it will inherit the constructor         
+\end_layout
+
+\begin_layout Plain Layout
+
+ // from pet         
+\end_layout
+
+\begin_layout Plain Layout
+
+ this.constructor = Cat;    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+Cat.prototype = new Pet(null, "cat", null);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_deeper
 \begin_layout Standard
 \begin_inset listings
