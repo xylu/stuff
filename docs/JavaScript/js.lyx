@@ -5261,6 +5261,16 @@ status open
 
 \begin_layout Plain Layout
 
+{
+\end_layout
+
+\begin_layout Plain Layout
+
+...<function scope>...
+\end_layout
+
+\begin_layout Plain Layout
+
 //function statement
 \end_layout
 
@@ -5271,7 +5281,22 @@ function foo() {}
 
 \begin_layout Plain Layout
 
-//means abouth the same thing as
+....
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+//means about the same thing as
+\end_layout
+
+\begin_layout Plain Layout
+
+{
 \end_layout
 
 \begin_layout Plain Layout
@@ -5281,6 +5306,12 @@ var foo = function foo() {};
 
 \begin_layout Plain Layout
 
+...<function scope>...
+\end_layout
+
+\begin_layout Plain Layout
+
+}
 \end_layout
 
 \end_inset
@@ -5413,7 +5444,7 @@ If an evil script gets to run on your page, tt gets access to allof the
 
 \end_deeper
 \begin_layout Enumerate
-Function operator vs function declaration
+Function operator/expression vs function declaration
 \end_layout
 
 \begin_deeper
@@ -5425,7 +5456,7 @@ status open
 
 \begin_layout Plain Layout
 
-//function operator
+//function operator/expression
 \end_layout
 
 \begin_layout Plain Layout
@@ -5459,7 +5490,7 @@ function bar(){...}
 \begin_layout Enumerate
 Function declaration is a subject to 
 \series bold
-hoisitng, 
+hoisting, 
 \series default
 interpreter looks for any function declarations in the current scope and
  moves them to the beginning of the code.
@@ -5602,6 +5633,221 @@ var action = function work(){
 \end_layout
 
 \end_deeper
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Hoisting
+\begin_inset CommandInset label
+LatexCommand label
+name "enu:Hoisting"
+
+\end_inset
+
+ - 
+\emph default
+moving symbol(function/variable) up to the begining of function (since there
+ is no block-scope but function-scope in JS):
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+function declaration -> entire function + name is hoisted
+\end_layout
+
+\begin_layout Enumerate
+variablefunction expression/statement/operator -> only variable hoisted
+ (
+\series bold
+var 
+\series default
+\emph on
+variable
+\series bold
+ 
+\series default
+\emph default
+or
+\series bold
+\emph on
+ var 
+\series default
+function_name
+\emph default
+)
+\end_layout
+
+\begin_layout Standard
+Check yourself:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var foo = 1; 
+\end_layout
+
+\begin_layout Plain Layout
+
+function bar() {
+\end_layout
+
+\begin_layout Plain Layout
+
+ if (!foo) { var foo = 10; } 
+\end_layout
+
+\begin_layout Plain Layout
+
+ alert(foo); 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+bar();
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var a = 1; 
+\end_layout
+
+\begin_layout Plain Layout
+
+function b() { 	
+\end_layout
+
+\begin_layout Plain Layout
+
+ a = 10; 	
+\end_layout
+
+\begin_layout Plain Layout
+
+ return; 	
+\end_layout
+
+\begin_layout Plain Layout
+
+ function a() {} 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+b();
+\end_layout
+
+\begin_layout Plain Layout
+
+alert(a);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+lstparams "language=Java"
+inline false
+status open
+
+\begin_layout Plain Layout
+
+function a1() { 
+\end_layout
+
+\begin_layout Plain Layout
+
+ b=5; 
+\end_layout
+
+\begin_layout Plain Layout
+
+ alert ("b =" + b +" window.b = " + window.b); 
+\end_layout
+
+\begin_layout Plain Layout
+
+ var b = function b() {} 
+\end_layout
+
+\begin_layout Plain Layout
+
+} 
+\end_layout
+
+\begin_layout Plain Layout
+
+a1();
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Name resolution order:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Language-defined: All scopes are, by default, given the names 
+\series bold
+this
+\series default
+ and 
+\series bold
+arguments
+\series default
+.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Formal parameters: Functions can have named formal parameters, which are
+ scoped to the body of that function.
+\end_layout
+
+\begin_layout Enumerate
+Function declarations: These are of the form function foo() {}.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Variable declarations: These take the form var foo;.
+ 
+\end_layout
+
 \end_deeper
 \begin_layout Enumerate
 Comparision of class-based (Java) and prototype-based (JavaScript) object
@@ -5771,6 +6017,17 @@ Constructor function or prototype specifies an initial set of properties.
 \end_inset
 
 
+\end_layout
+
+\begin_layout Standard
+Answers for 
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "enu:Hoisting"
+
+\end_inset
+
+ : 10,1,b=5 window.b=undefined
 \end_layout
 
 \end_deeper
