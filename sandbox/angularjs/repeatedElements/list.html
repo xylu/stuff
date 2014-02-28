@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+</head>
+<body>
+
+
+<H1>ng-repeat</H1>
+
+<form ng-controller="ListController">
+    <ol>
+    <div ng-repeat="i in lista">
+        <li>{{i.firstName}} {{i.lastName}}. Index: {{$index}}</li>
+        isFirst: {{$first}}  isMiddle: {{$middle}} isLast: {{$last}}
+        <br>
+    </div>
+        <button ng-click="addItem()">Add</button>
+    </ol>
+
+</form>
+
+
+<script type="text/javascript" src="controllers.js"></script>
+<script type="text/javascript" src="../vendor/angular.js"></script>
+</body>
+</html>
+

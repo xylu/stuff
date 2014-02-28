@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+</head>
+<body>
+
+
+<H1>ng-click, ng-dblclick</H1>
+
+<form ng-controller="StartupControllerWatch">
+    <div>
+        <label>Starting estimation: </label>
+        <input ng-model="data.startingEstimation" type="text">
+        Recommended estimation: {{data.recommendedEstimation}}
+
+    </div>
+    <button ng-click="requestFunding()">Fund it</button>
+    <button ng-dblclick="clean()">Reset</button>
+
+</form>
+
+
+<!--<script type="text/javascript" src="http://code.angularjs.org/1.2.6/angular.min.js"></script>-->
+<script type="text/javascript" src="../vendor/angular.js"></script>
+<script type="text/javascript" src="controllers.js"></script>
+</body>
+</html>

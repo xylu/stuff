@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+</head>
+<body>
+
+<div ng-app="myApp">
+    <h1>Search filter</h1>
+
+    <div ng-controller="ObsadaCtrl">
+
+        Filtruj po postaci: <input type="text" ng-model="search.postac">
+        <table>
+            <th>aktor</th>
+            <th>postac</th>
+            <tr ng-repeat="kreacja in obsada.lista| filter:search">
+                <td>{{kreacja.aktor}}</td>
+                <td>{{kreacja.postac}}</td>
+
+            </tr>
+        </table>
+
+
+        <br>
+        Filtruj po aktorze: <input type="text" ng-model="search2.aktor">
+        <table>
+            <th>aktor</th>
+            <th>postac</th>
+            <tr ng-repeat="kreacja in obsada.lista| limitTo:2 | orderBy: 'aktor'| filter:search2">
+                <td>{{kreacja.aktor |uppercase}}</td>
+                <td>{{kreacja.postac|lowercase}}</td>
+
+            </tr>
+        </table>
+
+        <br>
+        Filtruj: <input type="text" ng-model="search3.$">
+        <table>
+            <th>aktor</th>
+            <th>postac</th>
+            <tr ng-repeat="kreacja in obsada.lista| orderBy: '-aktor'|limitTo:-2| filter:search3">
+                <td>{{kreacja.aktor}}</td>
+                <td>{{kreacja.postac}}</td>
+
+            </tr>
+        </table>
+
+
+    </div>
+</div>
+
+<script type="text/javascript" src="../vendor/angular.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

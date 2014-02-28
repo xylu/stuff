@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+</head>
+<body>
+
+<h1>Directives Scope</h1>
+<br><br><br>
+
+
+<div ng-app="myApp">
+
+    <h3>Reading attributes as string/value  :: Isolate Scope "@"</h3>
+    <div ng-controller="DrinkCtrl">
+        <div drink flavor="strawberry"></div>
+        <div drink flavor="{{ctrlFlavor}}"></div>
+        <labe> Flavor binding on the fly: </labe><input type="text" ng-model="flavor"/>
+        <div drink flavor="{{flavor}}"></div>
+
+    </div>
+
+
+    <h3>Reading attributes as scope property   :: Isolate Scope "="</h3>
+    <div ng-controller="DrinkCtrl">
+        <labe> Flavor binding on the fly: </labe><input type="text" ng-model="flavor1"/>
+        <div drink2 flavor="flavor1"></div>
+
+        <h4>Bidirectional communication between Controller and directive via shared property</h4>
+        DrinkCtrl:
+        <input type="text" ng-model="ctrlFlavor"/>
+
+        DrinkDirective:
+        <div drink-directive flavor="ctrlFlavor"></div>
+
+
+    </div>
+
+    <h3>Passing function and arguments :: Isolate Scope "&"</h3>
+
+    <div ng-controller="ChoreCtrl">
+        <child done="choreDone(choreInView)"></child>
+    </div>
+
+    <br><br>
+
+</div>
+
+
+<script type="text/javascript" src="../vendor/angular.js"></script>
+<script type="text/javascript" src="scope.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html ng-app="">
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+</head>
+<body>
+
+
+<H1>$scope.$watch()</H1>
+
+<form ng-controller="StartupControllerWatch">
+    <div>
+        <label>Starting estimation: </label>
+        <input ng-model="data.startingEstimation" type="text">
+        Recommended estimation: {{data.recommendedEstimation}}
+
+    </div>
+
+</form>
+
+
+<script type="text/javascript" src="controllers.js"></script>
+<script type="text/javascript" src="../vendor/angular.js"></script>
+</body>
+</html>

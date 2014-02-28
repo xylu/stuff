@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+</head>
+<body>
+
+<div ng-app="myApp">
+    <script type="text/ng-template" id="helloWorld.html">
+        <div><h3 ng-click="toggleContent()">{{title}}</h3>
+
+            <div ng-show="isContentVisible" ng-transclude></div>
+        </div>
+    </script>
+    <h1>templateUrl</h1>
+
+    <input type="text" ng-model="model.title">
+    <input type="text" ng-model="model.content">
+    <hello-world title="{{model.title}}">
+        The content is: {{model.content}}
+    </hello-world>
+
+
+</div>
+
+<script type="text/javascript" src="../vendor/angular.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

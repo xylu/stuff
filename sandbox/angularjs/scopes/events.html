@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+    <link rel="stylesheet" href="../vendor/scope.css">
+</head>
+<body ng-app>
+
+
+<H1>EVENT BROADCASTING</H1>
+
+<div ng-controller="EventController" class="show-scope-demo">
+    Root scope <tt>MyEvent</tt> count: {{count}}
+    <ul>
+        <li ng-repeat="i in [1]" ng-controller="EventController">
+            <button ng-click="$emit('MyEvent')">$emit('MyEvent')</button>
+            <button ng-click="$broadcast('MyEvent')">$broadcast('MyEvent')</button>
+            <br>
+            Middle scope <tt>MyEvent</tt> count: {{count}}
+            <ul>
+                <li ng-repeat="item in [1, 2]" ng-controller="EventController">
+                    Leaf scope <tt>MyEvent</tt> count: {{count}}
+                </li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+
+
+<script type="text/javascript" src="event.js"></script>
+<script type="text/javascript" src="../vendor/angular.js"></script>
+</body>
+</html>

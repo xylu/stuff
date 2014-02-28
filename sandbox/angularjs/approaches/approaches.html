@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+</head>
+<body>
+
+<div ng-app="myApp">
+    <h3>More declarative method binding</h3>
+
+    <div ng-controller="MyController">
+        <div class="button" ng-click="MyController.sayHello()">Click me!</div>
+    </div>
+
+    <h3>Controller syntax</h3>
+    <div ng-controller="FooController as foo ">
+        <div class="button" ng-click="foo.sayHello()">{{foo.label}}</div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../vendor/angular.js"></script>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

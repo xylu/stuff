@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+</head>
+<body>
+
+
+<H1>PARENT :: DOTS :: EMPTY CONTROLLERS</H1>
+<div ng-app="">
+    <input type="text" ng-model="data.message">
+    <h1>{{ data.message }}</h1>
+    <div ng-controller="FirstCtrl">
+        <input type="text" ng-model="data.message">
+        <!--<input type="text" ng-model="data2.message">-->
+        <!--<h1>{{ data2.message }}</h1>-->
+        <h1>{{ data.message }}</h1>
+    </div>
+
+    <div ng-controller="SecondCtrl">
+        <input type="text" ng-model="data.message">
+        <h1>{{ data.message }}</h1>
+    </div>
+</div>
+
+
+
+
+<script type="text/javascript" src="emptyControllers.js"></script>
+<script type="text/javascript" src="../vendor/angular.js"></script>
+</body>
+</html>

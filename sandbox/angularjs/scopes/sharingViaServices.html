@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>AngularJS Tutorials</title>
+    <link rel="stylesheet" href="../vendor/foundation.min.css">
+</head>
+<body>
+
+
+<H1>SHARING MODEL VIA SERVICE</H1>
+<div ng-app="myApp">
+
+    <div ng-controller="FirstCtrl">
+        <input type="text" ng-model="data.message">
+        <h1>{{ data.message }}</h1>
+    </div>
+
+    <div ng-controller="SecondCtrl">
+        <input type="text" ng-model="data.message">
+        <h1>{{ data.message }}</h1>
+    </div>
+</div>
+
+
+
+<script type="text/javascript" src="../vendor/angular.js"></script>
+<script type="text/javascript" src="sharingViaServices.js"></script>
+</body>
+</html>
