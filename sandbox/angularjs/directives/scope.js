@@ -44,6 +44,54 @@ myApp.directive('child', function () {
 });
 
 
+
+//NON ISOLATED SCOPES:
+// - FALSE (DEFAULT -> existing scope)
+// - TRUE (creates new scope that inherits content from parent scope)
+myApp.directive("country", function () {
+    return {
+        restrict: 'E',
+        controller: function ($scope) {
+            $scope.a = "AAA"
+            this.makeAnnouncement = function (msg) {
+                console.log("Country says:" + msg);
+            }
+        }
+
+    }
+});
+
+
+myApp.directive("state", function () {
+    return {
+        scope: true,
+        restrict: 'E',
+        controller: function ($scope) {
+            $scope.b = "BBB";
+            this.makeLaw = function (law) {
+                console.log("[State] State made law:" + law + " variable a: "  + $scope.a);
+            }
+        }
+
+
+    }
+});
+
+myApp.directive("city", function () {
+    return {
+        restrict: 'E',
+        require: ["^country","^state"],
+        controller: function($scope) {
+            console.log("[City] a: " + $scope.a + " b: "+ $scope.b);
+        },
+        link: function(scope,element,attrs,cntrls){
+            cntrls[0].makeAnnouncement("BUHAHA");
+            cntrls[1].makeLaw("Kto nie skacze ten...");
+        }
+    }
+});
+
+
 function DrinkCtrl($scope) {
     $scope.ctrlFlavor = 'lemon';
 
