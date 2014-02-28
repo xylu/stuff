@@ -1,0 +1,4565 @@
+#LyX 2.0 created this file. For more info see http://www.lyx.org/
+\lyxformat 413
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry true
+\use_amsmath 1
+\use_esint 1
+\use_mhchem 1
+\use_mathdots 1
+\cite_engine basic
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\leftmargin 2cm
+\topmargin 2cm
+\rightmargin 2cm
+\bottommargin 2cm
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+AngularJS
+\end_layout
+
+\begin_layout Abstract
+Based on 
+\emph on
+A better way to learn AngularJS (http://www.thinkster.io/pick/GtaQ0oMGIl/)
+ 
+\emph default
+and
+\emph on
+ AngularJS 
+\emph default
+book by Brad Green; Shyam Seshadri
+\end_layout
+
+\begin_layout Enumerate
+DEV setup : IntelliJ (Chrome JetBrain support, LiveEdit) or WebStorm.
+ python -m SimpleHTTPServer 8888 (local http server to serve file:///)
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+MVC
+\series default
+: clear separation between managing data (model), the application logic
+ (controller) and presenting the data to user (view): 
+\emph on
+view
+\emph default
+ gets data from
+\emph on
+ model 
+\emph default
+, user interactions are handled by 
+\emph on
+controller
+\emph default
+ that changes 
+\emph on
+model, model 
+\emph default
+notifies 
+\emph on
+view 
+\emph default
+that a change has occured and 
+\emph on
+view 
+\emph default
+should be updated.
+ In Angular:
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+Model object properties (single-source-of-truth for the application state)
+\end_layout
+
+\begin_layout Description
+View Document Object Model (instant projection of the model)
+\end_layout
+
+\begin_layout Description
+Conntroler JavaScript classes
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename mvc.png
+	lyxscale 40
+	scale 40
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+Typical MVC collaboration
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Web pages history in nutshell : 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+multipage webapp (Rails,PHP, JSP) : UI created by merging strings of HTML
+ with data before sending it to the users to display it,
+\end_layout
+
+\begin_layout Itemize
+singlepage webapp (jQuery): similiar but we have ability to update 
+\series bold
+the part of  DOM separetly
+\series default
+, rather than updating the whole page,
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+AngularJS: HTML
+\emph on
+ template 
+\emph default
++ data merged, then insert the result we want it in the DOM by seting 
+\emph on
+innerHtml
+\emph default
+ on a placeholder.
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Data binding
+\series default
+ - {{}} syncing 
+\emph on
+view (
+\emph default
+UI parts) with JavaScript properties automatically
+\emph on
+.
+ Also: ng-bind attribute (e.g.
+ <p ng-bind=
+\emph default
+
+\begin_inset Quotes erd
+\end_inset
+
+greeting
+\begin_inset Quotes erd
+\end_inset
+
+></p>).
+ 
+\emph on
+ng-bind 
+\emph default
+is recommended for index.html page (that way users see nothing till page
+ is rendered by Angular).
+ To use binding in attribute:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<svg><circle ng-attr-cx="{{cx}}"></circle></svg>  
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+If an attribute with a binding is prefixed with the ngAttr prefix (denormalized
+ as ng-attr-) then during the binding will be applied to the corresponding
+ unprefixed attribute.
+ This allows you to bind to attributes that would otherwise be eagerly processed
+ by browsers (e.g.
+ an SVG element's circle[cx] attributes).
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Dependency Injection: 
+\series default
+your class instead of creating dependency ask for it container
+\emph on
+; Law of Demeter (principle of least knowledge), design pattern:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\emph on
+Each unit should have only limited knowledge about other units: only units
+ "closely" related to the current unit,
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Each unit should only talk to its friends; don't talk to strangers,
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Only talk to your immediate friends.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Directives: A
+\series default
+ngular let you write your own templates as HTML, since it contains DOM transform
+ation engine that lets you extend HTML's syntax (examples: ng-model, ng-app,
+ ng-controller + you can write your own directives)
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Invoking Angular
+\series default
+: load the angular.js library and tell Angular which part of the DOM it should
+ manange with the 
+\emph on
+ng-app 
+\emph default
+directive (it might be entire page or one of dev in case of integrating
+ with existing page run by, e.g.
+ Java or Ruby)
+\end_layout
+
+\begin_layout Enumerate
+Startup flow:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+a user requests the first page of your app,
+\end_layout
+
+\begin_layout Enumerate
+the user's browser makes an HTTP connection to your server and loads the
+ index.html page containing your 
+\emph on
+template,
+\end_layout
+
+\begin_layout Enumerate
+
+\emph on
+[Script load Phase] 
+\emph default
+Angular loads into the page , waits for the page to be fully loaded, and
+ then looks for 
+\emph on
+ng-app
+\emph default
+ to define its 
+\emph on
+template 
+\emph default
+boundaries,
+\end_layout
+
+\begin_layout Enumerate
+Angular traverse the template and looks for 
+\emph on
+directives 
+\emph default
+and 
+\emph on
+bindings;
+\emph default
+ this results in registration of listeners and DOM manipulation, as well
+ as fetching initial data from the server; result: app is
+\emph on
+ bootstrapped 
+\emph default
+and template is converted into a 
+\emph on
+view:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\emph on
+[Compile phase
+\emph default
+] In this phase, Angular walks the DOM to identify all the registered directives
+ in the template.
+ For each directive, it then transforms the DOM based on the directive’s
+ rules (
+\emph on
+template, replace, transclude, and so on
+\emph default
+), and calls the 
+\emph on
+compile
+\emph default
+ function if it exists.
+ The result is a compiled template function, which will invoke the 
+\emph on
+link 
+\emph default
+functions collected from all of the directives.
+ 
+\series bold
+\emph on
+Outcome
+\series default
+: a linking function
+\end_layout
+
+\begin_layout Enumerate
+
+\emph on
+[Link phase
+\emph default
+] To make the view dynamic, Angular then runs a
+\emph on
+ link
+\emph default
+ function for each directive.
+ The link functions typically creates listeners on the DOM or the model.
+ These listeners keep the view and the model in sync at all times.
+ 
+\series bold
+\emph on
+Outcome
+\series default
+: a live view
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+you connect to your server to load additional data you need to show the
+ user as needed
+\end_layout
+
+\begin_layout Standard
+Note steps 
+\end_layout
+
+\begin_layout Itemize
+d) and e) might be synchronously or asynchronously,
+\end_layout
+
+\begin_layout Itemize
+initial data are transfered together with HTML template to avoid multiple
+ requests
+\end_layout
+
+\begin_layout Itemize
+templates and data are separated afterwards, i.e.
+ templates might be cached (performance boost like caching CSS, static content
+ and JavaScripts)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Dot matters.
+ Use data
+\emph on
+[dot]property
+\emph default
+ i.e.
+ data.message.
+\end_layout
+
+\begin_layout Enumerate
+Share data/model between controllers using services.
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// main.js
+\end_layout
+
+\begin_layout Plain Layout
+
+var myApp = angular.module('myApp', []); 
+\end_layout
+
+\begin_layout Plain Layout
+
+ myApp.factory('Data', function () {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ return { message: "I'm data from a service" };   
+\end_layout
+
+\begin_layout Plain Layout
+
+ });   
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+function FirstCtrl($scope, Data) { $scope.data = Data;  }   
+\end_layout
+
+\begin_layout Plain Layout
+
+function SecondCtrl($scope, Data) { $scope.data = Data; } 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//index.html
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+ <div ng-app='myApp'>...
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\emph on
+Note: 'myApp' must be in sync with ng-app='value' and 'Data' with controllers
+ parameter name
+\end_layout
+
+\begin_layout Standard
+Three functions to create a service: 
+\emph on
+provider, factory
+\emph default
+,
+\emph on
+ service (
+\emph default
+Frist two suitable to use when service initialization logic is complex otherwise
+ use the latter)
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Service characteristics:
+\end_layout
+
+\begin_layout Itemize
+lazy creation - postponed till service is needed
+\end_layout
+
+\begin_layout Itemize
+singletons - one instance of service per injector (but there might be more
+ than one injector per module (rare case, used in testing) 
+\end_layout
+
+\begin_layout Itemize
+service lookup -injector -> cache ->(not found) -> service factory method
+ 
+\end_layout
+
+\begin_layout Enumerate
+Scoping
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+if 
+\emph on
+variable
+\emph default
+ used in parent scope and current scope and controller does not define it
+ - than 
+\emph on
+variable 
+\emph default
+is shared between scopes 
+\end_layout
+
+\begin_layout Enumerate
+if 
+\emph on
+variable
+\emph default
+ used in parent scope and current scope and controller defines it iin current
+ scope - than 
+\emph on
+variable 
+\emph default
+in current scope is
+\emph on
+ unique
+\emph default
+ and different from variable in parent scope, 
+\end_layout
+
+\begin_layout Enumerate
+if 
+\emph on
+variable
+\emph default
+ is accessible from 
+\emph on
+service 
+\emph default
+shared among controllers than its shared among controllers.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Scope method.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// main.js
+\end_layout
+
+\begin_layout Plain Layout
+
+var myApp = angular.module('myApp', []); 
+\end_layout
+
+\begin_layout Plain Layout
+
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+function FirstCtrl($scope, Data) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+ $scope.method = function(){
+\end_layout
+
+\begin_layout Plain Layout
+
+  // method body
+\end_layout
+
+\begin_layout Plain Layout
+
+ };
+\end_layout
+
+\begin_layout Plain Layout
+
+}   
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Modules.
+ 
+\series default
+The great thing to organize your code into reusable encapsulated parts.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var appMod = angular.module('app', ['ModuleDependency1', 'ModuleDependency2']);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+It is recommended that you break your application to multiple modules like
+ this:
+\end_layout
+
+\begin_layout Itemize
+A service module, for service declaration 
+\end_layout
+
+\begin_layout Itemize
+A directive module, for directive declaration
+\end_layout
+
+\begin_layout Itemize
+A filter module, for filter declaration 
+\end_layout
+
+\begin_layout Itemize
+And an application level module which depends on the above modules, and
+ which has initialization code.
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+angular.module('myModule', [])
+\end_layout
+
+\begin_layout Plain Layout
+
+.config(function(injectables) {// provider-injector    
+\end_layout
+
+\begin_layout Plain Layout
+
+// This is an example of config block.
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+// You can have as many of these as you want.
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+ // You can only inject Providers (not instances)   
+\end_layout
+
+\begin_layout Plain Layout
+
+ // into the config blocks.
+     })
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+.run(function(injectables) { // instance-injector   
+\end_layout
+
+\begin_layout Plain Layout
+
+ // This is an example of a run block.
+     
+\end_layout
+
+\begin_layout Plain Layout
+
+// You can have as many of these as you want.
+    
+\end_layout
+
+\begin_layout Plain Layout
+
+// You can only inject instances (not Providers)   
+\end_layout
+
+\begin_layout Plain Layout
+
+ // into the run blocks     });
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+Configuration_blocks get executed during the provider registrations and
+ configuration phase.
+ Only providers and constants can be injected into configuration blocks.
+ This is to prevent accidental instantiation of services before they have
+ been fully configured.
+ Run blocks - get executed after the injector is created and are used to
+ kickstart the application.
+ Only instances and constants can be injected into run blocks.
+ This is to prevent further system configuration during application run
+ time.
+\end_layout
+
+\begin_layout Description
+Run_blocks are the closest thing in Angular to the main method.
+ A run block is the code which needs to run to kickstart the application.
+ It is executed after all of the service have been configured and the injector
+ has been created.
+ Run blocks typically contain code which is hard to unit-test, and for this
+ reason should be declared in isolated modules, so that they can be ignored
+ in the unit-tests.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Form inputs 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+ng-model binds elements to your model properties 
+\series bold
+(
+\series default
+the ngModel directive provides the two-way data-binding by synchronizing
+ the model to the view, as well as view to the model)
+\end_layout
+
+\begin_layout Description
+ng-change specifies controller method that should be called whenever the
+ user changes the input's value 
+\series bold
+(ng-change='
+\emph on
+scopeMethod()')
+\end_layout
+
+\begin_layout Description
+$scope.$watch() scope's function that let you specifcy callback to invoke
+ whenever given value changes (no matter due to user action or server data
+ arrival)
+\series bold
+ ($.scope.$watch('propert',
+\emph on
+variableContainingFunction)),
+\end_layout
+
+\begin_layout Description
+ng-sumbit specifies a function to call when the form submits; a 
+\emph on
+directive 
+\emph default
+also prevents browser from doing its default POST action when it tries to
+ submit the form 
+\series bold
+(ng-submit='
+\emph on
+scopeMethod()')
+\series default
+,
+\end_layout
+
+\begin_layout Description
+ng-click handles click event without form submission,
+\end_layout
+
+\begin_layout Description
+ng-dblclick handles double click event without form submission.
+\end_layout
+
+\begin_layout Paragraph*
+Validation ( 
+\series medium
+http://docs.angularjs.org/guide/forms
+\series default
+): 
+\end_layout
+
+\begin_layout Itemize
+CSS classes used to visualize validation:
+\emph on
+ ng-valid,ng-invalid, ng-pristine, ng-dirty
+\emph default
+ 
+\end_layout
+
+\begin_layout Itemize
+access to form (FormController) and model (NgModelController).
+ e.g.
+ form.$invalid, form
+\emph on
+.inputName
+\end_layout
+
+\begin_layout Itemize
+Angular provides basic implementation for most common html5 input types:
+ (text, number, url, email, radio, checkbox), as well as some directives
+ for validation (required, pattern, minlength, maxlength, min, max).
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Unobtrusive JavaScript 
+\emph default
+vs Angular
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Unobtrusie JavaScript is a coding style that goes along the lines of:
+\end_layout
+
+\begin_layout Enumerate
+not everyone's browser supports JavaScripts,
+\end_layout
+
+\begin_layout Enumerate
+some folks use brosers that work differently (visually impaired folks or
+ mobile phone user),
+\end_layout
+
+\begin_layout Enumerate
+Javascript works differently across different platform
+\end_layout
+
+\begin_layout Enumerate
+event handlers reference functions in the global namespace (use 
+\emph on
+id 
+\emph default
+to correlate handler function with element instead)
+\end_layout
+
+\begin_layout Enumerate
+event handlers combine structure and behavior -> more difficult code to
+ read and maintain
+\end_layout
+
+\begin_layout Standard
+That approach led to portabel webpages but complex code.
+ Since
+\emph on
+ a) and b)
+\emph default
+ are not true anymore Angular deals with
+\emph on
+ c)
+\emph default
+ on its own and
+\emph on
+ d)
+\emph default
+ is eliminated since handler methods are constrained to scope of given 
+\emph on
+controller
+\emph default
+.
+ 
+\emph on
+e) 
+\emph default
+combining structure and behavior is checked by
+\emph on
+acid test
+\emph default
+
+\begin_inset Foot
+status open
+
+\begin_layout Plain Layout
+test that defines if product is successful or not
+\end_layout
+
+\end_inset
+
+: whether you can write test for your app logic that does not require DOM
+ to be present?.
+ 
+\series bold
+Doable in Angular: declarative event handlers might be used 
+\series default
+without drawbacks of not following 
+\emph on
+Unobtrusive JavaScript
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Repeated elements
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+ng-repeat creates a copy of a set of elements once for every item in a collectio
+n; $index (starts from 0), $first (is first?), $middle (is middle?), $last
+ (is last?)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Hiding and showing
+\series default
+ (
+\emph on
+directives
+\emph default
+ work by setting the element styles to 
+\emph on
+display:block 
+\emph default
+to show and 
+\emph on
+display:none
+\emph default
+ to hide)
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+ng-show shows its elements when its expression is true
+\end_layout
+
+\begin_layout Description
+ng-hide hides its elements when its expression is true
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+CSS Classes and Styles 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+ng-class specifies CSS class
+\end_layout
+
+\begin_layout Description
+ng-style specifies CSS style
+\end_layout
+
+\begin_layout Standard
+Each of them takes an expression.
+ The result of evaluating this expression can be one of the following:
+\end_layout
+
+\begin_layout Itemize
+A string representing space-delimited class names 
+\end_layout
+
+\begin_layout Itemize
+An array of class names 
+\end_layout
+
+\begin_layout Itemize
+A map of class names to boolean values 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Location
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Since browsers are aggressive about loading images parallel to other content,
+ Angular does not get a chance to intercept data binding to requests (DO
+ NOT use data binding in 
+\series bold
+href 
+\series default
+or 
+\series bold
+src) 
+\series default
+Use insted 
+\series bold
+ng-src 
+\series default
+and 
+\series bold
+ng-href
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Expressions 
+\series default
+({{ }} ) are powerful.You can do simple math (+, -, /, *, %), make comparisons
+ (==, !=, >, <, >=, <=), perform boolean logic (&&, ||, !) and bitwise operation
+s (
+\backslash
+^, &, |).
+ You can call functions you expose on $scope in your controller and you
+ can reference arrays and object notation ([ ], { }, .)).
+ There are no if-s, for-loop available though.
+ 
+\emph on
+Forgiving
+\emph default
+: Expressions are 
+\emph on
+null/undefined tolerant
+\emph default
+.
+ Resist temptation to let logic sneak into your template.
+ Keep it in controller.
+ Expressions are evaluated against a scope (unlike regular JS, where they
+ default to global window).You can refer to global window via 
+\series bold
+$window (
+\series default
+e.g.
+ $window.alert())
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Angular controller 
+\end_layout
+
+\begin_deeper
+\begin_layout Paragraph
+
+\series bold
+Responsibilities
+\end_layout
+
+\begin_layout Itemize
+Set up the initial state in your application’s model
+\end_layout
+
+\begin_layout Itemize
+Expose model and functions to the view (UI template) throug
+\emph on
+h $scope
+\emph default
+ 
+\end_layout
+
+\begin_layout Itemize
+Watch other parts of the model for changes and take action 
+\end_layout
+
+\begin_layout Paragraph*
+
+\emph on
+Rule of thumb
+\emph default
+ #1: 
+\series medium
+one controller per one function (e.g MenuController, BreadcrumbController)
+\end_layout
+
+\begin_layout Paragraph*
+
+\emph on
+Rule of thumb
+\emph default
+ #2:
+\series medium
+ controller is tied to a specific piece of DOM that it is in chareg of (associat
+ion via ng-controller attribute or associating it with dynamically loadable
+ DOM template fragment, called a 
+\emph on
+view, 
+\emph default
+through 
+\emph on
+route)
+\end_layout
+
+\begin_layout Paragraph*
+
+\emph on
+Rule of thumb
+\emph default
+ #3: 
+\series medium
+you can nest controllers to keep your code simple and maintable; 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<div ng-controller="ParentController">
+\end_layout
+
+\begin_layout Plain Layout
+
+   <div ng-controller="ChildController">...</div> 
+\end_layout
+
+\begin_layout Plain Layout
+
+</div>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Though we express this as nested controllers, the actual nesting happens
+ in scopes.
+ The $scope passed to a nested controller prototypically inherits from its
+ parent controller’s $scope.
+ In this case, this means that the $scope passed to ChildController will
+ have access to all the properties of the $scope passed to ParentController.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Publishing Model to View
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Anything set in $scope is visible.
+ You can either add it in controller or in expression (e.g.
+ <button ng-click='count=3'>Set count to three</button>) or using 
+\emph on
+ng-model 
+\emph default
+(The one addition is that this creates a bi-directional data binding between
+ the form field state and your specified model.
+\emph on
+)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Observing Model Changes with $watch
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+$watch(watchFn, watchAction, deepWatch)
+\end_layout
+
+\begin_layout Standard
+The details of each parameter are as follows:
+\end_layout
+
+\begin_layout Description
+watchFn This parameter is a string with an Angular expression or a function
+ that returns the current value of the model that you want to watch.
+ This expression will be evaluated multiple times, so you need to make sure
+ that it has no side effects.
+ That is, it can be called multiple times without changing state.
+ For the same reason, watch expressions should be computationally cheap.
+ If you’ve passed in an Angular expression in a string, it will be evaluated
+ against objects available to the scope it’s called on.
+ 
+\end_layout
+
+\begin_layout Description
+watchAction This is the function or expression to be called when the watchFn
+ changes.
+ In the function form, it receives the new and old values of watchFn as
+ well as a reference to the scope.
+ Its signature is function(newValue, oldValue, scope).
+ 
+\end_layout
+
+\begin_layout Description
+deepWatch If set to true, this optional boolean parameter tells Angular
+ to examine each property within the watched object for changes.
+ You’d use this if you wanted to watch individual elements in an array or
+ properties in an object instead of just a simple value.
+ As Angular needs to walk the array or object, this can be computationally
+ expensive if the collection is large.
+ 
+\end_layout
+
+\begin_layout Standard
+The $watch function returns a function that will de-register the listener
+ when you no longer want to receive change notifications.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var dereg = $scope.$watch('someModel.someProperty', callbackOnChange()); 
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+\end_layout
+
+\begin_layout Plain Layout
+
+dereg();
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Performance issue: 
+\series default
+Angular run multiple times watchFn to check if transitive changes in your
+ model have fully propageted and your model is settled.
+ Check if its still an issue (Object.observe() might have been used to solve
+ it)
+\end_layout
+
+\begin_layout Standard
+Watching multiple things: either concatenate value of the properties or
+ use list of proeprties + deepWatch=true
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Bootstrap.
+ 
+\series default
+\emph on
+(http://docs.angularjs.org/guide/bootstrap)
+\series bold
+\emph default
+.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\emph on
+Automatic Initialization :
+\emph default
+ place <script> at the bottom of page, that way loading angular.js won't
+ block HTML loading (improved app load time).
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Manual
+\emph default
+ 
+\emph on
+Initialization
+\emph default
+: when you need to perform an operation before Angular compiles a page
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Deferred
+\emph default
+ 
+\emph on
+Initialization
+\emph default
+: used for debugging and testing (e.g.
+ Batarang)
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+application root
+\emph default
+ - HTML element with 
+\emph on
+ng-app 
+\emph default
+attribute
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Filters
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+filter is available in entire app
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+//Data is a service here - DI works for filters
+\end_layout
+
+\begin_layout Plain Layout
+
+myApp.filter('reverse', function (Data) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+  return function (text) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+      return text.split("").reverse().join("") + Data.message;
+\end_layout
+
+\begin_layout Plain Layout
+
+  } 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+built-in filters (
+\emph on
+filter, limitTo, orderBy, lowercase,uppercase,number);
+\emph default
+ syntax;
+\series bold
+ {{ expression | filterName : parameter1 : ...parameterN }}
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Directives.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\series bold
+Examples:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var myApp = angular.module("myApp", []); 
+\end_layout
+
+\begin_layout Plain Layout
+
+myApp.directive("helloworld", function () {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  return {        
+\end_layout
+
+\begin_layout Plain Layout
+
+		restrict: "E",      
+\end_layout
+
+\begin_layout Plain Layout
+
+	    template: "<div>Witaj Swiecie!</div>"    
+\end_layout
+
+\begin_layout Plain Layout
+
+  }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+myApp.directive("superman", function () {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  return {        
+\end_layout
+
+\begin_layout Plain Layout
+
+		restrict: "A",      
+\end_layout
+
+\begin_layout Plain Layout
+
+	    link: function() {
+\end_layout
+
+\begin_layout Plain Layout
+
+			   alert("I'am working!");
+\end_layout
+
+\begin_layout Plain Layout
+
+        }   
+\end_layout
+
+\begin_layout Plain Layout
+
+  }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//shortcut
+\end_layout
+
+\begin_layout Plain Layout
+
+myApp.directive("superman", function () {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  return function() {        
+\end_layout
+
+\begin_layout Plain Layout
+
+   alert("I'am working!");
+\end_layout
+
+\begin_layout Plain Layout
+
+  };   
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//html <div enter="panel"> Hi </>
+\end_layout
+
+\begin_layout Plain Layout
+
+myApp.directive("enter", function () {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ return  function (scope, element, attrs) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+   element.bind("mouseenter", function () {           
+\end_layout
+
+\begin_layout Plain Layout
+
+	 console.log("IN!");            
+\end_layout
+
+\begin_layout Plain Layout
+
+	 element.addClass(attrs.enter);       
+\end_layout
+
+\begin_layout Plain Layout
+
+   })  
+\end_layout
+
+\begin_layout Plain Layout
+
+ }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Directive Definition attributes:
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+restrict 
+\emph default
+: 
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+E elements 
+\end_layout
+
+\begin_layout Description
+A attribute 
+\emph on
+(default)
+\end_layout
+
+\begin_layout Description
+C class
+\end_layout
+
+\begin_layout Description
+M comment (<!-- directive:
+\emph on
+customDirectiveName
+\emph default
+)
+\end_layout
+
+\begin_layout Standard
+You can combine it, e.g EA might be used as element or attribute
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+C is 
+\series default
+IE8 recommended directive type
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+When should I use an attribute versus an element?
+\series default
+ Use an element when you are creating a component that is in control of
+ the template.
+ The common case for this is when you are creating a Domain-Specific Language
+ for parts of your template.
+ Use an attribute when you are decorating an existing element with new functiona
+lity.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+template
+\emph default
+: html that 
+\emph on
+element d
+\emph default
+irective resolves into
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+templateUrl: 
+\emph default
+use instead
+\emph on
+ 
+\emph default
+of 
+\emph on
+template 
+\emph default
+to include longer piece of HTML (caching available, drawback: user waits
+ till resource loaded, you can avoid that by adding script with
+\emph on
+ text/ng-template
+\emph default
+ type in yout html page or adding template to $templateCache; ideally concatenat
+e all templates into a single file, and load it in a new module that you
+ then reference from your main application module )
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+priority: 
+\emph default
+defines directive application order (default :0 , higher priority -> higher
+ precedence)
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+compile: 
+\emph default
+funtion that deals with transforming the template (called 
+\series bold
+once 
+\series default
+at compile phase
+\series bold
+, 
+\series default
+does NOT have access to scope
+\series bold
+ (
+\series default
+since scope does not exist at compile phase
+\series bold
+),
+\series default
+good place to code what should be done once for all directive instances,
+ declares 
+\emph on
+pre/postLin
+\emph default
+k functions, if you need to change the DOM structure use 
+\emph on
+postLink
+\emph default
+ 
+\series bold
+)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+compile: function compile(tElement, tAttrs, transclude) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+ return { 
+\end_layout
+
+\begin_layout Plain Layout
+
+	pre: function preLink(scope, iElement, iAttrs, controller) { ...
+ },
+\end_layout
+
+\begin_layout Plain Layout
+
+	post: function postLink(scope, iElement, iAttrs, controller) { ...
+ } 
+\end_layout
+
+\begin_layout Plain Layout
+
+ } 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+link :
+\emph default
+ function that deals with modifying the data in the view (called multiple
+ times, once for each instance of directive, has access to scope)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+link: function postLink(scope, iElement, iAttrs) { ...
+ }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+scope: false 
+\emph default
+or
+\emph on
+ true 
+\emph default
+or 
+\emph on
+{ /* attribute names and binding style */} -
+\emph default
+ details in dedicated section
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+controller
+\emph default
+: create an API to commnicate between directives; use controller when you
+ want to expose an API to other directives, otherwise use link.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+controller: function controllerConstructor($scope, $element, $attrs, $transclude
+)
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+require: 
+\emph default
+injects controller(s) from other directive(s)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+require: '^?directiveName'
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Description
+directiveName This camel-cased name specifies which directive the controller
+ should come from.
+ So if our <my-menu-item> directive needs to find a controller on its parent
+ <my-menu>, we’d write it as myMenu.
+\end_layout
+
+\begin_layout Description
+^ By default, Angular gets the controller from the named directive on the
+ same element.
+ Adding this optional ^ symbol says to also walk up the DOM tree to find
+ the directive.
+ For the <my-menu> example, we’d need to add this symbol; the final string
+ would be 
+\backslash
+^myMenu.
+\end_layout
+
+\begin_layout Description
+? If the required controller is not found, Angular will throw an exception
+ to tell you about the problem.
+ Adding a ? symbol to the string says that this controller is optional and
+ that an exception shouldn’t be thrown if not found.
+ Though it sounds unlikely, if we wanted to let <my-menu-item> be used without
+ a <my-menu> container, we could add this for a final require string of
+ ?
+\backslash
+^myMenu.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+transclude: 
+\emph default
+The transclude option changes the way scopes are nested.
+ It makes it so that the contents of a transcluded directive have whatever
+ scope is outside the directive, rather than whatever scope is on the inside.
+ In doing so, it gives the contents access to the outside scope.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Directive
+\emph on
+ 
+\emph default
+name syntax:
+\end_layout
+
+\begin_layout Standard
+HTML is case-insensitive.
+ Angular directive use camelCase and might have so called namespace, e.g.
+ 
+\emph on
+myCity
+\emph default
+ results in:
+\end_layout
+
+\begin_layout Description
+XML my:city
+\end_layout
+
+\begin_layout Description
+HTML5 data-my-city
+\end_layout
+
+\begin_layout Description
+xHTML x-my-city
+\end_layout
+
+\begin_layout Standard
+You can also have myDearCity -> my-dear-city ;-)
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Directive -> controller communication
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+myApp.directive("callcontroller", function () {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ return  function (scope, element, attrs) {      
+\end_layout
+
+\begin_layout Plain Layout
+
+ 	 element.bind("mouseenter", function () {          
+\end_layout
+
+\begin_layout Plain Layout
+
+		  scope.$apply(attrs.callcontroller);        
+\end_layout
+
+\begin_layout Plain Layout
+
+	  });    
+\end_layout
+
+\begin_layout Plain Layout
+
+  }; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}); 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+function MyController($scope) {    
+\end_layout
+
+\begin_layout Plain Layout
+
+ $scope.sayHello = function () { alert("Hello!"); };
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+//html
+\end_layout
+
+\begin_layout Plain Layout
+
+<div ng-controller="MyController">
+\end_layout
+
+\begin_layout Plain Layout
+
+ <div callcontroller="sayHello()"> Hello! </div>
+\end_layout
+
+\begin_layout Plain Layout
+
+</div>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Directive -> Directive communication
+\end_layout
+
+\begin_layout Itemize
+directive that expose its functionality to other directive 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Note 
+\emph on
+scope 
+\emph default
+(
+\series bold
+scope isolation
+\series default
+) , 
+\emph on
+controller 
+\emph default
+( this and $scope usage)
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+myApp.directive("services", function () {  
+\end_layout
+
+\begin_layout Plain Layout
+
+return {         
+\end_layout
+
+\begin_layout Plain Layout
+
+ restrict: 'E',      
+\end_layout
+
+\begin_layout Plain Layout
+
+ scope: {},         
+\end_layout
+
+\begin_layout Plain Layout
+
+ controller: function ($scope) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+       $scope.services = [];            
+\end_layout
+
+\begin_layout Plain Layout
+
+	   this.addService = function (service) {       
+\end_layout
+
+\begin_layout Plain Layout
+
+        	 $scope.services.push(service);             
+\end_layout
+
+\begin_layout Plain Layout
+
+		}  
+\end_layout
+
+\begin_layout Plain Layout
+
+    },
+\end_layout
+
+\begin_layout Plain Layout
+
+ link: function (scope, element) {            
+\end_layout
+
+\begin_layout Plain Layout
+
+	   element.addClass("button");            
+\end_layout
+
+\begin_layout Plain Layout
+
+	   element.bind("mouseenter", function () {    
+\end_layout
+
+\begin_layout Plain Layout
+
+          console.log(scope.services);            
+\end_layout
+
+\begin_layout Plain Layout
+
+	    });
+\end_layout
+
+\begin_layout Plain Layout
+
+    }  
+\end_layout
+
+\begin_layout Plain Layout
+
+  } 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+directives that make use of another directive: (Note 
+\emph on
+require 
+\emph default
+and 4th parameter in 
+\emph on
+link 
+\emph default
+function signature)
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+myApp.directive("create", function () {   
+\end_layout
+
+\begin_layout Plain Layout
+
+return {       
+\end_layout
+
+\begin_layout Plain Layout
+
+ require: 'services',   
+\end_layout
+
+\begin_layout Plain Layout
+
+ link: function (scope, element, attrs, myCtrl) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+       myCtrl.addService('create');         
+\end_layout
+
+\begin_layout Plain Layout
+
+ }    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+}); 
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+myApp.directive("update", function () {   
+\end_layout
+
+\begin_layout Plain Layout
+
+return {       
+\end_layout
+
+\begin_layout Plain Layout
+
+ require: 'services',   
+\end_layout
+
+\begin_layout Plain Layout
+
+ link: function (scope, element, attrs, myCtrl) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+      myCtrl.addService('update');         
+\end_layout
+
+\begin_layout Plain Layout
+
+ }    
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Directive might be dependant on more than another directive.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+myApp.directive("city", function () { 
+\end_layout
+
+\begin_layout Plain Layout
+
+ return { 
+\end_layout
+
+\begin_layout Plain Layout
+
+  restrict: 'E',
+\end_layout
+
+\begin_layout Plain Layout
+
+  require: ["^country","^state"],
+\end_layout
+
+\begin_layout Plain Layout
+
+  link: function(scope,element,attrs,cntrls) {
+\end_layout
+
+\begin_layout Plain Layout
+
+     cntrls[0].makeAnnouncement("BUHAHA"); 
+\end_layout
+
+\begin_layout Plain Layout
+
+     cntrls[1].makeLaw("Kto nie skacze ten..."); 
+\end_layout
+
+\begin_layout Plain Layout
+
+  } 
+\end_layout
+
+\begin_layout Plain Layout
+
+ } 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Dependant
+\series default
+ directive must be contained in directive that it depends on:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<country>
+\end_layout
+
+\begin_layout Plain Layout
+
+	<state>
+\end_layout
+
+\begin_layout Plain Layout
+
+		<city> </city>
+\end_layout
+
+\begin_layout Plain Layout
+
+	</state>
+\end_layout
+
+\begin_layout Plain Layout
+
+</country>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Transclusion
+\series default
+ (inner elements appended to 'E' directive) 
+\emph on
+ng-transclude 
+\emph default
+attribute added to element in directive template and 
+\emph on
+transclude
+\emph default
+ in directive set to true.
+ With transclude enabled, anything that exists inside the outer element
+ in the view will be appended to the contents of whichever element in the
+ template has the ng-transclude attribute.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Scopes
+\end_layout
+
+\begin_layout Standard
+Scope is an object that refers to the application model.
+ It is an execution context for expressions.
+ Scopes are arranged in hierarchical structure which mimic the DOM structure
+ of the application.
+ Scopes can watch expressions and propagate events.
+ Scope is the glue between application controller and the view.
+ Each Angular application has exactly one root scope (associated with element
+ that has ng-app directive), but may have several child scopes.
+\end_layout
+
+\begin_layout Standard
+You will often want to access a scope from your directive to watch model
+ values and make UI updates when they change, and to notify Angular when
+ external events cause the model to change.
+ This is most common when you’re wrapping some non-Angular component from
+ jQuery, Closure, or another library, or implementing simple DOM events.
+ Evaluate Angular expressions passed into your directive as attributes.
+\end_layout
+
+\begin_layout Paragraph
+
+\series medium
+When you want a scope for one of these reasons, you have three options for
+ the type of scope you’ll get:
+\end_layout
+
+\begin_layout Enumerate
+The 
+\emph on
+existing scope 
+\emph default
+from your directive’s DOM element.
+ 
+\series bold
+\emph on
+scope:false
+\end_layout
+
+\begin_layout Enumerate
+A 
+\emph on
+new scope 
+\emph default
+you create that inherits from your enclosing controller’s scope.
+ Here, you’ll have the ability to read all the values in the scopes above
+ this one in the tree.
+ This scope will be shared with any other directives on your DOM element
+ that request this kind of scope and can be used to communicate with them.
+ .
+ 
+\series bold
+\emph on
+scope:true
+\end_layout
+
+\begin_layout Enumerate
+An 
+\emph on
+isolate scope
+\emph default
+ that inherits no model properties from its parent.
+ You’ll want to use this option when you need to isolate the operation of
+ this directive from the parent scope when creating reusable components.
+ 
+\series bold
+scope: { /* attribute names and binding style */ }
+\end_layout
+
+\begin_layout Standard
+Note:
+\emph on
+ ng-repeat
+\emph default
+ and
+\emph on
+ ng-controller 
+\emph default
+creates 
+\series bold
+own child scope
+\series default
+.
+\end_layout
+
+\begin_layout Standard
+When you create a
+\emph on
+n isolate scope
+\emph default
+, you don’t have access to anything in the parent scope’s model by default.
+ You can, however, specify that you want specific attributes passed into
+ your directive.
+ You can think of these attribute names as parameters to the function.
+\end_layout
+
+\begin_layout Standard
+Note that while isolate scopes don’t inherit model properties, they are
+ still children of their parent scope.
+ Like all other scopes, they have a $parent property that references their
+ parent.
+\end_layout
+
+\begin_layout Standard
+You can pass specific attributes from the parent scope to the isolate scope
+ by passing a map of directive attribute names.
+ There are three possible ways to pass data to and from the parent scope.
+ We call these different ways of passing data “binding strategies.” You can
+ also, optionally, specify a local alias for the attribute name.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+scope: { attributeName1: 'BINDING_STRATEGY',...
+ }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+scope: {attributeAlias: 'BINDING_STRATEGY' + 'templateAttributeName',..}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Binding strategies:
+\end_layout
+
+\begin_layout Description
+@ Pass this attribute as a string.
+ You can also data bind values from enclosing scopes by using interpolation
+ {{}} in the attribute value.
+\end_layout
+
+\begin_layout Description
+= Data bind this property with a property in your directive’s parent scope.
+\end_layout
+
+\begin_layout Description
+& Pass in a function from the parent scope to be called later.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+\emph on
+Note: @ 
+\series default
+and 
+\series bold
+& 
+\series default
+are used a lot more often than =
+\end_layout
+
+\begin_layout Standard
+To 
+\series bold
+examine the scope
+\series default
+ in the 
+\series bold
+debugger
+\series default
+:
+\end_layout
+
+\begin_layout Enumerate
+right click on the element of interest in your browser and select 'inspect
+ element'.
+ You should see the browser debugger with the element you clicked on highlighted.
+\end_layout
+
+\begin_layout Enumerate
+The debugger allows you to access the currently selected element in the
+ console as $0 variable.
+\end_layout
+
+\begin_layout Enumerate
+To retrieve the associated scope in console execute: angular.element($0).scope()
+ or just type $scope 
+\end_layout
+
+\begin_layout Standard
+Scopes can propagate events in similar fashion to DOM events.
+ The event can be 
+\series bold
+broadcasted
+\series default
+ to the scope children or
+\series bold
+ emitted 
+\series default
+to scope parents.
+\end_layout
+
+\begin_layout Description
+broadcasting The event life cycle starts at the scope on which $broadcast
+ was called.
+ All listeners listening for name event on this scope get notified.
+ Afterwards, the event propagates to all direct and indirect scopes of the
+ current scope and calls all registered listeners along the way.
+ The event cannot be canceled.
+\end_layout
+
+\begin_layout Description
+emission The event life cycle starts at the scope on which $emit was called.
+ All listeners listening for name event on this scope get notified.
+ Afterwards, the event traverses upwards toward the root scope and calls
+ all registered listeners along the way.
+ The event will stop propagating if one of the listeners cancels it) .
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Scope Life Cycle
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+create:
+\series default
+ The root scope is created during the application bootstrap by the $injector.
+ During template linking, some directives create new child scopes.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+watcher registration: 
+\series default
+During template linking directives register watches on the scope.
+ These watches will be used to propagate model values to the DOM.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Model mutation
+\series default
+\bar under
+ 
+\series bold
+For mutations to be properly observed, you should make them only within
+ the scope.$apply()
+\series default
+\bar default
+.
+ (Angular APIs do this implicitly, so no extra $apply call is needed when
+ doing synchronous work in controllers, or asynchronous work with $http,
+ $timeout or $interval services.)
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Mutation observation:
+\series default
+ At the end $apply, Angular performs a $digest cycle on the root scope,
+ which then propagates throughout all child scopes.
+ During the $digest cycle, all $watched expressions or functions are checked
+ for model mutation and if a mutation is detected, the $watch listener is
+ called.
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+Scope destruction:
+\series default
+ When child scopes are no longer needed, it is the responsibility of the
+ child scope creator to destroy them via scope.$destroy() API.
+ This will stop propagation of $digest calls into the child scope and allow
+ for memory used by the child scope models to be reclaimed by the garbage
+ collector.
+ 
+\end_layout
+
+\begin_layout Standard
+More : http://docs.angularjs.org/guide/scope
+\emph on
+ -> Integration with the browser event loop
+\end_layout
+
+\begin_layout Paragraph
+Manipulating DOM Elements 
+\end_layout
+
+\begin_layout Standard
+The iElement or tElement passed to the directive’s link and compile functions
+ are wrapped references to the native DOM element.
+ If you have loaded the jQuery library, these are jQuery elements you’re
+ already used to working with.
+\end_layout
+
+\begin_layout Standard
+If you’re not using jQuery, the elements are inside an Angular-native wrapper
+ called
+\emph on
+ jqLite
+\emph default
+.
+ This API has a subset of jQuery that we need to create everything in Angular.
+ For many applications, you can do everything you need with this API alone.
+\end_layout
+
+\begin_layout Standard
+Functions: 
+\emph on
+controller 
+\emph default
+(returns controller attached to element or nearest controller
+\emph on
+ 
+\emph default
+or from another directive with given 
+\emph on
+name 
+\emph default
+that should be camelCase ,e.g.
+ ngModel instead of ng-model), 
+\emph on
+injector (
+\emph default
+this allows you to ask for dependencies defined for the modules in these
+ elements), 
+\emph on
+scope, inheritedData
+\end_layout
+
+\begin_layout Paragraph
+HTML compilation
+\end_layout
+
+\begin_layout Standard
+For AngularJS, "compilation" means attaching event listeners to the HTML
+ to make it interactive.
+ The reason we use the term "compile" is that the recursive process of attaching
+ directives mirrors the process of compiling source code in compiled programming
+ languages.
+ 
+\end_layout
+
+\begin_layout Standard
+HTML compilation happens in three phases:
+\end_layout
+
+\begin_layout Enumerate
+$compile traverses the DOM and matches directives.
+ If the compiler finds that an element matches a directive, then the directive
+ is added to the list of directives that match the DOM element.
+ A single element may match multiple directives.
+\end_layout
+
+\begin_layout Enumerate
+Once all directives matching a DOM element have been identified, the compiler
+ sorts the directives by their priority.Each directive's compile functions
+ are executed.
+ Each compile function has a chance to modify the DOM.
+ Each compile function returns a link function.
+ These functions are composed into a "combined" link function, which invokes
+ each directive's returned link function.
+\end_layout
+
+\begin_layout Enumerate
+$compile links the template with the scope by calling the combined linking
+ function from the previous step.
+ This in turn will call the linking function of the individual directives,
+ registering listeners on the elements and setting up $watchs with the scope
+ as each directive is configured to do.
+ 
+\end_layout
+
+\begin_layout Paragraph
+Cleaning up
+\end_layout
+
+\begin_layout Standard
+Directives should clean up after themselves.
+ You can use 
+\emph on
+element.on('$destroy', ...)
+\emph default
+ or 
+\emph on
+scope.$on('$destroy', ...) 
+\emph default
+to run a clean-up function when the directive is removed.
+ 
+\end_layout
+
+\begin_layout Standard
+There are a few special events that AngularJS emits.
+ When a DOM node that has been compiled with Angular's compiler is destroyed,
+ it emits a $destroy event.
+ Similarly, when an AngularJS scope is destroyed, it broadcasts a $destroy
+ event to listening scopes.
+\end_layout
+
+\begin_layout Standard
+By listening to this event, you can remove event listeners that might cause
+ memory leaks.
+ Listeners registered to scopes and elements are automatically cleaned up
+ when they are destroyed, but if you registered a listener on a service,
+ or registered a listener on a DOM node that isn't being deleted, you'll
+ have to clean it up yourself or you risk introducing a memory leak.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+CSS classes used by angular.
+\end_layout
+
+\begin_deeper
+\begin_layout Description
+ng-scope angular applies this class to any element that where a new scope
+ is defined.
+ (see scope guide for more information about scopes)
+\end_layout
+
+\begin_layout Description
+ng-binding angular applies this class to any element that is attached to
+ a data binding, via ng-bind or curly braces, for example.
+ (see databinding guide)
+\end_layout
+
+\begin_layout Description
+ng-invalid,ng-valid angular applies this class to an input widget element
+ if that element's input does not pass validation.
+ (see input directive)
+\end_layout
+
+\begin_layout Description
+ng-pristine,ng-dirty angular input directive applies ng-pristine class to
+ a new input widget element which did not have user interaction.
+ Once the user interacts with the input widget the class is changed to ng-dirty.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Routes 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Though AJAX apps are technically
+\series bold
+ single-page apps
+\series default
+ (in the sense that they only load an HTML page on the first request, and
+ then just update areas within the DOM thereafter), we usually have multiple
+ sub-page views that we show or hide from the user, as appropriate.
+ We can use Angular’s $route service to manage this scenario for us.
+ Routes let you specify that, for a given URL that the browser points to,
+ Angular should load and display a template, and instantiate a controller
+ to provide context for the template.You create routes in your application
+ by calling functions on the $routeProvider service as a configuration block.
+ It goes something like this pseudo-code:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var someModule = angular.module('someModule', [...module dependencies...]) 
+\end_layout
+
+\begin_layout Plain Layout
+
+someModule.config(function($routeProvider) {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ $routeProvider.
+   
+\end_layout
+
+\begin_layout Plain Layout
+
+  when('url', {controller:aController, templateUrl:'/path/to/template'}).
+\end_layout
+
+\begin_layout Plain Layout
+
+  when(...other mappings for your app...).
+     
+\end_layout
+
+\begin_layout Plain Layout
+
+  ...
+\end_layout
+
+\begin_layout Plain Layout
+
+  otherwise(...what to do if nothing else matches...); )};
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The preceding code says that when the browser’s URL changes to the specified
+ URL, Angular will load the template in /path/to/template, and associate
+ the root element of this template with aController (as if we’d typed ng-control
+ler=aController).
+\end_layout
+
+\begin_layout Standard
+The otherwise() call in the last line tells the route where to go if nothing
+ else matches.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Mail Service Sample:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+index.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<html ng-app="AMail"> 
+\end_layout
+
+\begin_layout Plain Layout
+
+ <head>     
+\end_layout
+
+\begin_layout Plain Layout
+
+	<script src="src/angular.js"></script>
+\end_layout
+
+\begin_layout Plain Layout
+
+	<script src="src/angular-route.js"></script>
+\end_layout
+
+\begin_layout Plain Layout
+
+	<script src="src/controllers.js"></script>   
+\end_layout
+
+\begin_layout Plain Layout
+
+  </head> 
+\end_layout
+
+\begin_layout Plain Layout
+
+<body>    
+\end_layout
+
+\begin_layout Plain Layout
+
+	<h1>A-Mail</h1>    
+\end_layout
+
+\begin_layout Plain Layout
+
+	<div ng-view></div>   
+\end_layout
+
+\begin_layout Plain Layout
+
+</body> 
+\end_layout
+
+\begin_layout Plain Layout
+
+</html>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+list.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<table>  
+\end_layout
+
+\begin_layout Plain Layout
+
+<tr>
+\end_layout
+
+\begin_layout Plain Layout
+
+ <td><strong>Sender</strong></td>   
+\end_layout
+
+\begin_layout Plain Layout
+
+ <td><strong>Subject</strong></td>  
+\end_layout
+
+\begin_layout Plain Layout
+
+ <td><strong>Date</strong></td>   
+\end_layout
+
+\begin_layout Plain Layout
+
+</tr>   
+\end_layout
+
+\begin_layout Plain Layout
+
+<tr ng-repeat='message in messages'>    
+\end_layout
+
+\begin_layout Plain Layout
+
+  <td>{{message.sender}}</td>  
+\end_layout
+
+\begin_layout Plain Layout
+
+  <td><a ng-href='#/view/{{message.id}}'>{{message.subject}}</a></td>   
+\end_layout
+
+\begin_layout Plain Layout
+
+  <td>{{message.date}}</td> 
+\end_layout
+
+\begin_layout Plain Layout
+
+</tr>
+\end_layout
+
+\begin_layout Plain Layout
+
+</table>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+detail.html
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<div><strong>Subject:</strong> {{message.subject}}</div> 
+\end_layout
+
+\begin_layout Plain Layout
+
+<div><strong>Sender:</strong> {{message.sender}}</div>
+\end_layout
+
+\begin_layout Plain Layout
+
+<div><strong>Date:</strong> {{message.date}}</div> 
+\end_layout
+
+\begin_layout Plain Layout
+
+<div>    
+\end_layout
+
+\begin_layout Plain Layout
+
+<strong>To:</strong>     
+\end_layout
+
+\begin_layout Plain Layout
+
+<span ng-repeat='recipient in message.recipients'>{{recipient}} </span>
+\end_layout
+
+\begin_layout Plain Layout
+
+</div> 
+\end_layout
+
+\begin_layout Plain Layout
+
+<div>{{message.message}}</div>
+\end_layout
+
+\begin_layout Plain Layout
+
+<a href='#/'>Back to message list</a>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\begin_inset Caption
+
+\begin_layout Plain Layout
+controllers.js
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+
+/ Create a module for our core AMail services 
+\end_layout
+
+\begin_layout Plain Layout
+
+var aMailServices = angular.module('AMail', ['ngRoute']);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Set up our mappings between URLs, templates, and controllers
+\end_layout
+
+\begin_layout Plain Layout
+
+function emailRouteConfig($routeProvider) {  
+\end_layout
+
+\begin_layout Plain Layout
+
+ $routeProvider.
+  
+\end_layout
+
+\begin_layout Plain Layout
+
+  when('/', {     controller: ListController,     templateUrl: 'list.html'
+   }).
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  // Notice that for the detail view, we specify a parameterized URL component
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+  // by placing a colon in front of the id   
+\end_layout
+
+\begin_layout Plain Layout
+
+  when('/view/:id', {     
+\end_layout
+
+\begin_layout Plain Layout
+
+	controller: DetailController,     
+\end_layout
+
+\begin_layout Plain Layout
+
+	templateUrl: 'detail.html'   }).
+\end_layout
+
+\begin_layout Plain Layout
+
+  otherwise( { redirectTo: '/'   
+\end_layout
+
+\begin_layout Plain Layout
+
+  });
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Set up our route so the AMail service can find it 
+\end_layout
+
+\begin_layout Plain Layout
+
+aMailServices.config(emailRouteConfig);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Some fake emails 
+\end_layout
+
+\begin_layout Plain Layout
+
+messages = [{   
+\end_layout
+
+\begin_layout Plain Layout
+
+ id: 0, 
+\end_layout
+
+\begin_layout Plain Layout
+
+ sender: 'jean@somecompany.com',  subject: 'Hi there, old friend', 
+\end_layout
+
+\begin_layout Plain Layout
+
+ date: 'Dec 7, 2013 12:32:00', recipients: ['greg@somecompany.com'],  
+\end_layout
+
+\begin_layout Plain Layout
+
+ message: 'Hey, ...' },...]
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Publish our messages for the list template
+\end_layout
+
+\begin_layout Plain Layout
+
+function ListController($scope) {   $scope.messages = messages; }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Get the message id from the route (parsed from the URL) and use it to
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+// find the right message object.
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+function DetailController($scope, $routeParams) {
+\end_layout
+
+\begin_layout Plain Layout
+
+  $scope.message = messages[$routeParams.id];
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+The $q and the Promise
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The Promise proposal is the basis for how AngularJS structures its API.
+ At its base, the Promise proposal dictates the following for asynchronous
+ requests:
+\end_layout
+
+\begin_layout Itemize
+Async requests return a promise instead of a return value.
+ 
+\end_layout
+
+\begin_layout Itemize
+The Promise has a
+\emph on
+ then 
+\emph default
+function, which takes two arguments, a function to handle the “resolved”
+ or “success” event, and a function to handle the “rejected” or the “failure”
+ event.
+ These functions are called with the result, or the reason for the rejection.
+ 
+\end_layout
+
+\begin_layout Itemize
+It is guaranteed that one of the two callbacks will be called, as soon as
+ the result is available.
+ 
+\end_layout
+
+\begin_layout Itemize
+The $q is AngularJS aware, and thus is integrated with the scope model.
+ This allows for faster propagation of resolution and less flicker/updates
+ in the UI 
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var deferred = $q.defer();
+\end_layout
+
+\begin_layout Plain Layout
+
+var fetchUser = function() {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ // After async calls, call deferred.resolve with the response value 
+\end_layout
+
+\begin_layout Plain Layout
+
+ deferred.resolve(user);
+\end_layout
+
+\begin_layout Plain Layout
+
+ // In case of error, call   
+\end_layout
+
+\begin_layout Plain Layout
+
+ deferred.reject('Reason for failure'); }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+// Similarly, fetchUserPermissions and fetchUserListData are handled
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+deferred.promise.then(fetchUser)  
+\end_layout
+
+\begin_layout Plain Layout
+
+.then(fetchUserPermissions)  
+\end_layout
+
+\begin_layout Plain Layout
+
+.then(fetchUserListData)   
+\end_layout
+
+\begin_layout Plain Layout
+
+.then(function(list) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+   // Do something with the list of data   
+\end_layout
+
+\begin_layout Plain Layout
+
+  }, function(errorReason) {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  // Handle error in any of the steps here in a single stop 
+\end_layout
+
+\begin_layout Plain Layout
+
+  }
+\end_layout
+
+\begin_layout Plain Layout
+
+);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Response interceptor
+\end_layout
+
+\begin_layout Standard
+Response Interceptors allow you (as the name would suggest) to intercept
+ responses before they make it to the application, and apply your transformation
+s, error handling, and everything else:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+// register the interceptor as a service 
+\end_layout
+
+\begin_layout Plain Layout
+
+myModule.factory('myInterceptor',   function($q, notifyService, errorLog)
+ { 
+\end_layout
+
+\begin_layout Plain Layout
+
+   return function(promise) {
+\end_layout
+
+\begin_layout Plain Layout
+
+     return promise.then(function(response) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+       // Do nothing 
+\end_layout
+
+\begin_layout Plain Layout
+
+       return response; 
+\end_layout
+
+\begin_layout Plain Layout
+
+    }, function(response) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+    // My notify service updates the UI with the error message 
+\end_layout
+
+\begin_layout Plain Layout
+
+     notifyService(response); 
+\end_layout
+
+\begin_layout Plain Layout
+
+    // Also log it in the console for debug purposes 
+\end_layout
+
+\begin_layout Plain Layout
+
+      errorLog(response); 
+\end_layout
+
+\begin_layout Plain Layout
+
+      return $q.reject(response);
+\end_layout
+
+\begin_layout Plain Layout
+
+   });
+\end_layout
+
+\begin_layout Plain Layout
+
+  } 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+// Ensure that the interceptor we created is part of the interceptor chain
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+$httpProvider.responseInterceptors.push('myInterceptor');
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+$location
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+The $location service is a wrapper around the window.location that is present
+ in any browser.
+ So why would you want to use it instead of working directly with window.location
+?
+\end_layout
+
+\begin_layout Itemize
+Goodbye global state window.location is a prime example of global state (actually
+, both window and document objects in the browser are prime examples).
+ The minute you have global state in your application, testing, maintaining
+ and working with it becomes a hassle (if not now, then definitely in the
+ long run).
+ The $location service hides this nastiness (what we call global state),
+ and allows you to test the browser’s location details by injecting mocks
+ during your unit tests.
+ 
+\end_layout
+
+\begin_layout Itemize
+API window.location gives you total access to the contents of the browser
+ location.
+ That is, window.location gives you the string while $location gives you
+ nice, jQuery-like setters and getters to work with it in a clean way.
+ 
+\end_layout
+
+\begin_layout Itemize
+AngularJS integration If you use $location, you can use it however you want.
+ But with window.location, you would have to be responsible for notifying
+ AngularJS of changes, and listen to changes as well.
+\end_layout
+
+\begin_layout Itemize
+HTML5 integration The $location service is smart enough to realize when
+ HTML5 APIs are available within a browser and use them.
+ If they’re not available, it will fall back to the default usage.
+ 
+\end_layout
+
+\begin_layout Standard
+So when should you use the $location service? Any time you want to react
+ to a change in the URL (that is not covered by the $routes, which you should
+ primarily use for working with URL-based views), as well as effect a change
+ in the current URL in the browser.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+setters/getters: 
+\series default
+absUrl,hash, host, path, protocol, search, url
+\end_layout
+
+\begin_layout Standard
+Using any one of the setters does not mean that window.location will get
+ changed instantly! The $location service plays well with the Angular lifecycle,
+ so all changes to the location will accumulate and get applied together
+ at the end of the cycle.
+ So feel free to make those changes, one after the other, without fear that
+ the user will see a URL that keeps flickering and changing underneath him.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+HTML5 Mode vs Hashbang Mode 
+\end_layout
+
+\begin_layout Standard
+The Hashbang approach works seamlessly across all browsers, and requires
+ the least amount of configuration.
+ You just need to set the hashBang prefix (
+\series bold
+!
+\series default
+ by default, Angular defaults to: '' empty character, e.g.
+ http://www.superawesomewebsite.com/#/foo?bar=123#baz ) and you are good to
+ go.
+\end_layout
+
+\begin_layout Standard
+The HTML5 mode, on the other hand, talks to the browser URL through the
+ use of HTML5 History API.
+ The $location service is smart enough to figure out whether HTML5 mode
+ is supported or not, and fall back to the Hashbang approach if necessary,
+ so you don’t need to worry about additional work.
+\end_layout
+
+\begin_layout Standard
+
+\emph on
+Example link : 
+\emph default
+<a href=
+\begin_inset Quotes erd
+\end_inset
+
+
+\series bold
+#
+\series default
+/items/new
+\begin_inset Quotes erd
+\end_inset
+
+> New Item</a>
+\emph on
+ 
+\end_layout
+
+\begin_layout Standard
+\begin_inset Float figure
+placement H
+wide false
+sideways false
+status open
+
+\begin_layout Plain Layout
+\begin_inset Caption
+
+\begin_layout Plain Layout
+
+\series bold
+HTML5 Mode vs Hashbang Mode 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Plain Layout
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+begin{center}
+\end_layout
+
+\end_inset
+
+
+\begin_inset Graphics
+	filename hashbang_vs_regular_url.jpg
+	lyxscale 60
+	scale 60
+
+\end_inset
+
+
+\begin_inset ERT
+status open
+
+\begin_layout Plain Layout
+
+
+\backslash
+end{center}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+HTML5 mode
+\series default
+ requires change on
+\series bold
+ server-side:
+\series default
+ redirect urls i.e make sure that all requests containing your base uri return
+ the bootstrapping html (ie index.html) resource.
+ (http://stackoverflow.com/questions/17646843/angularjs-html5-mode-how-do-direct-
+links-work-without-server-specific-changes)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+To $apply or not $apply?
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+$apply is like a lazy worker (it does its job only when it feels it has
+ enough work to be done):
+\end_layout
+
+\begin_layout Itemize
+DO NOT call it all the time.
+ Calling $apply when AngularJS is happily ticking away (in its $digest cycle,
+ as we call it) will cause an exception.
+ So “better safe than sorry” is not the approach you want to use.
+\end_layout
+
+\begin_layout Itemize
+DO CALL it when controls outside of AngularJS (DOM events, external callbacks
+ such as jQuery UI controls, and so on) are calling AngularJS functions.
+ At that point, you want to tell AngularJS to update itself (the models,
+ the views, and so on), and $apply does just that.
+ 
+\end_layout
+
+\begin_layout Itemize
+Whenever possible, execute your code or function by passing it to $apply,
+ rather than executing the function and then calling $apply().
+ For example, execute the following code:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+
+\emph on
+$scope.$apply(function() { $scope.variable1 = 'some value'; executeSomeAction();
+ });
+\emph default
+ instead of calling 
+\emph on
+$scope.$apply();
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+consider using something like 
+\emph on
+safeApply:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+$scope.safeApply = function(fn) {   
+\end_layout
+
+\begin_layout Plain Layout
+
+var phase = this.$root.$$phase;   
+\end_layout
+
+\begin_layout Plain Layout
+
+if(phase == '$apply' || phase == '$digest') {    
+\end_layout
+
+\begin_layout Plain Layout
+
+ if(fn && (typeof(fn) === 'function')) {
+\end_layout
+
+\begin_layout Plain Layout
+
+   fn();
+\end_layout
+
+\begin_layout Plain Layout
+
+ }   
+\end_layout
+
+\begin_layout Plain Layout
+
+ } else { 
+\end_layout
+
+\begin_layout Plain Layout
+
+   this.$apply(fn); 
+\end_layout
+
+\begin_layout Plain Layout
+
+ } 
+\end_layout
+
+\begin_layout Plain Layout
+
+};
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Testing 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Unit tests rely on a few things:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Ensuring that the controller (or more likely, the scope) reaches the correct
+ state at the end of the initialization 
+\end_layout
+
+\begin_layout Itemize
+Confirming that the correct server calls are made, and that the right state
+ is achieved by the scope during the server call and after it is completed
+ (by using our mocked out backend in the unit tests)
+\end_layout
+
+\begin_layout Itemize
+Leveraging the AngularJS dependency injection framework to get a handle
+ on the elements and objects that the controller works with to ensure that
+ the controller is getting set to the correct state 
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Scenario tests checks whether the template loads, that it is hooked up correctly
+ to the controllers, and that clicking around in the template does the right
+ thing.
+ It allows you to:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Load your application, 
+\end_layout
+
+\begin_layout Itemize
+Browse to a certain page ,
+\end_layout
+
+\begin_layout Itemize
+Click around and enter text willy-nilly,
+\end_layout
+
+\begin_layout Itemize
+Ensure that the right things happen.
+ 
+\end_layout
+
+\begin_layout Standard
+You have to set up web server (Karma or Yeoman) first and then:
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+describe('GutHub App', function() { 
+\end_layout
+
+\begin_layout Plain Layout
+
+it('should show a list of recipes', function() { 
+\end_layout
+
+\begin_layout Plain Layout
+
+ browser().navigateTo('/index.html'); 
+\end_layout
+
+\begin_layout Plain Layout
+
+ // Our Default GutHub recipes list has two recipes 
+\end_layout
+
+\begin_layout Plain Layout
+
+ expect(repeater('.recipes li').count()).toEqual(2); });
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+Factory & Provider (http://www.thinkster.io/pick/eIaGNOAlOk/angularjs-providers)
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Factories are a common paradigm in Angular that allow you to configure a
+ function that returns an object which can be then injected into controllers.
+ 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var app = angular.module("app",[]); 
+\end_layout
+
+\begin_layout Plain Layout
+
+app.factory("game", function () { return { title: "StarCraft" }; });
+\end_layout
+
+\begin_layout Plain Layout
+
+app.controller("AppCtrl", function ($scope, game) { 
+\end_layout
+
+\begin_layout Plain Layout
+
+$scope.title = game.title; 
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Factory might be refactored to provider (note $get method and conifguring
+ provider)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var app = angular.module("app",[]);    
+\end_layout
+
+\begin_layout Plain Layout
+
+app.provider("game", function () {  
+\end_layout
+
+\begin_layout Plain Layout
+
+  var type;    
+\end_layout
+
+\begin_layout Plain Layout
+
+  return {   
+\end_layout
+
+\begin_layout Plain Layout
+
+   setType: function (value) {   
+\end_layout
+
+\begin_layout Plain Layout
+
+     type = value;    
+\end_layout
+
+\begin_layout Plain Layout
+
+   },    
+\end_layout
+
+\begin_layout Plain Layout
+
+   $get: function () {    
+\end_layout
+
+\begin_layout Plain Layout
+
+   return { title: type + "Craft"};   
+\end_layout
+
+\begin_layout Plain Layout
+
+   }     
+\end_layout
+
+\begin_layout Plain Layout
+
+  };  
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+app.config(function (gameProvider) {  
+\end_layout
+
+\begin_layout Plain Layout
+
+gameProvider.setType("War");    
+\end_layout
+
+\begin_layout Plain Layout
+
+});    
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+app.controller("AppCtrl", function ($scope, game) {  
+\end_layout
+
+\begin_layout Plain Layout
+
+  $scope.title = game.title;     
+\end_layout
+
+\begin_layout Plain Layout
+
+});
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Enumerate
+
+\series bold
+Injector
+\series default
+ is a service locator that is responsible for construction and lookup of
+ dependencies.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<div ng-controller="MyController">...</div>
+\end_layout
+
+\begin_layout Plain Layout
+
+//The 'ng-controller' directive does this behind the scenes 
+\end_layout
+
+\begin_layout Plain Layout
+
+injector.instantiate(MyController);
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Law of Delimeter 
+\series default
+preserved (controllers, services do not know about injector by default,
+ however you can inject $injector if you wish)
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Dependency annotation:
+\end_layout
+
+\begin_layout Itemize
+inferred by name (it won't work when minification applied)
+\end_layout
+
+\begin_layout Itemize
+$inject property
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var MyController = function(renamed$scope, renamedGreeter) { ...}
+\end_layout
+
+\begin_layout Plain Layout
+
+MyController['$inject'] = ['$scope', 'greeter'];
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+array-style injection / inline annotation
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+someModule.factory('greeter', ['$window', function(renamed$window) {...}]);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+ngmin
+\series default
+ -tool to refactor code to use inline annotation and still work when minificatio
+n is applied in future.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Cookies.
+ Use cookieStore:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+var pastSearches = $cookieStore.get('myapp.past.searches') || [];  
+\end_layout
+
+\begin_layout Plain Layout
+
+if (pastSearches.length > 5) {     
+\end_layout
+
+\begin_layout Plain Layout
+
+ pastSearches = pastSearches.splice(0);    
+\end_layout
+
+\begin_layout Plain Layout
+
+}   
+\end_layout
+
+\begin_layout Plain Layout
+
+pastSearches.push(text);     
+\end_layout
+
+\begin_layout Plain Layout
+
+$cookieStore.put('myapp.past.searches', pastSearches);
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+
+\emph on
+Internationalization (or i18n)
+\emph default
+, process of abstracting out the date/time format, as well as the currency
+ symbol, from your coding logic.
+ 
+\emph on
+Localization (L10n)
+\emph default
+ is a process of providing translations and localized strings for the abstracted
+ bits in various locales.
+ $locale serivce , 3 steps: 
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+
+\series bold
+index.html change
+\series default
+s (i.e.
+ index.html for each supported locale)
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+creating localized rule sets
+\series default
+, this involves concatenating the localization rules for each particular
+ language (the default files for the preceding two locales would be angular-loca
+le_en-US.js and angular-locale_zh-CN.js) at the end of the angular.js or the
+ angular.min.js file.
+ So your angular_en-US.js would contain the contents of angular.js first,
+ followed by the contents of the angular-locale_en-US.js.
+ 
+\end_layout
+
+\begin_layout Enumerate
+
+\series bold
+sourcing the localized rule set
+\series default
+s, the final step involves ensuring that your localized index.html refers
+ to the localized rule set instead of the original angular.js file.
+ So index_en-US.html should use angular-en_US.js and not angular.js.
+ 
+\end_layout
+
+\begin_layout Standard
+What avout my UI strings ? AngularJS currently doesn’t have its own full-fledged
+ translation APIs
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Common gotchas
+\series default
+: translation length (localized string might not fit div anymore), timezones
+ (different info/date presented)
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Sanitizing HTML.
+ The default behavior in AngularJS, when you have some HTML content in a
+ variable and try to bind to it, would result in AngularJS escaping your
+ content and printing it as is.
+ However there is module 
+\emph on
+ngSanitize
+\emph default
+ with directives and 
+\emph on
+$sanitize
+\emph default
+ service that let you render HTML in both a safe and unsafe manner.
+\end_layout
+
+\end_body
+\end_document
