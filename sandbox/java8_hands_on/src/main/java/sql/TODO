@@ -1,0 +1,29 @@
+Play with ;in-memory db,  lambdas  + jOOQ orSpring Data
+
+jOOQ
+
+
+DSL.using(c)
+   .fetch(sql)
+   .map(r -> new Schema(
+       r.getValue("SCHEMA_NAME", String.class),
+       r.getValue("IS_DEFAULT", boolean.class)
+   ))
+   .forEach(System.out::println);
+
+DSL.using(c)
+      .fetch(sql)
+      .into(Schema.class)
+      .forEach(System.out::println);
+
+
+Spring Data
+
+new JdbcTemplate(
+        new SingleConnectionDataSource(c, true))
+    .query(sql, (rs, rowNum) ->
+        new Schema(
+            rs.getString("SCHEMA_NAME"),
+            rs.getBoolean("IS_DEFAULT")
+        ))
+    .forEach(System.out::println);
