@@ -5565,7 +5565,7 @@ if else
 \series default
 ; do NOT use function declaration in 
 \emph on
-if-elese
+if-else
 \emph default
 )
 \end_layout
@@ -5656,7 +5656,7 @@ function declaration -> entire function + name is hoisted
 \end_layout
 
 \begin_layout Enumerate
-variablefunction expression/statement/operator -> only variable hoisted
+variable function expression/statement/operator -> only variable hoisted
  (
 \series bold
 var 
