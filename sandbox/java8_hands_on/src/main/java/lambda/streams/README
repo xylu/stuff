@@ -1,0 +1,16 @@
+PARALLEL PROCESSING :: BENEFITS FROM EASING UP "ORDER" REQUIREMENT
+
+By default, streams that arise from ordered collections (arrays and lists), from ranges, generators, and iterators, or from calling Stream.sorted, are ordered. Results are accumulated in the order of the original elements, and are entirely predictable. If you run the same operations twice, you will get exactly the same results.
+
+Ordering does not preclude parallelization. For example, when computing stream.map(fun), the stream can be partitioned into n segments, each of which is concurrently processed. Then the results are reassembled in order.
+
+Some operations can be more effectively parallelized when the ordering requirement is dropped. By calling the Stream.unordered method, you indicate that you are not interested in ordering. One operation that can benefit from this is Stream.distinct. On an ordered stream, distinct retains the first of all equal elements. That impedes parallelization—the thread processing a segment can’t know which elements to discard until the preceding segment has been processed. If it is acceptable to retain any of the unique elements, all segments can be processed concurrently (using a shared set to track duplicates).
+
+You can also speed up the limit method by dropping ordering. If you just want any n elements from a stream and you don’t care which ones you get, call
+
+Click here to view code image
+
+
+NONINTERFERENCE
+
+In short do not change collection that stream is backed by after calling reduction/terminal operation
