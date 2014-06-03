@@ -30,20 +30,60 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package lambda;
+package streams;
 
 
-import lambda.task.Album;
-import lambda.task.Track;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.IntSummaryStatistics;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.BinaryOperator;
+import java.util.function.Function;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
+import static java.util.Comparator.comparing;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.maxBy;
+import static java.util.stream.Collectors.reducing;
+import static java.util.stream.Collectors.summingLong;
+import static java.util.stream.Collectors.toSet;
 
 public class ReductionExamples {
 
     public static void main(String... args) {
+
+
+        // Effective reduction without boxing
+
+        Stream.of("aaa", "bb", "c").mapToInt(String::length).sum();
+
+        // Summary
+        IntSummaryStatistics stats = Stream.of("aaa", "bb", "c").collect(Collectors.summarizingInt(String::length));
+        stats.getMin();
+        stats.getAverage();
+        stats.getMax();
+        stats.getSum();
+        stats.getCount();
+
+
+        groupingExamples();
+
+        //convert to map
+        Map<Integer, String> stringsByHashcode = Stream.of("aaa", "bb", "c").collect(Collectors.toMap(Object::hashCode,
+                Function.identity()));
+
 
         // Create sample data
 
@@ -122,7 +162,7 @@ public class ReductionExamples {
                 roster
                         .stream()
                         .collect(
-                                Collectors.groupingBy(Person::getGender));
+                                groupingBy(Person::getGender));
 
         List<Map.Entry<Person.Sex, List<Person>>>
                 byGenderList =
@@ -145,7 +185,7 @@ public class ReductionExamples {
                 roster
                         .stream()
                         .collect(
-                                Collectors.groupingBy(
+                                groupingBy(
                                         Person::getGender,
                                         Collectors.mapping(
                                                 Person::getName,
@@ -171,9 +211,9 @@ public class ReductionExamples {
                 roster
                         .stream()
                         .collect(
-                                Collectors.groupingBy(
+                                groupingBy(
                                         Person::getGender,
-                                        Collectors.reducing(
+                                        reducing(
                                                 0,
                                                 Person::getAge,
                                                 Integer::sum)));
@@ -195,7 +235,7 @@ public class ReductionExamples {
                 roster
                         .stream()
                         .collect(
-                                Collectors.groupingBy(
+                                groupingBy(
                                         Person::getGender,
                                         Collectors.averagingInt(Person::getAge)));
 
@@ -204,5 +244,44 @@ public class ReductionExamples {
         }
 
 
+    }
+
+    private static void groupingExamples() {
+        List<Locale> locales = Arrays.asList(Locale.ENGLISH, Locale.CANADA, Locale.GERMAN);
+        List<City> cities = Arrays.asList(City.CRACOW, City.WARSAW);
+
+        Set<Locale> countryToLocaleSet = locales.stream().collect(toSet());
+
+        // map country -> number of different locales used in the country
+        Map<String, Long> countryToNoOfLocales = locales.stream().collect(groupingBy(Locale::getCountry, counting()));
+
+
+//      state -> sum of cities population in that state
+        Map<String, Long> sumOfPopulationByState = cities.stream().collect(
+                groupingBy(City::getState, summingLong(City::getPopulation)));
+
+        //state -> biggest city in the state
+        /*Map<String, City> biggestCityInState = cities.stream().collect(
+                groupingBy(City::getState, maxBy(Comparator.comparing(City::getPopulation))));
+*/
+        Map<String, City> collect = cities.stream().collect(
+                groupingBy(City::getState,
+                        collectingAndThen(
+                                reducing((c1, c2) -> c1.getPopulation() > c2.getPopulation() ? c1 : c2), Optional::get)));
+        Map<String, City> collect2 = cities.stream().collect(
+                groupingBy(City::getState,
+                        collectingAndThen(
+                                maxBy(comparing(City::getPopulation)), Optional::get)));
+
+     }
+
+    @Data
+    @AllArgsConstructor
+    public static class City {
+        private static final City CRACOW = new City("KRK", 760000L, "Lesser Poland");
+        private static final City WARSAW = new City("WWA", 1715000L, "Masovian");
+        private String name;
+        private Long population;
+        private String state;
     }
 }

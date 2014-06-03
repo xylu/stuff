@@ -1,4 +1,4 @@
-package lambda.task;
+package exercises.task;
 
 public class Track {
     String name;

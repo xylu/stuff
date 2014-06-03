@@ -1,4 +1,4 @@
-package lambda.task;
+package exercises.task;
 
 import org.hamcrest.CoreMatchers;
 import org.junit.Assert;

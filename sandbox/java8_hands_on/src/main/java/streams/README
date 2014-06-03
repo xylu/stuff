@@ -1,0 +1,39 @@
+STREAM VS COLLECTION
+1. STREAM does not store its elements (they may be stored either in underlying collection or generated)
+2. STREAM operations do not mutate their source. Instead, they return new streams that hold the result
+3. STREAM operations are lazy when possible.They are not executed till their result is required
+
+
+PIPELINE is set up in three steps:
+1. Create a stream
+2. Specify INTERMEDIATE operations (that transform one stream into another)
+3. Apply TERMINAL operation to produce result. This operation forces the execution of the lazy (i.e. intermediate) operations
+
+Notice pipeline operations are NOT executed on the elements in the same order in whith they are inokved on the streams
+
+e.g. invoices.stream().map(Invoice::getTotal().filter(t -> t>100).count();
+
+count() is called first, what triggers filter() what triggers map()
+
+
+REDUCE
+
+<U> U reduce(U identity,
+                 BiFunction<U, ? super T, U> accumulator,
+                 BinaryOperator<U> combiner);
+
+let's say that we have reduction operation "op" and v0,v1,v2,v3...vN values in the stream
+the reduction is v0 op v1 op v2 op v3 op v4...
+
+"op" must be associative
+
+accumulator is used to accumulate  vX op vY (X might be greater than Y - see java.util.stream.Collector.Characteristics.UNORDERED)
+combiner is used to merge result of accumulators processing(s) in separate parallel executions
+
+
+COLLECT
+
+Collect vs Reduce -> collect does not create new object each time but it modifies the exisitng one
+
+Before writing your own collector check out Collectors class (method: toList,toSet, summarizingInt, toMap, toConcurrentMap)
+

@@ -1,4 +1,4 @@
-package lambda.task;
+package exercises.task;
 
 import java.util.ArrayList;
 import java.util.Collection;
