@@ -76,5 +76,251 @@ CSS resets take every common HTML element with a predefined style and provide
  one unified style for all browsers
 \end_layout
 
+\begin_layout Itemize
+Semantics within HTML is the practice of giving content on the page meaning
+ and structure by using the proper element.
+ Semantic code describes the value of content on a page, regardless of the
+ style or appearance of that content
+\end_layout
+
+\begin_layout Itemize
+Block vs.
+ Inline Elements
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+Most elements are either block- or inline-level elements.
+ 
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Block-level
+\series default
+ elements begin on a new line, stacking one on top of the other, and occupy
+ any available width.
+ Block-level elements may be nested inside one another and may wrap inline-level
+ elements.
+ We’ll most commonly see block-level elements used for larger pieces of
+ content, such as paragraphs.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+Inline-level
+\series default
+ elements do not begin on a new line.
+ They fall into the normal flow of a document, lining up one after the other,
+ and only maintain the width of their content.
+ Inline-level elements may be nested inside one another; however, they cannot
+ wrap block-level elements.
+ We’ll usually see inline-level elements with smaller pieces of content,
+ such as a few words.
+\end_layout
+
+\begin_layout Standard
+
+\series bold
+<img> 
+\series default
+is inline element!
+\end_layout
+
+\begin_layout Standard
+A 
+\series bold
+<div>
+\series default
+ is a block-level element that is commonly used to identify large groupings
+ of content, and which helps to build a web page’s layout and design.
+ A 
+\series bold
+<span>
+\series default
+, on the other hand, is an inline-level element commonly used to identify
+ smaller groupings of text within a block-level element.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+HTML
+\series default
+ comments start with 
+\series bold
+<!--
+\series default
+ and end with 
+\series bold
+-->
+\series default
+.
+ 
+\series bold
+CSS
+\series default
+ comments start with
+\series bold
+ /* 
+\series default
+and end with 
+\series bold
+*/
+\end_layout
+
+\begin_layout Itemize
+The 
+\series bold
+<head>
+\series default
+ element is not displayed on a page and is used to outline metadata, including
+ the document title, and links to external files.
+ It falls directly within the <html> element.
+\end_layout
+
+\begin_layout Itemize
+Headings are block-level elements, and they come in six different rankings,
+ 
+\series bold
+<h1> 
+\series default
+through
+\series bold
+ <h6>
+\series default
+, used by search engine to scan/index page.
+ 
+\end_layout
+
+\begin_layout Itemize
+Paragraphs are defined using the 
+\series bold
+<p>
+\series default
+ block-level element.
+\end_layout
+
+\begin_layout Itemize
+Bold -> inline
+\series bold
+ 
+\series default
+elements:
+\series bold
+ <strong>
+\series default
+ (to emphasize importance) and 
+\series bold
+<b> 
+\series default
+to stylistically offset text
+\end_layout
+
+\begin_layout Itemize
+Italicize -> 
+\series bold
+<em>
+\series default
+ and 
+\series bold
+<i>
+\end_layout
+
+\begin_layout Itemize
+HTML5 building structure (block) elements: 
+\series bold
+<header>, <section>, <nav>, <aside>,<footer>, <article>
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+The <header> element, like it sounds, is used to identify the top of a page,
+ article, section, or other segment of a page
+\end_layout
+
+\begin_layout Itemize
+The <nav> element should be reserved for primary navigation sections only,
+ such as global navigation, a table of contents, previous/next links, or
+ other noteworthy groups of navigational links.
+\end_layout
+
+\begin_layout Itemize
+The <article> element is used to identify a section of independent, self-contain
+ed content that may be independently distributed or reused.
+ We’ll often use the <article> element to mark up blog posts, newspaper
+ articles, user-submitted content, and the like
+\end_layout
+
+\begin_layout Itemize
+The <section> element is used to identify a thematic grouping of content,
+ which generally, but not always, includes a heading
+\end_layout
+
+\begin_layout Itemize
+The <aside> element holds content, such as sidebars, inserts, or brief explanati
+ons, that is tangentially related to the content surrounding it.
+ When used within an <article> element, for example, the <aside> element
+ may identify content related to the author of the article.
+\end_layout
+
+\begin_layout Itemize
+The <footer> element identifies the closing or end of a page, article, section,
+ or other segment of a page.
+ Generally the <footer> element is found at the bottom of its parent.
+ 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+By nature the anchor element, 
+\series bold
+<a>
+\series default
+, is an inline element, and, according to web standards, inline-level elements
+ may not wrap block-level elements.
+ With the introduction of HTML5, however, anchor elements specifically have
+ permission to wrap either block-, inline-, or any other level elements.
+ This is a break from the standard convention, but it’s permissible in order
+ to enable entire blocks of content on a page to become links.
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+mailto 
+\emph default
+example: 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+<a href="mailto:a@b.com?
+\series bold
+subject
+\series default
+=Reaching%20Out&
+\series bold
+body
+\series default
+=How%20are%20you">Email Me</a>
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+link to the same page:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+<body id="top"> ...
+ <a href="#top">Back to top</a> ...
+ </body>
+\end_layout
+
+\end_deeper
 \end_body
 \end_document
