@@ -63,6 +63,10 @@
 This doc contains highlights of http://learn.shayhowe.com/
 \end_layout
 
+\begin_layout Section
+HTML Introduction
+\end_layout
+
 \begin_layout Itemize
 HTML vs CSS -> content vs presentation
 \end_layout
@@ -319,6 +323,101 @@ link to the same page:
 <body id="top"> ...
  <a href="#top">Back to top</a> ...
  </body>
+\end_layout
+
+\end_deeper
+\begin_layout Section
+CSS Introduction
+\end_layout
+
+\begin_layout Itemize
+CSS is a language that allows us to add layout and design to our pages,
+ and it allows us to share those styles from element to element and page
+ to page
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+Cascade: 
+\series default
+Within CSS, all styles cascade from the top of a style sheet to the bottom,
+ allowing different styles to be added or overwritten as the style sheet
+ progresses.
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+p {   background: orange;   font-size: 24px; } p {   background: green;
+ }
+\end_layout
+
+\end_inset
+
+ paragraph has green background and font size is 24px - 
+\emph on
+cascading styles
+\end_layout
+
+\begin_layout Itemize
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+p {   background: orange;   background: green; }
+\end_layout
+
+\end_inset
+
+ paragraph has green background - 
+\emph on
+cascading properties
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Every selector in CSS has a 
+\series bold
+specificity weight
+\series default
+.
+ Specificity Hierarchy:
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Inline styles (Presence of style in document).
+ An inline style lives within your XHTML document.
+ It is attached directly to the element to be styled.
+ E.g.
+ <h1 style="color: #fff;"> 
+\end_layout
+
+\begin_layout Enumerate
+IDs (# of ID selectors) ID is an identifier for your page elements, such
+ as #div.
+ 
+\end_layout
+
+\begin_layout Enumerate
+Classes, attributes and pseudo-classes (# of class selectors).
+ This group includes .classes, [attributes] (e.g.
+ p[title] ) and pseudo-classes such as :hover, :focus etc.
+ (e.g.
+ a:hover) 
+\end_layout
+
+\begin_layout Enumerate
+Elements and pseudo-elements (# of Element (type) selectors).
+ Including for instance p:first-line
 \end_layout
 
 \end_deeper
