@@ -421,5 +421,225 @@ Elements and pseudo-elements (# of Element (type) selectors).
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+When selectors are combined they should be read from right to left.
+ The selector farthest to the right, directly before the opening curly bracket,
+ is known as the 
+\emph on
+key selector
+\emph default
+.
+ The key selector identifies exactly which element the styles will be applied
+ to.
+ Any selector to the left of the key selector will serve as a 
+\emph on
+prequalifier, 
+\emph default
+e.g.
+ .table .row{...} -> 
+\bar under
+row 
+\bar default
+is a 
+\emph on
+key selector 
+\emph default
+and 
+\bar under
+table
+\bar default
+ is a 
+\emph on
+prequalifier
+\emph default
+ 
+\end_layout
+
+\begin_layout Itemize
+Using multiple classes, we can layer on as many styles as we wish, keeping
+ our code lean and our specificity weights low, e.g.
+ :
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+.btn { font-size: 16px; } 
+\end_layout
+
+\begin_layout Plain Layout
+
+.btn-danger { background: red; } 
+\end_layout
+
+\begin_layout Plain Layout
+
+.btn-success { background: green; }
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<a class="btn btn-danger">...</a>
+\end_layout
+
+\begin_layout Plain Layout
+
+<a class="btn btn-success">...</a>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+color might be set using:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+constant, e.g.
+ red
+\end_layout
+
+\begin_layout Itemize
+hex, e.g.
+ #ff0000 (it could be shortened to #f00)
+\end_layout
+
+\begin_layout Itemize
+rgb e.g rgb(255,0,0) or RGB color values may also include an alpha, or transparen
+cy, channel by using the rgba() -> rgba(255,0,0,1) 100% opaque
+\end_layout
+
+\begin_layout Itemize
+hsl() function, which stands for hue, saturation, and lightness.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+lengths are absolute (px -pixel) or relative (percentage or em (A single
+ em unit is equivalent to an element’s font size.
+ So, for example, if an element has a font size of 14 pixels and a width
+ set to 5em, the width would equal 70 pixels )
+\end_layout
+
+\begin_layout Itemize
+Exactly how elements are displayed—as block-level elements, inline elements,
+ or something else—is determined by the 
+\series bold
+display 
+\series default
+property.
+ .
+ There are quite a few values for the display property, but the most common
+ are 
+\series bold
+\emph on
+block
+\series default
+\emph default
+, 
+\series bold
+\emph on
+inline
+\series default
+\emph default
+, 
+\series bold
+\emph on
+inline-block
+\series default
+\emph default
+ (.
+ Using this value will allow an element to behave as a block-level element,
+ accepting all box model properties (which we’ll cover soon).
+ However, the element will be displayed in line with other elements, and
+ it will not begin on a new line by default.), and 
+\series bold
+\emph on
+none
+\series default
+\emph default
+ (not visible).
+\end_layout
+
+\begin_layout Itemize
+Two types of properties shorthand (margin: 10px 20px 0 15px;) and longhand(margi
+n-top:10px)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+box-sizing 
+\series default
+property allows us to change exactly how the box model works and how an
+ element’s size is calculated.
+ The property accepts three primary values—
+\series bold
+\emph on
+content-box
+\series default
+\emph default
+, 
+\series bold
+\emph on
+padding-box, 
+\series default
+\emph default
+and 
+\series bold
+\emph on
+border-box.
+
+\series default
+\emph default
+ As CSS3 was introduced, browsers gradually began to support different propertie
+s and values, including the box-sizing property, by way of vendor prefixes.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+*:before, *:after {
+\end_layout
+
+\begin_layout Plain Layout
+
+ -webkit-box-sizing: border-box;  //Safari, Chrome
+\end_layout
+
+\begin_layout Plain Layout
+
+   -moz-box-sizing: border-box;   //Firefox 
+\end_layout
+
+\begin_layout Plain Layout
+
+      box-sizing: border-box;
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
 \end_body
 \end_document
