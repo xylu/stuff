@@ -330,6 +330,10 @@ link to the same page:
 CSS Introduction
 \end_layout
 
+\begin_layout Subsection
+Basics
+\end_layout
+
 \begin_layout Itemize
 CSS is a language that allows us to add layout and design to our pages,
  and it allows us to share those styles from element to element and page
@@ -641,5 +645,355 @@ status open
 \end_layout
 
 \end_deeper
+\begin_layout Subsection
+Positioning context
+\end_layout
+
+\begin_layout Subsubsection
+Float 
+\end_layout
+
+\begin_layout Quote
+
+\emph on
+Disclaimer: using float to aling elements is a little bit controversial
+ among web developers (check out http://stackoverflow.com/questions/8554043/what-
+is-clearfix)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+float
+\series default
+ property allows us to take an element, remove it from the normal flow of
+ a page, and position it to the left or right of its parent element; when
+ the float property is used on multiple elements at the same time, it provides
+ the ability to create a layout by floating elements directly next to or
+ opposite each other, as seen in multiple-column layouts
+\end_layout
+
+\begin_layout Itemize
+when an element is floated, it will float all the way to the edge of its
+ parent element; ff there isn’t a parent element, the floated element will
+ then float all the way to the edge of the page
+\end_layout
+
+\begin_layout Itemize
+Floats May Change an Element’s Display Value: For example, an element with
+ a display value of inline, such as the <span> inline-level element, ignores
+ any height or width property values.
+ However, should that inline-level element be floated, its display value
+ will be changed to block, and it may then accept height or width property
+ values.
+\end_layout
+
+\begin_layout Itemize
+float property was never actually intended to be used for layout and positioning
+ purposes, and thus it comes with a few pitfalls :/ :
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Often margin and padding property values aren’t interpreted correctly, causing
+ them to blend into the floated element; other properties can be affected,
+ too
+\end_layout
+
+\begin_layout Itemize
+Another pitfall is that sometimes unwanted content begins to wrap around
+ a floated element.
+ Removing an element from the flow of the document allows all the elements
+ around the floated element to wrap and consume any available space around
+ the floated element, which is often undesired.
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+To prevent content from wrapping around floated elements, we need to clear,
+ or contain, those floats and return the page to its normal flow.
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+Clear
+\emph default
+ 
+\emph on
+float
+\emph default
+: Clearing floats is accomplished using the 
+\series bold
+clear
+\series default
+ property, which accepts a few different values: the most commonly used
+ values being 
+\emph on
+left, right, 
+\emph default
+and 
+\emph on
+both.
+ 
+\emph default
+It is important that this clear be applied to an element appearing after
+ the floated elements, not before, to return the page to its normal flow.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+footer{ clear:both}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+
+\emph on
+Containing floats: 
+\begin_inset Quotes eld
+\end_inset
+
+clearfix
+\begin_inset Quotes erd
+\end_inset
+
+ is applied: 
+\emph default
+CSS is clearing any floated elements within the element with the class of
+ 
+\emph on
+group 
+\emph default
+and returning the flow of the document back to normal
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+.group:before, .group:after { content: ""; display: table; }
+\end_layout
+
+\begin_layout Plain Layout
+
+.group:after { clear: both; } 
+\end_layout
+
+\begin_layout Plain Layout
+
+.group { clear: both; *zoom: 1; }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+inline-block
+\end_layout
+
+\begin_layout Itemize
+use 
+\emph on
+display:
+\series bold
+inline-block 
+\end_layout
+
+\begin_layout Itemize
+The inline-block method is primarily helpful for laying out pages or for
+ placing elements next to one another within a line.
+\end_layout
+
+\begin_layout Itemize
+inline-block value for the display property will display elements within
+ a line while allowing them to accept all box model properties, including
+ 
+\emph on
+height, width, padding, border, and margin.
+
+\emph default
+ Using inline-block elements allows us to take full advantage of the box
+ model without having to worry about clearing any floats.
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+One drawback
+\series default
+: rember about removing spaces between inline-block elements (simplest remove
+ space or use <-- --> e.g)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<section> 
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+</section><!-- 
+\end_layout
+
+\begin_layout Plain Layout
+
+--><section> 
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+</section><!-- 
+\end_layout
+
+\begin_layout Plain Layout
+
+--><section> 
+\end_layout
+
+\begin_layout Plain Layout
+
+...
+ 
+\end_layout
+
+\begin_layout Plain Layout
+
+</section>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Quote
+Whether it’s better to use floats or inline-block elements to lay out the
+ structure of a page is open to debate.
+ My approach is to use inline-block elements to create the grid—or layout—of
+ a page and to then use floats when I want content to wrap around a given
+ element (as floats were intended to do with images).
+ Generally, I also find inline-block elements easier to work with.
+\end_layout
+
+\begin_layout Quote
+That said, use whatever works best for you.
+ If you are comfortable with one approach over the other, then go for it.
+\end_layout
+
+\begin_layout Quote
+Currently there are new CSS specifications in the works—specifically
+\series bold
+ flex-
+\series default
+ and 
+\series bold
+grid-
+\series default
+ based properties—that will help address how to best lay out pages.
+ Keep an eye out for these methods as they begin to surface.
+\end_layout
+
+\begin_layout Subsubsection
+Uniquely Positioning Elements
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+position 
+\series default
+property 
+\end_layout
+
+\begin_layout Itemize
+default value: 
+\series bold
+static 
+\series default
+(it exists in normal document flow)
+\end_layout
+
+\begin_layout Itemize
+
+\series bold
+relative 
+\series default
+\emph on
+position 
+\emph default
+allows elements to appear within the normal flow a page, leaving space for
+ an element as intended while 
+\series bold
+not allowing 
+\series default
+other elements to flow around it; however, it also allows an element’s display
+ position to be modified with the 
+\series bold
+box offset 
+\series default
+properties, and other elements are not allowed to move into the the original
+ position of that element 
+\end_layout
+
+\begin_layout Itemize
+The 
+\series bold
+absolute 
+\series default
+value for the 
+\emph on
+position 
+\emph default
+property is different from the 
+\series bold
+relative
+\series default
+ value in that an element with a position value of absolute will not appear
+ within the normal flow of a document, and the original space and position
+ of the absolutely positioned element will not be preserved (other elements
+ might take that place) Additionally, absolutely positioned elements are
+ moved in relation to their closest relatively positioned parent element.
+ Should a relatively positioned parent element not exist, the absolutely
+ positioned element will be positioned in relation to the <body> element.
+\end_layout
+
 \end_body
 \end_document
