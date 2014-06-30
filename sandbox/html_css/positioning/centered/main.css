@@ -1,0 +1,46 @@
+code {
+  background: #2db34a;
+  border-radius: 6px;
+  color: #fff;
+  display: block;
+  font: 14px/24px "Source Code Pro", Inconsolata, "Lucida Console", Terminal, "Courier New", Courier;
+  padding: 24px 24px;
+  text-align: center;
+}
+header,
+section,
+aside,
+footer {
+  margin: 0 1.5% 24px 1.5%;
+}
+
+#id1 {
+  position: absolute;
+  top: 0;
+  left:0;
+}
+#id2 {
+  position: absolute;
+  top: 0;
+  right:0;
+}
+#id3 {
+  position: absolute;
+  bottom: 0;
+  left:0;
+}
+#id4 {
+  position: absolute;
+  bottom: 0;
+  right:0;
+}
+#centered {
+/*   width: 130px;
+  height: 130px; */
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  background:blue;
+  border-radius: 10px;
+}
+

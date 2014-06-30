@@ -806,6 +806,27 @@ status open
 \end_layout
 
 \end_deeper
+\begin_layout Itemize
+Always set 
+\series bold
+width 
+\series default
+on floated element
+\end_layout
+
+\begin_layout Itemize
+Floated boxes will move to the left or right until their outer edge touches
+ the containing block edge or the outer edge of another float.
+\end_layout
+
+\begin_layout Itemize
+Stacking: When we float an element it is shifted to the right or to the
+ left until it reaches the edge of the containing block.
+ If we then float another element nearby in the same direction, it will
+ be shifted until its edge reaches the edge of the first floating element.
+ 
+\end_layout
+
 \begin_layout Subsubsection
 inline-block
 \end_layout
@@ -990,9 +1011,179 @@ relative
  within the normal flow of a document, and the original space and position
  of the absolutely positioned element will not be preserved (other elements
  might take that place) Additionally, absolutely positioned elements are
- moved in relation to their closest relatively positioned parent element.
+ moved in relation to their closest relatively (i.e.
+ 
+\emph on
+position != static
+\emph default
+) positioned parent element.
  Should a relatively positioned parent element not exist, the absolutely
- positioned element will be positioned in relation to the <body> element.
+ positioned element will be positioned in relation to the <body> element,
+ Examples:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Set the bottom edge of the image to 5px above the bottom edge of its containing
+ element
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+img { position:absolute; bottom:5px; }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+Set the left edge of the image 5px to the right of the left edge of its
+ containing element
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+img { position:absolute; left:5px; }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\end_deeper
+\begin_layout Itemize
+
+\series bold
+fixed 
+\series default
+position might be used to create footer/header that is always visible to
+ viewer:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+box_2 { position: fixed; 
+\end_layout
+
+\begin_layout Plain Layout
+
+bottom: 0;  //always at the bottom of page
+\end_layout
+
+\begin_layout Plain Layout
+
+left: 0; right: 0; //stretch the width to entire viewport available space
+\end_layout
+
+\begin_layout Plain Layout
+
+background: #f95b34; 
+\end_layout
+
+\begin_layout Plain Layout
+
+padding: 10px 0; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Working with typography
+\end_layout
+
+\begin_layout Itemize
+font-color, font-family,font-size,font-style (
+\emph on
+italic
+\emph default
+), font-weight (
+\series bold
+bold
+\series default
+), font-variant (small-caps)
+\end_layout
+
+\begin_layout Itemize
+line-height might be used to center vertically one line text (often used
+ in buttons)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+.btn { height: 22px; line-height: 22px; }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+shorthand version (The order of these property values should be as follows,
+ from left to right: font-style, font-variant, font-weight, font-size, line-heig
+ht, and font-family): 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+html { font: italic small-caps bold 14px/22px "Helvetica Neue", Helvetica;
+ }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+text-align, text-decoration (underline), text-indent (to indent first line
+ of text),text-shadow, text-transform (capitalize, uppercase, lowercase),
+ letter-spacing, word-spacing 
+\end_layout
+
+\begin_layout Itemize
+Ciation: q, blockquote
 \end_layout
 
 \end_body
