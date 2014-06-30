@@ -1186,5 +1186,411 @@ text-align, text-decoration (underline), text-indent (to indent first line
 Ciation: q, blockquote
 \end_layout
 
+\begin_layout Subsection
+Background and Gradients
+\end_layout
+
+\begin_layout Itemize
+background and background-color (the former accepts image and color the
+ latter only colors), background-image
+\end_layout
+
+\begin_layout Itemize
+when you set transparent background it's good to prepare fallback color
+ for older browsers that does not handle transparency: leverage properties
+ cascading:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+div {   
+\end_layout
+
+\begin_layout Plain Layout
+
+ background-color: #b2b2b2;  
+\end_layout
+
+\begin_layout Plain Layout
+
+ background-color: rgba(0, 0, 0, .3); 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+background image by default starts from left top corner and repeats horizontally
+ and vertically image to fill element background, it could be changed with
+ background-repeat and background-position help:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+div { 
+\end_layout
+
+\begin_layout Plain Layout
+
+ background-image: url("alert.png"); 
+\end_layout
+
+\begin_layout Plain Layout
+
+ background-position: 20px 10px; 
+\end_layout
+
+\begin_layout Plain Layout
+
+ background-repeat: no-repeat; 
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\begin_layout Plain Layout
+
+div {   background: #b2b2b2 url("alert.png") 20px 10px no-repeat; }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+shorthand version:
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+div {   background: #b2b2b2 url("alert.png") 20px 10px no-repeat; }
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+linear gradient and radius gradient (notice vendors prefixes)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+.row-alt {    
+\end_layout
+
+\begin_layout Plain Layout
+
+  background: -webkit-linear-gradient(to right, #a1d3b0, #f6f1d3); 
+\end_layout
+
+\begin_layout Plain Layout
+
+  background: -moz-linear-gradient(to right, #a1d3b0, #f6f1d3);   
+\end_layout
+
+\begin_layout Plain Layout
+
+  background: linear-gradient(to right, #a1d3b0, #f6f1d3);   
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+multiple background images (comma-separated list, first in the list is foremost
+ the last is rearmost) 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+.notification {  
+\end_layout
+
+\begin_layout Plain Layout
+
+background: url("tick.png") 20px 50% no-repeat, linear-gradient(#72c41f,
+ #5c9e19);
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+background-size property allows us to change the size of a background image,
+ while the background-clip and background-origin properties allow us to
+ control where a background image is cropped and where a background image
+ is contained within the element (inside the border or inside the padding,
+ for example)
+\end_layout
+
+\begin_layout Itemize
+setting a background-size property with a 100% width will make the background
+ image occupy the full width of the element.
+ If a second value isn’t identified after the width, the height value will
+ be automatically set to preserve the aspect ratio of the background image.
+\end_layout
+
+\begin_layout Itemize
+background-size : The keyword value auto may be used as either the width
+ or height value to preserve the aspect ratio of the background image.
+ For example, if we want to set the height of the background image to be
+ 75% of the height of the element while maintaining the image’s aspect ratio,
+ we can use a background-size property value of auto 75%.
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+div {   background: url("shay.jpg") 0 0 no-repeat;   
+\end_layout
+
+\begin_layout Plain Layout
+
+		background-size: auto 75%;
+\end_layout
+
+\begin_layout Plain Layout
+
+}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+background-size might also have value: cover (entire element is covered,
+ some parts of image might not be visible) or contain (adjust image to show
+ entire image in element and make use the most of available element space)
+\end_layout
+
+\end_deeper
+\begin_layout Subsection
+Lists
+\end_layout
+
+\begin_layout Itemize
+unordered (ul), ordered (ol), description (dl)
+\end_layout
+
+\begin_layout Itemize
+ordered lists: ol attributes: start, reversed; li attribute: value
+\end_layout
+
+\begin_layout Itemize
+description: 
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<dl>   
+\end_layout
+
+\begin_layout Plain Layout
+
+<dt>study</dt>  
+\end_layout
+
+\begin_layout Plain Layout
+
+<dd>The devotion of time and attention to acquiring knowledge on an academic
+ subject</dd> 
+\end_layout
+
+\begin_layout Plain Layout
+
+</dl>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+each list might be nested in another (remeber to wrap nested list in <li>)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<ol>   
+\end_layout
+
+\begin_layout Plain Layout
+
+ <li>Walk the dog</li>  
+\end_layout
+
+\begin_layout Plain Layout
+
+ <li>Fold laundry</li>   
+\end_layout
+
+\begin_layout Plain Layout
+
+ <li>     Go to the grocery and buy:    
+\end_layout
+
+\begin_layout Plain Layout
+
+	<ul>       
+\end_layout
+
+\begin_layout Plain Layout
+
+	 <li>Milk</li> 
+\end_layout
+
+\begin_layout Plain Layout
+
+     <li>Bread</li>    
+\end_layout
+
+\begin_layout Plain Layout
+
+     <li>Cheese</li>    
+\end_layout
+
+\begin_layout Plain Layout
+
+    </ul>   
+\end_layout
+
+\begin_layout Plain Layout
+
+ </li>
+\end_layout
+
+\begin_layout Plain Layout
+
+</ol>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+use list-style-type to change list marker
+\end_layout
+
+\begin_layout Itemize
+horizontally displaying list, two approaches:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+change display to inline or inline-block (drawback: markers are not visible)
+\end_layout
+
+\begin_layout Itemize
+use float 
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
 \end_body
 \end_document
