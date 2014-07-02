@@ -1574,6 +1574,379 @@ use float
 \end_layout
 
 \end_deeper
+\begin_layout Subsection
+Media
+\end_layout
+
+\begin_layout Subsubsection
+Image
+\end_layout
+
+\begin_layout Itemize
+The jpg format provides quality images with high color counts while maintaining
+ a decent file size, ideal for faster load times.
+ The png format is great for images with transparencies or low color counts.
+ We most commonly see jpg images used for photographs and png images used
+ for icons or background patterns.
+\end_layout
+
+\begin_layout Itemize
+The <img> element is by default an inline-level element
+\end_layout
+
+\begin_layout Itemize
+change display to make sure img will appear in its own line 
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+img {display:block}
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Itemize
+use float to make sure img text floats around image, use 
+\emph on
+max-width:100%
+\emph default
+ to make sure image is not bigger than containing block
+\end_layout
+
+\begin_layout Subsubsection
+Audio and Video
+\end_layout
+
+\begin_layout Itemize
+HTML5 introduces <audio>and <video>, both with boolean attributes 
+\emph on
+controls, loop, preload, autoplay (
+\emph default
+and 
+\emph on
+poster 
+\emph default
+for 
+\emph on
+<video> 
+\emph default
+only
+\emph on
+)
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<audio src="jazz.ogg" controls></audio>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<video src="earth.ogv" controls poster="earth-video-screenshot.jpg"></video>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\begin_layout Plain Layout
+
+<audio controls>   
+\end_layout
+
+\begin_layout Plain Layout
+
+ <source src="jazz.ogg" type="audio/ogg"> 
+\end_layout
+
+\begin_layout Plain Layout
+
+ <source src="jazz.mp3" type="audio/mpeg">  
+\end_layout
+
+\begin_layout Plain Layout
+
+ <source src="jazz.wav" type="audio/wav">  
+\end_layout
+
+\begin_layout Plain Layout
+
+ Please <a href="jazz.mp3" download>download</a> the audio file.
+\end_layout
+
+\begin_layout Plain Layout
+
+</audio>
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_deeper
+\begin_layout Subsubsection
+Adding IFrames
+\end_layout
+
+\begin_layout Itemize
+Another way to add content to a page is to embed another HTML page within
+ the current page.
+ This is done using an inline frame, or <iframe> element.
+ The <iframe> element accepts the URL of another HTML page within the src
+ attribute value; this causes the content from the embedded HTML page to
+ be displayed on the current page.
+\end_layout
+
+\begin_layout Itemize
+Pros:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Helps with slow third-party content like badges and ads 
+\end_layout
+
+\begin_layout Itemize
+Security sandbox 
+\end_layout
+
+\begin_layout Itemize
+Download scripts in parallel 
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Cons:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Costly even if blank 
+\end_layout
+
+\begin_layout Itemize
+Blocks page onload 
+\end_layout
+
+\begin_layout Itemize
+Non-semantic
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Alternative: AJAX (The difference there is that an iframe generates a page
+ load, so you can move back and forward in browser cache with most browsers.
+ Notice that Google, who uses XmlHttpRequest all over the place, also uses
+ iframes in certain cases to allow a user to move back and forward in browser
+ history)
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+seamless 
+\emph default
+iframe boolean attribute will allow styles from the page that includes an
+ <iframe> element to be inherited by the page referenced within the <iframe>
+ element and allows links clicked on a page referenced within an <iframe>
+ element to be opened within the same window as the original page that includes
+ the <iframe> element
+\end_layout
+
+\begin_layout Subsubsection*
+Figure and caption
+\end_layout
+
+\begin_layout Standard
+The <figure> block-level element is used to identify and wrap self-contained
+ content, often in the form of media.
+ It may surround images, audio clips, videos, blocks of code, diagrams,
+ illustrations, or other self-contained media.
+ More than one item of self-contained content, such as multiple images or
+ videos, may be contained within the <figure> element at a time.
+\end_layout
+
+\begin_layout Standard
+\begin_inset listings
+inline false
+status open
+
+\begin_layout Plain Layout
+
+<figure>   
+\end_layout
+
+\begin_layout Plain Layout
+
+ <img src="dog.jpg">   
+\end_layout
+
+\begin_layout Plain Layout
+
+ <figcaption>A beautiful black, brown, ...</figcaption>
+\end_layout
+
+\begin_layout Plain Layout
+
+</figure>
+\end_layout
+
+\begin_layout Plain Layout
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Forms
+\end_layout
+
+\begin_layout Itemize
+The <form> element identifies where on the page control elements will appear.
+ Additionally, the <form> element will wrap all of the elements included
+ within the form, much like a <div> element.
+\end_layout
+
+\begin_layout Itemize
+<form> has two attributes 
+\emph on
+method 
+\emph default
+(e.g.
+ POST) and 
+\emph on
+action 
+\emph default
+(where, URL)
+\end_layout
+
+\begin_layout Itemize
+Form elements: 
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+
+\emph on
+input
+\emph default
+ for one line of text , originally had type: text or password , HTML5 adds:color
+ date datetime email month number range search tel time url week
+\end_layout
+
+\begin_layout Itemize
+
+\emph on
+textarea 
+\emph default
+accepts multiple lines
+\end_layout
+
+\begin_layout Itemize
+radio buttons, <input> with type: radio
+\end_layout
+
+\begin_layout Itemize
+checkboxes, <input> with type: checkbox
+\end_layout
+
+\begin_layout Itemize
+dropdown lists/multiple selection, <select> with <option> contained
+\end_layout
+
+\begin_layout Itemize
+buttons, <input> with type: submit or <button>
+\end_layout
+
+\begin_layout Itemize
+hidden input , <input> with type: hidden , used to exchange data helpful
+ for processing form but they should not be shown to user
+\end_layout
+
+\begin_layout Itemize
+file,<input> with type: file
+\end_layout
+
+\begin_layout Itemize
+labels , <label>provide captions or headings for form controls
+\end_layout
+
+\begin_layout Itemize
+field set, <fieldset> to organize controls in groups
+\end_layout
+
+\begin_layout Itemize
+legend for fieldset, <legend>
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+Attributes:
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+disabled, 
+\end_layout
+
+\begin_layout Itemize
+placeholder,HTML5 attribute provides a hint or tip within the form control
+ of an <input> or <textarea> element that disappears once the control is
+ clicked in or gains focus
+\end_layout
+
+\begin_layout Itemize
+required
+\end_layout
+
+\begin_layout Itemize
+...
+ and many more
+\end_layout
+
+\begin_layout Subsection
+Tables
+\end_layout
+
+\end_deeper
+\begin_layout Itemize
+<table>, <th>,<tr>,<td> 
+\end_layout
+
+\begin_layout Itemize
+<caption>, <thead>, <tbody>, and <tfoot>
+\end_layout
+
+\begin_layout Itemize
+attributes: 
+\emph on
+border-spacing , class="schedule-offset"border-collapse, vertical-align
+ 
+\end_layout
+
 \begin_layout Standard
 \begin_inset listings
 inline false
