@@ -25,9 +25,10 @@
 \bibtex_command default
 \index_command default
 \paperfontsize default
+\spacing single
 \use_hyperref false
 \papersize default
-\use_geometry false
+\use_geometry true
 \use_amsmath 1
 \use_esint 1
 \use_mhchem 1
@@ -42,6 +43,10 @@
 \shortcut idx
 \color #008000
 \end_index
+\leftmargin 1cm
+\topmargin 10mm
+\rightmargin 1cm
+\bottommargin 20mm
 \secnumdepth 3
 \tocdepth 3
 \paragraph_separation indent
@@ -1943,8 +1948,146 @@ Tables
 \begin_layout Itemize
 attributes: 
 \emph on
-border-spacing , class="schedule-offset"border-collapse, vertical-align
+border-spacing , class="schedule-offset"cd dborder-collapse, vertical-align
  
+\end_layout
+
+\begin_layout Subsection
+Good practices
+\end_layout
+
+\begin_layout Subsubsection
+HTML
+\end_layout
+
+\begin_layout Enumerate
+Write Standards-Compliant Markup (e.g.
+ make sure id is unique, close elements)
+\end_layout
+
+\begin_layout Enumerate
+Make Use of Semantic Elements (e.g.
+ use <section>, <h3> tags)
+\end_layout
+
+\begin_layout Enumerate
+Use the Proper Document Structure (DOCTYPE,html head,body)
+\end_layout
+
+\begin_layout Enumerate
+Keep the Syntax Organized
+\end_layout
+
+\begin_deeper
+\begin_layout Itemize
+Use lowercase letters within element names, attributes, and values 
+\end_layout
+
+\begin_layout Itemize
+Indent nested elements 
+\end_layout
+
+\begin_layout Itemize
+Strictly use double quotes, not single or completely omitted quotes 
+\end_layout
+
+\begin_layout Itemize
+Remove the forward slash at the end of self-closing elements(e.g.
+ <img src=...> instead<img src=.../> ) 
+\end_layout
+
+\begin_layout Itemize
+Omit the values on Boolean attributes
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Use Practical ID & Class Values (e.g.
+ alert)
+\end_layout
+
+\begin_layout Enumerate
+Use the Alternative Text Attribute on Images
+\end_layout
+
+\begin_layout Enumerate
+Separate Content from Style (don't use inline style)
+\end_layout
+
+\begin_layout Enumerate
+Avoid a Case of “Divitis” (instead use article,section,footer,header,aside).
+\end_layout
+
+\begin_layout Subsubsection
+CSS
+\end_layout
+
+\begin_layout Enumerate
+Use comments
+\end_layout
+
+\begin_layout Enumerate
+Write CSS Using Multiple Lines & Spaces
+\end_layout
+
+\begin_layout Enumerate
+Use Proper Class Names (.alert-message instead of .red-box)
+\end_layout
+
+\begin_layout Enumerate
+Build proficient CSS selectors
+\end_layout
+
+\begin_deeper
+\begin_layout Standard
+CSS selectors can get out of control if they are not carefully maintained.
+ They can easily become too long and too location specific.
+\end_layout
+
+\begin_layout Standard
+The longer a selector is and the more prequalifiers it includes, the higher
+ specificity it will contain.
+ And the higher the specificity the more likely a selector is to break the
+ CSS cascade and cause undesirable issues.
+\end_layout
+
+\begin_layout Standard
+Also in line with keeping the specificity of our selectors as low as possible,
+ let’s not use IDs within our selectors.
+ IDs are overly specific, quickly raise the specificity of a selector, and
+ quite often break the cascade within our CSS files.
+ The cons far outweigh the pros with IDs, and we are wise to avoid them.
+\end_layout
+
+\begin_layout Standard
+Let’s use shorter and primarily direct selectors.
+ Nest them only two to three levels deep, and remove as many location-based
+ qualifying selectors as possible.
+\end_layout
+
+\end_deeper
+\begin_layout Enumerate
+Use Specific Classes When Necessary ( 
+\emph on
+.offset 
+\emph default
+instead of 
+\emph on
+section aside h1 em
+\emph default
+)
+\end_layout
+
+\begin_layout Enumerate
+Use Shorthand Properties & Values
+\end_layout
+
+\begin_layout Enumerate
+Use Shorthand Hexadecimal Color Values
+\end_layout
+
+\begin_layout Enumerate
+Modularize Styles for Reuse
 \end_layout
 
 \begin_layout Standard
