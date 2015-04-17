@@ -20,16 +20,8 @@ em {
 
 .blueBox {
     background: #627da0;
-    /* similar to fixed:
-      - blueBox overlaps greenBox 
-    */
-    position: absolute;
-    /*
-      unlike to fixed position for absolute position
-      box disappears when window scrolled
-    */
-    bottom: 10px;
-    
+/*    box moves with a container*/
+    position: absolute;    
 }
 
 .greenBox {
@@ -37,5 +29,9 @@ em {
 }
 
 .container {
-    /*background: rgba(0,0,0,.4);*/ 
+    background: rgba(0,0,0,.4);
+    height: 200px;
+    width: 200px;
+/*    move container */
+    margin-top: 100px
 }
