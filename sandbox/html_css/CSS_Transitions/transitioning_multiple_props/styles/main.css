@@ -168,7 +168,8 @@ figure {
 }
 .mainNav a:hover {
   color: #dddbd8;
-  transition: 4s color;
+  transition: 1s color, 1s letter-spacing;
+  letter-spacing: 0.2em;
 }
 .mainNav span.additional {
   opacity: 0;
@@ -184,6 +185,7 @@ figure {
 }
 .mainNav a:hover + span.additional {
   opacity: 1;
+  transition: 1s opacity;
 }
 @media (max-width: 703px) {
   .mainNav li {
