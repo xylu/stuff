@@ -19,18 +19,16 @@ em {
 }
 
 .blueBox {
+    margin: 0px auto;
+
+}
+.container {
     position: absolute;
+    width: 100%;
+    height: 100px;
     top: 50%;
 /*    moves up half of the element height
     without that: only top edge of the box is vertically centered */
     margin-top: -50px;
-    left: 50%;
-    /*    moves up half of the element width
-    without that: only left edge of the box is horizontally centered */
-    margin-left: -50px;
-    
-
-}
-.container {
 
 }
