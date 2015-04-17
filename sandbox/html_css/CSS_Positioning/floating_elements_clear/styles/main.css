@@ -18,12 +18,18 @@ em {
     margin-top: 10px;
     margin-right: 10px;
 }
-
+/*boxes are both floated to the left*/
 .blueBox {
     background: #627da0;
+    float: left;
 }
 
 .greenBox {
-    background: #5b8054;  
+    background: #5b8054; 
+    float: left;
+}
+/*fist */
+.clear{
+    clear: left;
 }
 
