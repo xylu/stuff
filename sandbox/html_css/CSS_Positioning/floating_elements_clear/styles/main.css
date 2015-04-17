@@ -21,15 +21,15 @@ em {
 /*boxes are both floated to the left*/
 .blueBox {
     background: #627da0;
-    float: left;
+    float: right;
 }
 
 .greenBox {
     background: #5b8054; 
-    float: left;
+    float: right;
 }
-/*fist */
+
 .clear{
-    clear: left;
+    clear: right;
 }
 
