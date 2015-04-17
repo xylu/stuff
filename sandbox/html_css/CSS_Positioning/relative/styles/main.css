@@ -21,16 +21,16 @@ em {
 
 .blueBox {
     background: #627da0;
-/*    from other elements perspective
-    blueBox is not taken from the document flow
-    */
     position: relative;
+/*positioned to ITS ORIGINAL POSITION in document flow
+    other elements still respect its original position 
+    */
+    top:220px;
 }
-
 .greenBox {
     background: #5b8054;  
 }
 
 .container {
-   /*background: rgba(0,0,0,.4);*/
+   /*background: rgba(0,0,0,.4);
 }
