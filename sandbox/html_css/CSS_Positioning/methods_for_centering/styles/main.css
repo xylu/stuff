@@ -19,8 +19,11 @@ em {
 }
 
 .blueBox {
-/*    element must have width set or it takes all available space*/
-    margin: 0 auto;
+    position: absolute;
+    top: 50%;
+/*    moves up half of the element height*
+    without that: only top edge of the box is vertically centered */
+    margin-top: -50px;
 
 }
 .container {
