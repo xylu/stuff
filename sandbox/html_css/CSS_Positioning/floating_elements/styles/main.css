@@ -20,5 +20,11 @@ em {
 
 .boxBlue {
     background: #627da0;  
+    float: left;
+}
+
+.boxRed {
+    background-color: red;
+    float: right;
 }
 
