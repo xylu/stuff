@@ -20,6 +20,11 @@ em {
 
 .blueBox {
     background: #627da0;
+    /* similar to fixed:
+      - blueBox overlaps greenBox 
+    */
+    position: absolute;
+    
 }
 
 .greenBox {
