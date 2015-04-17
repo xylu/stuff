@@ -1,7 +1,6 @@
 body {
     background-color: #1f1f1f;
     color: #bfbfbf;
-    height: 2000px;
 }
 
 h1 {
@@ -20,9 +19,13 @@ em {
 
 .blueBox {
     background: #627da0;
+    /* fixed position is used to create menu/nav bar */
     position: fixed;
-    /* move from the top of body (page) and fix in that position (try to scroll) */
-    top: 200px;
+    top: 100px;
+    left: 200px;
+    /* you can't use two conflicting top&bottom 
+    or left&bottom
+    */
 }
 
 .greenBox {
