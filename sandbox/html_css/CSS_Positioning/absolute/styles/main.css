@@ -18,10 +18,16 @@ em {
     margin-bottom: 10px;
 }
 
+/*box goes off the container*/
 .blueBox {
+    
     background: #627da0;
-/*    box moves with a container*/
+/*    default value: static
+      Elements render in order, as they appear in the document flow
+    */
     position: absolute;    
+   /* The element is positioned relative to its first positioned (not static) ancestor element - in this case body element */
+    top: 0px;
 }
 
 .greenBox {
