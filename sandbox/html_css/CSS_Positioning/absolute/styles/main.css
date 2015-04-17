@@ -26,8 +26,9 @@ em {
       Elements render in order, as they appear in the document flow
     */
     position: absolute;    
-   /* The element is positioned relative to its first positioned (not static) ancestor element - in this case body element */
-    top: 0px;
+   /* The element is positioned relative to its first positioned (not static) ancestor element - in this case container */
+    top: 50px;
+    left: 50px;
 }
 
 .greenBox {
@@ -39,5 +40,8 @@ em {
     height: 200px;
     width: 200px;
 /*    move container */
-    margin-top: 100px
+    margin-top: 150px;
+    margin-left: 200px;
+    position: absolute
+        
 }
