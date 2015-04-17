@@ -12,27 +12,56 @@ em {
     color: #dd740b;   
 }
 
+.right {
+  position: absolute;
+  right: 0px;
+}
+
 .box {
     width: 100px;
     height: 100px;
     margin-bottom: 10px;
 }
 
-
-.blueBox {
+/*    box moves with container since its in it */
+.relativeBlueBox {
     background: #627da0;
     position: relative;
-    bottom: 10px; /*moves from its original position 10px UP*/
+/*however it's still moves up from its original position NOT from container */
+    bottom: 10px;
+        border-style: solid;
+    border-width:thick 
 }
-.blueBox2 {
+
+/*    box moves with container since its in it */
+.absoluteBlueBox {
     background: #627da0;
     position: absolute;
-    bottom:0px; /*moves from its first non-static element neighbour's (i.e. body) position  10px UP*/
+/*it's  moves up from its container */
+    bottom: 10px;
+    border-color: crimson;
+    border-style: solid;
+    border-width:thick 
 }
+
+
+
 .greenBox {
     background: #5b8054;  
 }
 
 .container {
-   /*background: rgba(0,0,0,.4);
+   background: rgba(0,0,0,.4);
+    width: 200px;
+    height: 200px;
+    position: fixed;
+    top:50px;
+    border-color: crimson;
+    border-style: solid;
 }
+
+.padding {
+    width:200px;
+    height: 250px;
+}
+
