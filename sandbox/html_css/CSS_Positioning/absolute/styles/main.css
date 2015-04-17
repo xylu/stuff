@@ -24,6 +24,11 @@ em {
       - blueBox overlaps greenBox 
     */
     position: absolute;
+    /*
+      unlike to fixed position for absolute position
+      box disappears when window scrolled
+    */
+    bottom: 10px;
     
 }
 
