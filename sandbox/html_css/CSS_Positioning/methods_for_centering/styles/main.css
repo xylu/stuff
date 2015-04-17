@@ -19,6 +19,8 @@ em {
 }
 
 .blueBox {
+/*    element must have width set or it takes all available space*/
+    margin: 0 auto;
 
 }
 .container {
