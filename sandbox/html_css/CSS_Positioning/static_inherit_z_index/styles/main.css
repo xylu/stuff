@@ -20,6 +20,9 @@ em {
 
 .blueBox {
     background: #627da0; 
+/*   inherits position from parent: i.e. container*/
+    position: inherit;
+    left: 50px;
 }
 
 .greenBox {
@@ -27,7 +30,8 @@ em {
 }
 
 .container {
-    /*background: rgba(0,0,0,5);
+    background: rgba(0,0,0,5);
     width: 200px;
-    height: 200px;*/
+    height: 200px;
+    position: relative;
 }
