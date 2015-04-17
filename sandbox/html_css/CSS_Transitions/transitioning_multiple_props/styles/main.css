@@ -124,8 +124,9 @@ figure {
 }
 .mainNav a:hover {
   color: #dddbd8;
-  transition: 1s color, 1s letter-spacing;
+  transition: 1s color, 1s letter-spacing,1s margin-left;
   letter-spacing: .2em;
+  margin-left: 20px
 }
 .mainNav span.additional {
   opacity: 0;
