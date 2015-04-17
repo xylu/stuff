@@ -21,6 +21,10 @@ em {
 
 .blueBox {
     background: #627da0;
+/*    from other elements perspective
+    blueBox is not taken from the document flow
+    */
+    position: relative;
 }
 
 .greenBox {
