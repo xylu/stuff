@@ -1,0 +1,12 @@
+:compat-mode:
+= Spring Boot :: Hands-on Tutorial
+
+
+== Spring DevTools
+. Run app
+. Open page in browser
+. Enable LiveReload extension and connect to LiveReload server (just click LiveReload icon in browser toolbar)
+. Edit class
+. Compile
+. Observe Spring Boot reload and Web site reload.
+
