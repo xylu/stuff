@@ -1,33 +1,35 @@
 package com.example;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 public class DemoApplication {
 
-	@Value("${foo.bar}")
-	void fooBar(String fooBar){
-		System.out.println("Foobar: "+ fooBar);
-	}
+    @Value("${foo.bar}")
+    void fooBar(String fooBar) {
+        System.out.println("Foobar: " + fooBar);
+    }
 
-	@Value("${bar.foo}")
-	void barFoo(String barFoo){
-		System.out.println("barFoo: "+ barFoo);
-	}
+    @Value("${bar.foo}")
+    void barFoo(String barFoo) {
+        System.out.println("barFoo: " + barFoo);
+    }
 
-	@Value("${cafebar}")
-	void cafebar(String cafebar){
-		System.out.println("cafebar: "+ cafebar);
-	}
+    @Value("${cafebar}")
+    void cafebar(String cafebar) {
+        System.out.println("cafebar: " + cafebar);
+    }
 
-	@Value("${defualtProp}")
-	void defualtProp(String defualtProp){
-		System.out.println("defualtProp: "+ defualtProp);
-	}
-	public static void main(String[] args) {
+    @Value("${defualtProp}")
+    void defualtProp(String defualtProp) {
+        System.out.println("defualtProp: " + defualtProp);
+    }
 
-//		SpringApplication.run(DemoApplication.class, args);
+    public static void main(String[] args) {
+
+        SpringApplication.run(DemoApplication.class, args);
 
 
 //CONFIGURATION
@@ -44,5 +46,5 @@ public class DemoApplication {
 //				.sources(DemoApplication.class)
 //				.run(args);
 
-	}
+    }
 }
