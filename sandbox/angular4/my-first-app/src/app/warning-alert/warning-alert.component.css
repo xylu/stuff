@@ -1,0 +1,7 @@
+hr {
+  border: none;
+  height: 10px;
+  /* Set the hr color */
+  color: darkkhaki; /* old IE */
+  background-color: darkkhaki; /* Modern Browsers */
+}
