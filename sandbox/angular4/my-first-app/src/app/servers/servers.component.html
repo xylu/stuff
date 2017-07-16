@@ -1,0 +1,29 @@
+<!-- [disabled]property binding [disabled] (put TS code after =) bind to DOM properties not html attributes
+read https://angular.io/guide/template-syntax#html-attribute-vs-dom-property-->
+<!-- (event) event handling-->
+
+<button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateNewServer()">Add server</button> <br>
+
+
+
+Allow adding new server (property binding) <p [innerText]="allowNewServer"></p>
+vs<br>
+Allow adding new server (string interpolation) <p>{{allowNewServer}}</p>
+
+
+
+<h3>One way binding </h3>
+Server name: <input class="form-control" (input)="onServerNameInput($event)"/>
+{{serverName}} <br><br>
+
+
+<h3>Two way binding </h3>
+Server name: <input class="form-control" [(ngModel)]="serverName"/>
+{{serverName}} <br><br>
+
+
+Servers:<br>
+
+<app-server></app-server><br>
+<app-server></app-server><br>
+<app-server></app-server><br>`
