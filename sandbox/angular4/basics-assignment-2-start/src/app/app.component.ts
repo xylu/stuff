@@ -10,7 +10,6 @@ export class AppComponent {
 
   isUsernameEmpty() {
     return this.username === '';
-
   }
 
   onReset() {
