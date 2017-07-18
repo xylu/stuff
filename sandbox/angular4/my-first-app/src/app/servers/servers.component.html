@@ -21,9 +21,16 @@ Server name: <input class="form-control" (input)="onServerNameInput($event)"/>
 Server name: <input class="form-control" [(ngModel)]="serverName"/>
 {{serverName}} <br><br>
 
+<!--
+* -> indicates structural directive (https://angular.io/guide/structural-directives)
+-->
+<!--<p *ngIf="serverAdded"> Server added!</p>-->
+
+<p *ngIf="serverAdded; else noServer"> Server added!</p>
+<ng-template #noServer> <p>No server added!</p></ng-template>
+
+
 
 Servers:<br>
 
-<app-server></app-server><br>
-<app-server></app-server><br>
-<app-server></app-server><br>`
+<app-server *ngFor="let s of servers"></app-server><br>
