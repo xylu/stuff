@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,23 +6,22 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  serverElements = [];
-  newServerName = '';
-  newServerContent = '';
+  serverElements = [{name: 'Test Server #1', type: 'server', content: 'Just a test! '}];
 
-  onAddServer() {
+
+  onServerAdded(serverData: { name: string, content: string }) {
     this.serverElements.push({
       type: 'server',
-      name: this.newServerName,
-      content: this.newServerContent
+      name: serverData.name,
+      content: serverData.content
     });
   }
 
-  onAddBlueprint() {
+  onBlueprintAdded(blueprintData: { name: string, content: string }) {
     this.serverElements.push({
       type: 'blueprint',
-      name: this.newServerName,
-      content: this.newServerContent
+      name: blueprintData.name,
+      content: blueprintData.content
     });
   }
 }
