@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -6,4 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
+
+  events: Array<{ counter: number }> = [];
+
+  onEventEmitted(event: { counter: number }) {
+    console.log(`Handling event: #${event.counter}`);
+    this.events.push(event);
+    console.log(this.events);
+  }
 }
+
