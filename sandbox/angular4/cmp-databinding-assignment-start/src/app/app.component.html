@@ -23,8 +23,8 @@
 <app-app-game-controller (eventEmitted)="onEventEmitted($event)"></app-app-game-controller>
 
 <hr style="margin-bottom: 20px;">
-<div *ngFor="let event of events">
-  <app-app-even *ngIf="event.counter % 2 === 0" #number> {{event.counter}}</app-app-even>
-  <app-app-odd [number]="event.counter" *ngIf="event.counter % 2 !== 0"></app-app-odd>
+<div *ngFor="let n of numbers">
+  <app-app-even *ngIf="n % 2 === 0" > <span #numberRef>{{n}}</span></app-app-even>
+  <app-app-odd [number]="n" *ngIf="n % 2 !== 0"></app-app-odd>
 </div>
 

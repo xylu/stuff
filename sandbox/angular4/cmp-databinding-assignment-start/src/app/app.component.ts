@@ -7,12 +7,12 @@ import {Component} from '@angular/core';
 })
 export class AppComponent {
 
-  events: Array<{ counter: number }> = [];
+  numbers: Array<number> = [];
 
-  onEventEmitted(event: { counter: number }) {
-    console.log(`Handling event: #${event.counter}`);
-    this.events.push(event);
-    console.log(this.events);
+  onEventEmitted(counter: number) {
+    console.log(`Handling event: #${counter}`);
+    this.numbers.push(counter);
+    console.log(counter);
   }
 }
 

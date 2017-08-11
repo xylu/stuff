@@ -11,7 +11,7 @@ import {
 // JUST TO play with local references and hooks
 export class AppEvenComponent implements AfterContentInit {
 
-  @ContentChild('number') numberFromLocalRef: ElementRef;
+  @ContentChild('numberRef') numberFromLocalRef: ElementRef;
 
   number: number;
 

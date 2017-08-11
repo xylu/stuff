@@ -11,7 +11,7 @@ export class AppGameControllerComponent implements OnInit {
   timer: Timer;
   counter: number;
 
-  @Output() eventEmitted = new EventEmitter<{ counter: number }>();
+  @Output() eventEmitted = new EventEmitter<number>();
 
   constructor() {
   }
@@ -25,7 +25,7 @@ export class AppGameControllerComponent implements OnInit {
     this.timer = setInterval(() => {
       ++this.counter;
       console.log(`Emit event: #${this.counter}`);
-      this.eventEmitted.emit({counter: this.counter});
+      this.eventEmitted.emit(this.counter);
     }, 1000);
   }
 
