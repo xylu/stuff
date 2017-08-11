@@ -1,18 +1,23 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {
+  AfterContentInit, AfterViewInit, Component, ContentChild, ElementRef, Input, OnInit,
+  ViewChild
+} from '@angular/core';
 
 @Component({
   selector: 'app-app-even',
   templateUrl: './app-even.component.html',
   styleUrls: ['./app-even.component.css']
 })
-export class AppEvenComponent implements OnInit {
+// JUST TO play with local references and hooks
+export class AppEvenComponent implements AfterContentInit {
 
-  @Input() number;
+  @ContentChild('number') numberFromLocalRef: ElementRef;
 
-  constructor() {
+  number: number;
+
+  ngAfterContentInit(): void {
+    this.number = this.numberFromLocalRef.nativeElement.textContent;
   }
 
-  ngOnInit() {
-  }
 
 }

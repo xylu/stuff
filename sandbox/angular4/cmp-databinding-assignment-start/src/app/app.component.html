@@ -24,7 +24,7 @@
 
 <hr style="margin-bottom: 20px;">
 <div *ngFor="let event of events">
-  <app-app-even *ngIf="event.counter % 2 === 0" [number]="event.counter"></app-app-even>
+  <app-app-even *ngIf="event.counter % 2 === 0" #number> {{event.counter}}</app-app-even>
   <app-app-odd [number]="event.counter" *ngIf="event.counter % 2 !== 0"></app-app-odd>
 </div>
 
