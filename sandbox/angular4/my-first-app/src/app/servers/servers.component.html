@@ -1,7 +1,5 @@
 <!-- [disabled]property binding [disabled] (put TS code after =) bind to DOM properties not html attributes
 read https://angular.io/guide/template-syntax#html-attribute-vs-dom-property-->
-<!-- (event) event handling-->
-
 <button class="btn btn-primary" [disabled]="!allowNewServer" (click)="onCreateNewServer()">Add server</button> <br>
 
 
@@ -13,11 +11,14 @@ Allow adding new server (string interpolation) <p>{{allowNewServer}}</p>
 
 
 <h3>One way binding </h3>
+<!-- (event) event handling-->
+<!-- this oneWay input is an example of Output Event binding
+(lets catch event and handle it)-->
 Server name: <input class="form-control" (input)="onServerNameInput($event)"/>
 {{serverName}} <br><br>
 
-
 <h3>Two way binding </h3>
+<!--when you write in this input "oneWay" does not get updated-->
 Server name: <input class="form-control" [(ngModel)]="serverName"/>
 {{serverName}} <br><br>
 
