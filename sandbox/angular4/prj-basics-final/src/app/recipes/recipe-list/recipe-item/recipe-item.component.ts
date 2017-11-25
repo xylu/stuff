@@ -10,7 +10,7 @@ export class RecipeItemComponent implements OnInit {
 
   @Input() recipe: Recipe;
 
-  @Output() recipeItemSelected = new EventEmitter<Recipe>();
+  @Output() recipeItemSelected = new EventEmitter<void>();
 
   constructor() {
   }
@@ -20,7 +20,7 @@ export class RecipeItemComponent implements OnInit {
 
   onRecipeItemClick() {
     console.log('[Recipe Item] Clicked & event emitted!');
-    this.recipeItemSelected.emit(this.recipe);
+    this.recipeItemSelected.emit();
   }
 
 
