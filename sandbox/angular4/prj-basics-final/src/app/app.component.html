@@ -1,9 +1,11 @@
-<app-header ></app-header>
+<!--event data is always bound to $event, so you can have a callback method with many parameters and pass
+many arguments to it-->
+<app-header (linkSelected)="onLinkSelectEvent('bar', $event)"></app-header>
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <app-recipes></app-recipes>
-      <app-shopping-list></app-shopping-list>
+      <app-recipes *ngIf="selectedLink==='recipes'"></app-recipes>
+      <app-shopping-list *ngIf="selectedLink==='shoppingList'"></app-shopping-list>
     </div>
   </div>
 </div>
