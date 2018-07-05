@@ -1,0 +1,27 @@
+
+# Generate a unique Web App name
+# az login
+let randomNum=$RANDOM*$RANDOM
+webappname=makwieci$randomNum
+
+echo "Webapp: $webappname"
+# Create the DotNetAzureTutorial resource group
+# az group create --name DotNetAzureTutorial --location EastUS
+
+az group create --name DotNetAzureTutorial --location WestEurope 
+
+# Create an App Service plan.
+az appservice plan create --name $webappname --resource-group DotNetAzureTutorial --sku FREE
+
+# Create the Web App
+az webapp create --name $webappname --resource-group DotNetAzureTutorial --plan $webappname
+
+# Setup credentials
+az webapp deployment user set --user-name xylo_max --password <<PASSWORD>>
+
+#Get git URL
+az webapp deployment source config-local-git -n $webappname -g DotNetAzureTutorial --query [url] -o tsv
+
+
+
+#https://xylo_max@makwieci183193430.scm.azurewebsites.net/makwieci183193430.git
