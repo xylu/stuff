@@ -20,7 +20,7 @@ import {CountService} from './shared/count.service';
     FormsModule,
     HttpModule
   ],
-  providers: [UsersService, CountService],
+  providers: [CountService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
