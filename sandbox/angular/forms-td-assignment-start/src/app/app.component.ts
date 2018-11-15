@@ -10,7 +10,8 @@ export class AppComponent {
 
   @ViewChild('f') form: NgForm;
   submitted = false;
-  defaultSubscription = 'advanced';
+  defaultSubscription = 'Advanced';
+  subscriptions = ['Basic', 'Advanced', 'Pro'];
   data: { email: string, subscription: string, password: string } = {email: '', subscription: '', password: ''};
 
   onSubmit() {
